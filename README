@@ -1,9 +1,9 @@
-
 * OtherBu(アザブ)
+  http://otherbu.com
+
+** 概要
   ブックマークの配置やデザインをお好みで指定できる
   カスタマイズ性の高さが特徴のWebブックマークです。
-
-  http://otherbu.com
 
 
 ** 開発環境手順
@@ -16,6 +16,7 @@
 
 3. debug環境の起動
 % ./manage.py runserver localhost:8088
+
 
 ** TODO
 - [ ] page機能の追加
