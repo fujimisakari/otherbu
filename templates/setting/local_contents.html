@@ -1,0 +1,58 @@
+{% extends 'base_contents.html' %}
+{% load url from future %}
+
+{% block contents %}
+    <div class="row-fluid">
+        <div class="span3">
+            <div class="sidemenu">
+                <ul class="nav nav-tabs nav-stacked sidemenu">
+                    <li class="header">Menu</li>
+                    {% if active_flg == "bookmark" %}
+                        <li class="active"><a href="{% url 'bookmark_index' %}"><strong>ブックマーク</strong></a></li>
+                    {% else %}
+                        <li><a href="{% url 'bookmark_index' %}">ブックマーク</a></li>
+                    {% endif %}
+
+                    {% if active_flg == "category" %}
+                        <li class="active"><a href="{% url 'category_index' %}"><strong>カテゴリ</strong></a></li>
+                    {% else %}
+                        <li><a href="{% url 'category_index' %}">カテゴリ</a></li>
+                    {% endif %}
+
+                    {% comment %}
+                    {% if active_flg == "import" %}
+                        <li class="active"><a href="#"><strong>インポート</strong></a></li>
+                    {% else %}
+                        <li><a href="#">インポート</a></li>
+                    {% endif %}
+                    {% endcomment %}
+
+                    {% if active_flg == "design" %}
+                        <li class="active"><a href="{% url 'design_index' %}"><strong>デザイン</strong></a></li>
+                    {% else %}
+                        <li><a href="{% url 'design_index' %}">デザイン</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+
+        {% block bookmark %}{% endblock %}
+        {% block category %}{% endblock %}
+        {% block design %}{% endblock %}
+    </div>
+{% endblock %}
+
+{% block local_css %}
+    <link href="{{ MEDIA_CSS }}/setting-style.css" rel="stylesheet">
+    <style>
+        .setting-container{
+            background-image: url({{ MEDIA_IMG }}/wash-white.png);
+            padding: 15px 15px 0 15px;
+        }
+    </style>
+    {% block sub_local_css %}{% endblock %}
+{% endblock %}
+
+{% block local_js %}
+    {% block sub_local_js %}{% endblock %}
+{% endblock %}

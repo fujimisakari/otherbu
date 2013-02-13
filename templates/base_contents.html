@@ -1,0 +1,260 @@
+{% extends 'base_frame.html' %}
+{% load url from future %}
+
+{% block header_navi %}
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="{% url 'portal_index' %}" >{{ SITE_TITLE }}</a>
+                <div class="nav-collapse">
+                    <form method="GET" class="asholder navbar-search pull-left" action="http://www.google.co.jp/search">
+                        <input type="hidden" name="ie" value="UTF-8">
+                        <input type="hidden" name="oe" value="UTF-8">
+                        <input type="hidden" name="hl" value="ja">
+                        <input id="search-engin" type="text" name="q" class="search-query span4" autocomplete="off" placeholder="Google Search">
+                    </form>
+
+                    <ul class="nav">
+                        <li class="divider-vertical"></li>
+                        <li><a data-toggle="modal" onClick="fnFormatModel('bookmark'); return false;" href="#regist-bookmark">Bookmark +</a></li>
+                        <li class="divider-vertical"></li>
+                        <li><a data-toggle="modal" onClick="fnFormatModel('category'); return false;" href="#regist-category">Category +</a></li>
+                        <li class="divider-vertical"></li>
+                        {% if navi_active_flg == "setting" %}
+                            <li class="dropdown active">
+                        {% else %}
+                            <li class="dropdown">
+                        {% endif %}
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Setting <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'bookmark_index' %}">ブックマーク</a></li>
+                                <li><a href="{% url 'category_index' %}">カテゴリ</a></li>
+                                {% comment %}
+                                <li class="divider"></li>
+                                <li><a href="#">インポート</a></li>
+                                <li><a href="#">エクスポート</a></li>
+                                {% endcomment %}
+                                <li><a href="{% url 'design_index' %}">デザイン</a></li>
+                                <li class="divider"></li>
+                                <li><a href="{% url 'logout' %}">ログアウト</a></li>
+                            </ul>
+                        </li>
+                        <li class="divider-vertical"></li>
+                    </ul>
+
+                    <ul class="nav pull-right">
+                        <li class="mr10 mt4"><img border="0" src="{{ MEDIA_USER_BK_IMG }}/{{ user.type }}/{{ user.user_dir }}/{{ USER_IMAGE }}" width="32" alt="" /></li>
+                        <li class="mr5 c_white font_14 mt10">{{ user.name }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block add %}
+<div class="modal hide fade" id="regist-bookmark">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal">×</a>
+        <h3>ブックマークの登録</h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal" name="regist-bookmark" method="post">
+            <fieldset>
+                <input type="hidden" name="return_url" value="{{ current_url }}">
+                <div class="modal-body">
+                    <div id="bookmark-category-group" class="control-group">
+                        <label class="control-label" for="select_category">カテゴリ</label>
+                        <div class="controls">
+                          <select id="bookmark-category" name="select_category">
+                                <option value="">カテゴリを選択してください</option>
+                                {% for category in category_list %}
+                                    <option value="{{ category.id }}">{{ category.name }}</option>
+                                {% endfor %}
+                            </select><br />
+                            <div id="bookmark-category-require-error" class="hide help-inline mt10">カテゴリが選択されていません</div>
+                        </div>
+                    </div>
+                    <div id="bookmark-url-group" class="control-group">
+                        <label class="control-label" for="url">URL</label>
+                        <div class="controls">
+                            <input type="text" class="input-xlarge" name="url" id="bookmark-url" autocomplete="off" /><br />
+                            <div id="bookmark-url-require-error" class="hide help-inline mt10">URLは必須です</div>
+                            <div id="bookmark-url-url-error" class="hide help-inline mt10">URLで使用できない文字が入力されてます</div>
+                        </div>
+                    </div>
+                    <div id="bookmark-name-group" class="control-group">
+                        <label class="control-label" for="name">ブックマーク名</label>
+                        <div class="controls">
+                            <input type="text" class="input-xlarge" name="name" id="bookmark-name" autocomplete="off" /><br />
+                            <div id="bookmark-name-require-error" class="help-inline mt10 hide">ブックマーク名は必須です</div>
+                            <div id="bookmark-name-title-error" class="help-inline mt10 hide">URLからブックマーク名を取得できませんでした</div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal">キャンセル</button>
+        <button class="btn btn-primary" onClick="fnFormActionSubmit('regist-bookmark', '{% url 'bookmark_regist' %}', '', ''); return false;">登録</button>
+    </div>
+</div>
+
+<div class="modal hide fade" id="regist-category">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal">×</a>
+        <h3>カテゴリの登録</h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal" name="regist-category" method="post">
+            <fieldset>
+                <input type="hidden" name="return_url" value="{{ current_url }}">
+                <div class="modal-body">
+                    <div class="control-group">
+                        <label class="control-label" for="angle">位置</label>
+                        <div class="controls" style="position: relative; top: 3px;">
+                            <input type="radio" name="angle" value="1" checked><span style="position: relative; top: 3px;">&nbsp;&nbsp;左&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <input type="radio" name="angle" value="2"><span style="position: relative; top: 3px;">&nbsp;&nbsp;中央&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <input type="radio" name="angle" value="3"><span style="position: relative; top: 3px;">&nbsp;&nbsp;右</span>
+                        </div>
+                    </div>
+                    <div id="category-name-group" class="control-group">
+                        <label class="control-label" class="input-xlarge" for="name">カテゴリ名</label>
+                        <div class="controls">
+                            <input type="text" name="name" id="category-name" autocomplete="off" />
+                            <div id="category-name-require-error" class="help-inline mt10 hide">カテゴリ名は必須です</div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal">キャンセル</button>
+        <button class="btn btn-primary" onclick="fnFormActionSubmit('regist-category', '{% url 'category_regist' %}', '', ''); return false;">登録</button>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+    <!-- <hr> -->
+    <!-- <footer> -->
+    <!--     <p>&copy; Company 2012</p> -->
+    <!-- </footer> -->
+{% endblock %}
+
+{% block css %}
+    {% block local_css %}
+    {% endblock %}
+    <style>
+    .asholder{
+        position: relative;
+    }
+    </style>
+{% endblock %}
+
+{% block js %}
+    <script src="{{ MEDIA_JS }}/jquery.js"></script>
+    <script src="{{ MEDIA_JS }}/bootstrap-transition.js"></script>
+    <script src="{{ MEDIA_JS }}/bootstrap-modal.js"></script>
+    <script src="{{ MEDIA_JS }}/bootstrap-dropdown.js"></script>
+    <!-- <script src="{{ MEDIA_JS }}/bootstrap-scrollspy.js"></script> -->
+    <!-- <script src="{{ MEDIA_JS }}/bootstrap-tab.js"></script> -->
+    <!-- <script src="{{ MEDIA_JS }}/bootstrap-tooltip.js"></script> -->
+    <!-- <script src="{{ MEDIA_JS }}/bootstrap-popover.js"></script> -->
+    <script src="{{ MEDIA_JS }}/bootstrap-alert.js"></script>
+    <script src="{{ MEDIA_JS }}/bootstrap-button.js"></script>
+    <script src="{{ MEDIA_JS }}/bootstrap-collapse.js"></script>
+    <!-- <script src="{{ MEDIA_JS }}/bootstrap-carousel.js"></script> -->
+    <!-- <script src="{{ MEDIA_JS }}/bootstrap-typeahead.js"></script> -->
+    <script src="{{ MEDIA_JS }}/jquery-ui-1.7.2.custom.min.js"></script>
+    <!-- <script src="{{ MEDIA_JS }}/bsn.AutoSuggest.js"></script> -->
+    <script src="{{ MEDIA_JS }}/bsn.AutoSuggest_2.1.3.js"></script>
+    <script src="{{ MEDIA_JS }}/valid.js"></script>
+    <script src="{{ MEDIA_JS }}/site.js"></script>
+    <script type="text/javascript">
+    <!--
+
+        /**
+         * URLからタイトルを取得する
+         */
+        $('#bookmark-url').change(function(){
+            url = $(this).val();
+            token = $("input[name='csrfmiddlewaretoken']").val();
+            $.ajax({
+                type: "POST",
+                url: "/get_title/",
+                data: {"url": url, "csrfmiddlewaretoken": token},
+                dataType: "json",
+                async: true,
+                success: function(response){
+                            if(response.result){
+                                $('#bookmark-name').val(response.title);
+                                $('#bookmark-name-title-error').hide();
+                                $('#bookmark-name-require-error').hide();
+                                $('#bookmark-name-group').removeClass('error');
+                            } else {
+                                $('#bookmark-name').val('');
+                                $('#bookmark-name-title-error').show();
+                                $('#bookmark-name-group').addClass('error');
+                            }
+                         }
+            });
+            return false;
+        });
+
+        /**
+         * 検索フォームからフォーカスが外れた場合に
+         * サジェスト候補ボックスを消す
+         */
+        $('#search-engin').blur(function(){
+            window.setTimeout(function(){$('#as_search-engin').hide();}, 200);
+        });
+
+        /**
+         * オートサジェストの実装
+         */
+        var options = {
+            script:"/get_suggest/?json=true&limit=10&",
+            varname:"input",
+            json:true,
+            shownoresults:false,
+            maxresults:8,
+            delay:300,
+            timeout:500,
+            callback: function (obj) {}
+        };
+        var as_json = new bsn.AutoSuggest('search-engin', options);
+
+        /**
+         * ブックマーク、カテゴリの登録画面表示毎に値をリセットする
+         */
+        function fnFormatModel(mode){
+            switch(mode) {
+                case 'bookmark':
+                    $('#bookmark-category').val('');
+                    $('#bookmark-url').val('');
+                    $('#bookmark-name').val('');
+                    $('#bookmark-category-require-error').hide();
+                    $('#bookmark-url-require-error').hide();
+                    $('#bookmark-name-require-error').hide();
+                    $('#bookmark-url-url-error').hide();
+                    $('#bookmark-name-title-error').hide();
+                    $('#regist-bookmark .control-group').removeClass('error');
+                    break;
+                case 'category':
+                    $('#category-name').val('');
+                    $('#category-name-require-error').hide();
+                    $('#regist-category .control-group').removeClass('error');
+                    break;
+            }
+        }
+
+    // -->
+    </script>
+
+    {% block local_js %}
+    {% endblock %}
+
+{% endblock %}

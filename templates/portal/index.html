@@ -1,0 +1,50 @@
+{% extends 'portal/local_contents.html' %}
+
+{% block contents %}
+    <div class="row">
+        {% for column_id in COLUMN %}
+            <div class="span4">
+                <div class="column" id="column-{{ forloop.counter }}">
+                    {% for category in category_list %}
+                        {% if category.angle == column_id %}
+                        <div class="dragbox color-{{ category.color.id }}" id="item-{{ category.id }}">
+                            <h2 id="h2-{{ category.id }}"><span class="category-title" >{{ category.name }}</span><span class="configure" ><i class="icon-cog"></i></span></h2>
+                            <div class="category-color hide">
+                                <p>Set Color ：</p>
+                                <ul class="colors">
+                                {% for color in color_list %}
+                                    <li class="color-{{ color.id }}"></li>
+                                    {% if forloop.counter|divisibleby:6 %}
+                                        {% if forloop.last %}
+                                            </ul>
+                                        {% else %}
+                                            </ul>
+                                            <br />
+                                            <ul class="colors">
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            {% if category.tag_open %}
+                                <div class="dragbox-content">
+                            {% else %}
+                                <div class="dragbox-content hide">
+                            {% endif %}
+                                <ul>
+                                    {% for bookmark in bookmark_list %}
+                                        {% if category.id == bookmark.category_id %}
+                                            <li>
+                                                <span class="linkmark-color">●</span>&nbsp;&nbsp;<a href="{{ bookmark.url }}" target="_blank"><span class="link-color">{{ bookmark.name }}</span></a>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

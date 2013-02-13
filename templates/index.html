@@ -1,0 +1,58 @@
+{% extends 'base_frame.html' %}
+{% load url from future %}
+
+{% block header_navi %}
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="{% url 'root_index' %}" >OtherBu</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block contents %}
+    <header class="jumbotron masthead">
+        <div class="inner">
+            <h1>OtherBu(アザブ)</h1>
+            <p>ブックマークの配置やデザインをお好みで指定できる<br />カスタマイズ性の高さが特徴のWebブックマークです</p>
+            <p class="download-info mt40">
+               <a href="{% url 'auth_login' 'twitter' %}" class="btn btn-info btn-large">Twitter Login</a>
+               <a href="{% url 'auth_login' 'facebook' %}" class="btn btn-primary btn-large">Facebook Login</a>
+            </p>
+        </div>
+    </header>
+{% endblock %}
+
+{% block footer %}
+    <footer class="footer">
+        <p class="right">Copyright © otherbu.com All Rights Reserved.</p>
+    </footer>
+{% endblock %}
+
+{% block css %}
+    <link href="{{ MEDIA_CSS }}/docs.css" rel="stylesheet">
+    <style>
+        .asholder{
+            position: relative;
+        }
+
+        .navbar .brand:hover {
+            text-decoration: none;
+        }
+
+        .navbar .brand {
+            float: left;
+            display: block;
+            padding: 8px 20px 12px;
+            margin-left: -20px;
+            font-size: 20px;
+            font-weight: 200;
+            line-height: 1;
+            color: #ffffff;
+        }
+    </style>
+{% endblock %}
+
+{% block js %}
+{% endblock %}

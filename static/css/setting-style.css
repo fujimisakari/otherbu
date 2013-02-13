@@ -1,0 +1,148 @@
+
+/*  サイドメニュー
+========================================== */
+.sidemenu {
+    background-color: #F5F5F5;
+    border: 0px solid rgba(0, 0, 0, 0.05);
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
+}
+
+.sidemenu .header {
+    color: #999999;
+    display: block;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 14px;
+    padding: 3px 15px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    /* text-transform: uppercase; */
+    border: 1px solid #DDDDDD;
+    border-radius: 4px 4px 0 0;
+    padding-bottom: 9px;
+    padding-top: 9px;
+    margin-right: 0;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.sidemenu ul{
+    margin: 0;
+}
+
+
+/*  少ないコンテンツでも画面いっぱいに伸ばす
+========================================== */
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
+.container {
+    height: 100%;
+    min-height: 100%;
+}
+
+body > .container {
+    height: auto;
+}
+
+
+/*  共通
+========================================== */
+
+.navbar {
+    margin-bottom: 0;
+}
+
+.form-actions {
+    margin-bottom: 0;
+}
+
+.setting-form {
+    background-color: #fff;
+    border: 1px solid #eee;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+
+/*  エラー通知
+========================================== */
+.errorlist li {
+    margin-left: 0px;
+    list-style-type: none;
+}
+
+
+/*  ブックマーク・カテゴリ
+========================================== */
+.table input[type="checkbox"] {
+    margin-top: 9px;
+}
+
+.table .input-bookmark {
+    width: 240px;
+}
+
+.table .input-url {
+    width: 250px;
+}
+
+.table .input-category {
+    width: 450px
+}
+
+/* ブックマークの余分なマージンを消す */
+.setting-form form {
+    margin: 0;
+}
+
+
+
+/*  デザイン
+========================================== */
+
+/* タイトル下の余分な空白 */
+.setting-form fieldset legend {
+    margin-bottom: 0px
+}
+
+
+/* ラジオボタン */
+.controls ul{
+    padding: 5px 0 0 0;
+    margin: 0px;
+}
+
+.controls ul li{
+    float: left;
+    display: inline;
+    margin-right: 20px;
+}
+
+.controls ul li label{
+    vertical-align: middle;
+}
+
+.controls ul li input{
+    margin: 0 3px 3px 0;
+}
+
+.controls ul:after { /* for Modern Browser */
+    content: "."; display: block; clear: both; height: 0; visibility: hidden; font-size: 0;
+}
+
+/* アップロードボタン */
+#id_form-0-image_upload{
+    padding: 5px 0 0 0;
+    margin: 0px;
+}

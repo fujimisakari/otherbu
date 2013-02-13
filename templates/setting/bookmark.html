@@ -1,0 +1,145 @@
+{% extends 'setting/local_contents.html' %}
+{% load url from future %}
+
+{% block bookmark %}
+
+    <div class="span8 setting-form">
+        <form name="searchform" action="{% url 'bookmark_search' %}" method="post">
+            <div class="mt15"></div>
+            <legend><span class="ml15"></span>ブックマーク&nbsp;&nbsp;<small>ブックマーク名、URL、並び順の編集ができます</small></legend>
+            <div class="pl15 pr15">
+                <div class="form-search well">
+                    {% if search_error %}
+                        <div style="color: #B94A48;">
+                            <ul class="unstyled">
+                                <li>カテゴリを選択してから [Search]ボタン を押してください</li>
+                            </ul>
+                        </div>
+                    {% endif %}
+                    <select name="select_category">
+                        {% if search_error %}
+                            <option value="">カテゴリを選択してください</option>
+                            {% for category in user.category_list %}
+                                <option value="{{ category.id }}">{{ category.name }}</option>
+                            {% endfor %}
+                        {% else %}
+                            <option value="">カテゴリを選択してください</option>
+                            {% for category in user.category_list %}
+                                {% if category.id == c_id %}
+                                    <option value="{{ category.id }}" selected>{{ category.name }}</option>
+                                {% else %}
+                                    <option value="{{ category.id }}">{{ category.name }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </select>
+                    <span class="ml10"></span>
+                    <input type="submit" class="btn" value="Search" />
+                </div>
+            </div>
+
+            {% if comp_mode == "edit" %}
+            <div class="alert alert-success ml15 mr15">
+               ブックマーク情報を編集しました。
+            </div>
+            {% endif %}
+
+            {% if comp_mode == "delete" %}
+            <div class="alert alert-success ml15 mr15">
+               ブックマーク情報を削除しました。
+            </div>
+            {% endif %}
+        </form>
+
+        {% if is_disp %}
+            <form name="form1" id="form1" method="post">
+                <input type="hidden" name="search_category" value="{{ c_id }}">
+                <div class="form-inline">
+                    {% if formset.forms %}
+                        {{ formset.management_form }}
+                        <div class="pl15 pr15">
+                            <table id="table-form" class="table table-bordered table-striped">
+                            <tr>
+                                <th><div class="center">ブックマーク名</div></th>
+                                <th><div class="center">URL</div></th>
+                                <th><div class="center">削除</div></th>
+                            </tr>
+
+                            {% for form in formset.forms %}
+                                <tr>
+                                    <td>
+                                        {% if form.name.errors %}
+                                            <span style="color:  #B94A48;" class="unstyled">
+                                                {{ form.name.errors }}
+                                            </span>
+                                        {% endif %}
+
+                                        {{ form.name }}
+                                        {{ form.id }}
+                                        {{ form.sort }}
+                                    </td>
+                                    <td>
+                                        {% if form.url.errors %}
+                                            <span style="color:  #B94A48;" class="unstyled">
+                                                {{ form.url.errors }}
+                                            </span>
+                                        {% endif %}
+
+                                        {{ form.url }}
+                                    </td>
+                                    <td>
+                                        <div class="center">{{ form.del_flg }}</div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </table>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-primary" onClick="fnSwapSort(); fnFormActionSubmit('form1', '{% url 'bookmark_edit' %}', '', ''); return false">保存</button>
+                            {% comment %}
+                            <button class="btn btn-primary" onClick="fnSwapSort(); fnModeSubmit('edit', '', ''); return false">保存</button>
+                            {% endcomment %}
+                            <span class="ml10"></span>
+                            <button class="btn btn-primary" onClick="fnDeleteCheckSubmit('form1', '{% url 'bookmark_delete' %}', '[name*=\'del_flg\']'); return false">削除</button>
+                        </div>
+
+                    {% else %}
+
+                        <div class="mt60 mb80 alert alert-info ml15 mr15">
+                            ブックマークが登録されていません
+                        </div>
+                    {% endif %}
+                </div>
+            </form>
+        {% endif %}
+    </div>
+
+{% endblock %}
+
+{% block sub_local_js %}
+    <script src="{{ MEDIA_JS }}/jquery.tablednd.0.6.min.js"></script>
+    <script type="text/javascript">
+    <!--
+
+        /**
+         * テーブルをドラック&ドロップできるようにする
+         */
+        $(function() {
+            // Initialise the table
+            $("#table-form").tableDnD();
+        });
+
+        /**
+         * ソート番号を[0]スタートから[1]スタートへ置き変え
+         */
+        function fnSwapSort(){
+            $("#table-form [name*='sort']").each(function(i){
+                i += 1;
+                $(this).val(i);
+            });
+        }
+
+    // -->
+    </script>
+{% endblock %}

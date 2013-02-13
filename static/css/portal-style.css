@@ -1,0 +1,141 @@
+
+/*  Colors
+========================================== */
+/* .color-yellow  {background: #ffff00; border: 1px solid #ffff00;} */
+/* .color-gold    {background: #f2bc00; border: 1px solid #f2bc00;} */
+/* .color-red     {background: #dd0000; border: 1px solid #dd0000;} */
+/* .color-blue    {background: #0000ee; border: 1px solid #0000ee;} */
+/* .color-white   {background: #eeeeee; border: 1px solid #eeeeee;} */
+/* .color-orange  {background: #f66e00; border: 1px solid #f66e00;} */
+/* .color-green   {background: #8dc100; border: 1px solid #8dc100;} */
+/* .color-dodger  {background: #1e90ff; border: 1px solid #1e90ff;} */
+/* .color-pink    {background: #ff69b4; border: 1px solid #ff69b4;} */
+/* .color-forest  {background: #228b22; border: 1px solid #228b22;} */
+/* .color-lime    {background: #32cd32; border: 1px solid #32cd32;} */
+/* .color-black   {background: #242424; border: 1px solid #242424;} */
+/* .color-sienna  {background: #8b4726; border: 1px solid #8b4726;} */
+/* .color-darkred {background: #b22222; border: 1px solid #b22222;} */
+/* .color-wood    {background: #EEDD82; border: 1px solid #EEDD82;} */
+/* .color-olive   {background: #556b2f; border: 1px solid #556b2f;} */
+/* .color-purple  {background: #7d26cd; border: 1px solid #7d26cd;} */
+/* .color-tomato  {background: #ee5c42; border: 1px solid #ee5c42;} */
+/* .color-grey    {background: #8b7b8b; border: 1px solid #8b7b8b;} */
+
+/* .color-tomoto h2, */
+/* .color-wood   h2, */
+/* .color-lime   h2, */
+/* .color-pink   h2, */
+/* .color-yellow h2, */
+/* .color-golod  h2, */
+/* .color-white  h2, */
+/* .color-green  h2 */
+/* 	{color:#000;} */
+
+/* .color-grey    h2, */
+/* .color-olive   h2, */
+/* .color-purple  h2, */
+/* .color-darkred h2, */
+/* .color-sienna  h2, */
+/* .color-black   h2, */
+/* .color-forest  h2, */
+/* .color-dodger  h2, */
+/* .color-red     h2, */
+/* .color-blue    h2, */
+/* .color-orange  h2 */
+/* 	{color:#FFF;} */
+
+/* .color-grey    i, */
+/* .color-olive   i, */
+/* .color-purple  i, */
+/* .color-darkred i, */
+/* .color-sienna  i, */
+/* .color-black   i, */
+/* .color-forest  i, */
+/* .color-dodger  i, */
+/* .color-red     i, */
+/* .color-blue    i, */
+/* .color-orange  i */
+/*     {background-image: url("../img/glyphicons-halflings-white.png");} */
+
+
+/*  カテゴリカラー
+========================================== */
+.category-color {
+    margin: 0px 2px 3px 2px;
+    padding: 5px 0 15px 0;
+}
+
+.category-color p {
+    float: left;
+    width: 30%;
+    padding: 35px 0 0 5px;
+}
+
+ul.colors li {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #EEE;
+    float: left;
+    display: inline;
+    margin: 0 8px 0 0;
+    cursor: pointer;
+}
+
+.category-color:after { /* for Modern Browser */
+    content: "."; display: block; clear: both; height: 0; visibility: hidden; font-size: 0;
+}
+
+
+/*  ブックマーク、カテゴリ
+========================================== */
+.column{
+    margin-right: 3%;
+    min-height: 300px;
+}
+.column .dragbox{
+    margin: 5px 2px 15px;
+    position: relative;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.column .dragbox h2{
+    margin: 0;
+    font-size: 14px;
+    padding: 8px;
+    line-height: 18px;
+    cursor: move;
+}
+
+.column .dragbox h2 .category-title{
+    cursor: pointer;
+}
+
+.dragbox h2 .configure{
+    float:right;
+    cursor: pointer;
+}
+
+.dragbox-content{
+    margin: 0px 2px 2px 2px;
+    padding: 8px 0;
+}
+
+.dragbox-content ul{
+    margin: 0 0 0 10px;
+}
+
+.dragbox-content ul li{
+    line-height: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.column .placeholder{
+    border: 3px dashed #999;
+}
+
+.dragbox h2 .subcollapse{
+	/* background:#f2bc00 url('/bookmark/static/img/collapse.png') no-repeat top right; */
+}
+
