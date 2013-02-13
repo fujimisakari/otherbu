@@ -38,6 +38,10 @@ class User(models.Model):
     def design(self):
         return Design.objects.get(user_id=self.pk)
 
+    @property
+    def passport(self):
+        return Passport.objects.get(user_id=self.pk)
+
 
 class Passport(models.Model):
     user_id = models.IntegerField(u'ユーザーID', db_index=True)

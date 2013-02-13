@@ -45,7 +45,9 @@ def callback(request, auth_type=None):
 
 
 def logout(request):
-    # クッキーの情報を消す
+    # クッキーとセッションの情報を消す
+    if request.session.get('user', False):
+        del request.session['user']
     response = HttpResponseRedirect(reverse('root_index'))
     response.delete_cookie('passport')
     return response
