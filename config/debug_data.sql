@@ -1,6 +1,8 @@
 
 INSERT INTO `oauth_user` VALUES (1,'facebook',100000000000000,'debug user','debug.user','AAACbJuimgFIBAMtwe15nPjyXImczsxtimgNgDjyK7URk1xnatfAmmMfISiimdgN5Yz0R2mqj5evwMuZAFUwLTJ9ls7nTWkwpwufagZDZD','','2012-05-11 01:59:27');
 
+INSERT INTO `oauth_passport` VALUES (1,1,'6ad8bf8d-379f-40b0-815a-9bb2e5b54082','2012-05-11 01:59:27');
+
 INSERT INTO `setting_bookmark` VALUES
 (1,1,1,'YouTube - Broadcast Yourself  ','http://youtube.co.jp',1,0),
 (2,1,1,'ニコニコ動画(原宿)','http://www.nicovideo.jp/video_top/',2,0),

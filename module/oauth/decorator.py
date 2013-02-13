@@ -27,7 +27,6 @@ def _passport_check(request):
         if passport.expire_date > now_date:
             request.user = passport.user
             request.session['user'] = passport.user
-            request.set_cookie('passport', value=passport.passport, expires=passport.expire_date)
             return True
         else:
             return False
@@ -42,7 +41,6 @@ def require_user(view_func):
             if not has_passport and request.session.get('user', False):
                 user = request.session['user']
                 request.user = user
-                request.set_cookie('passport', value=user.passport.passport, expires=user.passport.expire_date)
             return view_func(request, *args, **kwargs)
         return HttpResponseRedirect(reverse('root_index'))
     return wraps(view_func)(_wrapped_view)
