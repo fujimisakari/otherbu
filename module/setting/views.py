@@ -42,7 +42,7 @@ def _render(request, user, name, param):
         param['active_flg'] = 'design'
     param['body_padding'] = settings.SETTING_BODY_PADDING  # <body>のpadding-topを定義
     ctxt = RequestContext(request, param)
-    return render_to_response('setting/{}'.format(name), ctxt)
+    return render_to_response('setting/{0}'.format(name), ctxt)
 
 
 @require_user

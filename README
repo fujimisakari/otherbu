@@ -16,11 +16,3 @@
 
 3. debug環境の起動
 % ./manage.py runserver localhost:8088
-
-
-** TODO
-- [ ] page機能の追加
-- [ ] bookmarkのカテゴリ間の移動機能
-- [ ] 説明ページ
-- [ ] いいね、ツイートボタン追加
-- [ ] トランザンクションの見直し
