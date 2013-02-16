@@ -33,6 +33,7 @@ def user_context(request):
             return {
                 'user': user,
                 'category_list': user.category_list,
+                'all_category_list': user.all_category_list,
                 'bookmark_list': user.bookmark_list,
                 'page_list': user.page_list,
                 'color_list': cc_list,

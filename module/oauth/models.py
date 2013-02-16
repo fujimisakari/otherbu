@@ -30,6 +30,14 @@ class User(models.Model):
         return c_list
 
     @property
+    def all_category_list(self):
+        c_list = Category.get_cache_user(self.pk)
+        c_list = [c for c in c_list if not c.del_flg]
+        c_list = sorted(c_list, key=lambda x: x.angle)
+        c_list = sorted(c_list, key=lambda x: x.sort)
+        return c_list
+
+    @property
     def bookmark_list(self):
         bk_list = Bookmark.get_cache_user(self.pk)
         bk_list = [bk for bk in bk_list if not bk.del_flg]
@@ -45,7 +53,7 @@ class User(models.Model):
 
     @property
     def page(self):
-        return Page.objects.get(id=self.page_id)
+        return Page.get_cache(self.page_id)
 
     @property
     def design(self):

@@ -72,7 +72,7 @@
                                     <th width="10%"><div class="center"></div></th>
                                     <th><div class="center">配置カテゴリ</div></th>
                                 </tr>
-                                {% for category in category_list %}
+                                {% for category in all_category_list %}
                                         {% if category.id in page_category_id_list %}
                                             <td><div class="center"><input type="checkbox" name="regist_flg" value="{{ category.id }}" style="margin-top: 3px;" checked></div></td>
                                         {% else %}

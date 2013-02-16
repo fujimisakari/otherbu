@@ -178,14 +178,14 @@
                         </div>
                     </div>
                 </div>
-                {% if category_list %}
+                {% if all_category_list %}
                     <div>
                         <table class="table table-bordered table-striped">
                             <tr>
                                 <th width="10%"><div class="center">登録</div></th>
                                 <th><div class="center">カテゴリ名</div></th>
                             </tr>
-                            {% for category in category_list %}
+                            {% for category in all_category_list %}
                                 <tr>
                                     <td><div class="center"><input type="checkbox" name="regist_flg" value="{{ category.id }}"></div></td>
                                     <td>
