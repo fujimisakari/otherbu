@@ -45,6 +45,10 @@ def _render(request, user, name, param):
         param['title'] = settings.DESIGN_TITLE
         param['current_url'] = reverse('design_index')
         param['active_flg'] = 'design'
+    elif name == 'info.html':
+        param['title'] = settings.INFO_TITLE
+        param['current_url'] = reverse('info_index')
+        param['active_flg'] = 'info'
     param['body_padding'] = settings.SETTING_BODY_PADDING  # <body>のpadding-topを定義
     ctxt = RequestContext(request, param)
     return render_to_response('setting/{0}'.format(name), ctxt)
@@ -365,3 +369,9 @@ def design_edit(request):
         return HttpResponseRedirect(reverse('design_index'))
     else:
         return HttpResponseRedirect(reverse('design_index'))
+
+
+@require_user
+def info_index(request):
+    user = request.user
+    return _render(request, user, 'info.html', {})

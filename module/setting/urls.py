@@ -33,4 +33,6 @@ urlpatterns += patterns(
 
     url(r'^design/$', 'design_index', name='design_index'),
     url(r'^design/edit/$', 'design_edit', name='design_edit'),
+
+    url(r'^info/$', 'info_index', name='info_index'),
 )
