@@ -42,7 +42,6 @@ function fnValidCheck(mode){
             require_form['name'] = $('#page-edit-name').val();
             check_flg = requireCheck(mode, require_form);
             break;
-
     }
     if(!check_flg){
         return false;

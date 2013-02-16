@@ -16,15 +16,15 @@
                             </ul>
                         </div>
                     {% endif %}
-                    <select name="select_category">
+                    <select name="select_category" style="width:320px;">
                         {% if search_error %}
                             <option value="">カテゴリを選択してください</option>
-                            {% for category in user.category_list %}
+                            {% for category in all_category_list %}
                                 <option value="{{ category.id }}">{{ category.name }}</option>
                             {% endfor %}
                         {% else %}
                             <option value="">カテゴリを選択してください</option>
-                            {% for category in user.category_list %}
+                            {% for category in all_category_list %}
                                 {% if category.id == c_id %}
                                     <option value="{{ category.id }}" selected>{{ category.name }}</option>
                                 {% else %}

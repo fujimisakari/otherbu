@@ -7,7 +7,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse
 from module.oauth.decorator import require_user
-from module.setting.bookmark_api import get_bookmark_form, b_regist, b_edit, b_delete
+from module.setting.bookmark_api import get_bookmark_form, b_regist, b_edit, b_delete, b_move
 from module.setting.category_api import get_category_form, c_regist, c_edit, c_delete
 from module.setting.design_api import get_design_form, d_edit
 from module.setting.page_api import get_page, p_regist, p_delete, p_edit, p_select, get_page_category_list
@@ -27,6 +27,11 @@ def _render(request, user, name, param):
         param['title'] = settings.BOOKMARK_TITLE
         param['current_url'] = reverse('bookmark_index')
         param['active_flg'] = 'bookmark'
+        param['disp_flg'] = 'true'
+    if name == 'bookmark.html':
+        param['title'] = settings.BOOKMARK_MOVE_TITLE
+        param['current_url'] = reverse('bookmark_move_index')
+        param['active_flg'] = 'bookmark_move'
         param['disp_flg'] = 'true'
     elif name == 'category.html':
         param['title'] = settings.CATEGORY_TITLE
@@ -120,6 +125,62 @@ def bookmark_delete(request):
     request.session['c_id'] = c_id
     request.session['comp_mode'] = 'delete'
     return HttpResponseRedirect(reverse('bookmark_index'))
+
+
+@require_user
+def bookmark_move_index(request):
+    user = request.user
+    params = {
+        'search_error': False,
+        'is_disp': True,
+    }
+    try:
+        if request.session.get('comp_mode', False):
+            c_id = int(request.session['c_id'])
+            params['comp_mode'] = request.session['comp_mode']
+            params['select_bookmark_list'] = [b for b in user.bookmark_list if b.category_id == c_id]
+            params['c_id'] = c_id
+            session_keys = ['c_id', 'comp_mode']
+            _session_delete(request, session_keys)
+        else:
+            params['is_disp'] = False
+            if request.session.get('search_error', False):
+                params['search_error'] = True
+                del request.session['search_error']
+    except:
+        session_keys = ['c_id', 'comp_mode']
+        _session_delete(request, session_keys)
+    return _render(request, user, 'bookmark_move.html', params)
+
+
+@require_user
+def bookmark_move_search(request):
+    if request.POST.get('select_category', False):
+        c_id = int(request.POST['select_category'])
+        request.session['c_id'] = c_id
+        request.session['comp_mode'] = 'search'
+    else:
+        request.session['search_error'] = True
+
+    return HttpResponseRedirect(reverse('bookmark_move_index'))
+
+
+@require_user
+def bookmark_move_exec(request):
+    user = request.user
+    if request.method != 'POST':
+        return HttpResponseRedirect(reverse('bookmark_move_index'))
+
+    category_id = int(request.POST['category_id'])
+    bookmark_ids = [int(i) for i in request.POST.getlist('move_flg')]
+    post_data = {
+        'after_category_id': request.POST['move_category'],
+        'bookmark_ids': bookmark_ids,
+    }
+    b_move(user, post_data)
+    request.session['comp_mode'] = 'move'
+    request.session['c_id'] = category_id
+    return HttpResponseRedirect(reverse('bookmark_move_index'))
 
 
 @require_user

@@ -13,6 +13,12 @@
                         <li><a href="{% url 'bookmark_index' %}">ブックマーク</a></li>
                     {% endif %}
 
+                    {% if active_flg == "bookmark_move_index" %}
+                        <li class="active"><a href="{% url 'bookmark_move_index' %}"><strong>ブックマーク移動</strong></a></li>
+                    {% else %}
+                        <li><a href="{% url 'bookmark_move_index' %}">ブックマーク移動</a></li>
+                    {% endif %}
+
                     {% if active_flg == "category" %}
                         <li class="active"><a href="{% url 'category_index' %}"><strong>カテゴリ</strong></a></li>
                     {% else %}
@@ -43,6 +49,7 @@
         </div>
 
         {% block bookmark %}{% endblock %}
+        {% block bookmark_move %}{% endblock %}
         {% block category %}{% endblock %}
         {% block page %}{% endblock %}
         {% block design %}{% endblock %}

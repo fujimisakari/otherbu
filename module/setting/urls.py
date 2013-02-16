@@ -15,6 +15,10 @@ urlpatterns += patterns(
     url(r'^bookmark/edit/$', 'bookmark_edit', name='bookmark_edit'),
     url(r'^bookmark/delete/$', 'bookmark_delete', name='bookmark_delete'),
 
+    url(r'^bookmark_move/$', 'bookmark_move_index', name='bookmark_move_index'),
+    url(r'^bookmark_move/search/$', 'bookmark_move_search', name='bookmark_move_search'),
+    url(r'^bookmark_move/exec/$', 'bookmark_move_exec', name='bookmark_move_exec'),
+
     url(r'^category/$', 'category_index', name='category_index'),
     url(r'^category/regist/$', 'category_regist', name='category_regist'),
     url(r'^category/edit/$', 'category_edit', name='category_edit'),

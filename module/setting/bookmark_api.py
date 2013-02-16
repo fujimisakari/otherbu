@@ -32,6 +32,13 @@ def b_regist(user, post_data):
     )
 
 
+def b_move(user, post_data):
+    for bookmark in user.bookmark_list:
+        if bookmark.id in post_data['bookmark_ids']:
+            bookmark.category_id = post_data['after_category_id']
+            bookmark.save()
+
+
 def b_edit(user, c_id, formset):
     if formset.is_valid():
         for c_data in formset.cleaned_data:

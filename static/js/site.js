@@ -56,6 +56,36 @@ function fnDeleteCheckSubmit(form, url, checktag){
     document.forms[form].submit();
 }
 
+
+// チェックボックス、セレクトボックスをチェックしてSUBMITを行う。
+function fnCheckSelectSubmit(form, url, checktag){
+    check_flg = 0;
+    $(checktag).each(function(){
+        if($(this).attr('checked')){
+            check_flg = 1;
+        }
+    });
+
+    if(check_flg == 0){
+        alert('チェックボックスが選択されていません');
+        return false;
+    } else {
+        move_category = $('#move_category').val();
+        if(move_category == ""){
+            $('#move_category-require-error').show();
+            return false;
+        }
+
+        if(!window.confirm('チェックしたブックマークを移動しても宜しいですか？')){
+            return;
+        }
+    }
+
+    document.forms[form].action = url;
+    document.forms[form].submit();
+}
+
+
 // モードとキーを指定してSUBMITを行う。
 function fnModeSubmit(mode, keyname, keyid) {
     switch(mode) {
@@ -94,6 +124,11 @@ function fnFormActionSubmit(form, url, keyname, keyid) {
             break;
         case 'page-edit':
             if(!fnValidCheck('page-edit')){
+                return;
+            }
+            break;
+        case 'move-bookmark':
+            if(!fnValidCheck('move-bookmark')){
                 return;
             }
             break;

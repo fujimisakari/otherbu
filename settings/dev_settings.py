@@ -15,6 +15,9 @@ else:
     TEMPLATE_DEBUG = DEBUG
     AUTO_LOGIN = DEBUG
 
+# 本番環境以外ではmemcachedは使用しない
+CACHES = {}
+
 
 #==================================================
 # OAuth認証キー(dev環境用)

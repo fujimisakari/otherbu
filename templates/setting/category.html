@@ -47,7 +47,7 @@
                 <div class="form-actions">
                     <button class="btn btn-primary" onClick="fnFormActionSubmit('form1', '{% url 'category_edit' %}', '', ''); return false">保存</button>
                     <span class="ml10"></span>
-                    <button class="btn btn-primary" onClick="fnDeleteCheckSubmit('form1', '{% url 'category_delete' %}', '[name*=\'del_flg\']');; return false">削除</button>
+                    <button class="btn btn-primary" onClick="fnDeleteCheckSubmit('form1', '{% url 'category_delete' %}', '[name*=\'del_flg\']'); return false">削除</button>
                 </div>
 
             {% else %}
