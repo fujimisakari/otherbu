@@ -34,6 +34,7 @@ def user_context(request):
                 'user': user,
                 'category_list': user.category_list,
                 'bookmark_list': user.bookmark_list,
+                'page_list': user.page_list,
                 'color_list': cc_list,
                 'design': user.design,
             }

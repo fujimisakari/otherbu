@@ -34,6 +34,18 @@ class CategoryColor(AbustractCachedModel):
     sort = models.IntegerField(u'順番')
 
 
+class Page(AbustractCachedModel):
+    user_id = models.IntegerField(u'ユーザーID', db_index=True)
+    name = models.CharField(u'カテゴリ名', max_length=100)
+    category_ids_str = models.CharField(u'ページに含むカテゴリ', max_length=255)
+
+    @property
+    def category_ids(self):
+        category_ids = self.category_ids_str.split(',')
+        category_ids = [int(c) for c in category_ids]
+        return category_ids
+
+
 class Bookmark(AbustractCachedModel):
     user_id = models.IntegerField(u'ユーザーID', db_index=True)
     category_id = models.IntegerField(u'カテゴリID')

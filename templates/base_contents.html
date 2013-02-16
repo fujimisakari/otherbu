@@ -15,20 +15,43 @@
                     </form>
 
                     <ul class="nav">
-                        <li class="divider-vertical"></li>
-                        <li><a data-toggle="modal" onClick="fnFormatModel('bookmark'); return false;" href="#regist-bookmark">Bookmark +</a></li>
-                        <li class="divider-vertical"></li>
-                        <li><a data-toggle="modal" onClick="fnFormatModel('category'); return false;" href="#regist-category">Category +</a></li>
-                        <li class="divider-vertical"></li>
-                        {% if navi_active_flg == "setting" %}
-                            <li class="dropdown active">
-                        {% else %}
+                        <li>
+                            <a class="navi-icon ml15 mr5" data-toggle="modal" rel="tooltip" title="ブックマークの登録" onClick="fnFormatModel('bookmark'); return false;" href="#regist-bookmark">
+                                <img src="{{ MEDIA_IMG }}/icon-bookmark-gray.png" width="20" alt="" />
+                            </a>
+                        </li>
+                        <li>
+                            <a class="navi-icon ml5 mr5" data-toggle="modal" rel="tooltip" title="カテゴリの登録" onClick="fnFormatModel('category'); return false;" href="#regist-category">
+                                <img src="{{ MEDIA_IMG }}/icon-category-gray.png" width="20" alt="" />
+                            </a>
+                        </li>
+                        <li>
                             <li class="dropdown">
-                        {% endif %}
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Setting <b class="caret"></b></a>
+                                <a href="#" class="dropdown-toggle navi-icon ml5 mr5" rel="tooltip" title="ページの登録・変更" data-toggle="dropdown">
+                                    <img src="{{ MEDIA_IMG }}/icon-page-gray.png" width="20" alt="" /><span class="ml5"><b class="caret"></b></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a data-toggle="modal" onClick="fnFormatModel('page'); return false;" href="#regist-page">
+                                            ページ登録
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li><a href="{% url 'page_select' '0' %}">ページ選択しない</a></li>
+                                    {% for page in page_list %}
+                                        <li><a href="{% url 'page_select' page.id %}">{{ page.name }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" rel="tooltip" title="各種設定" class="dropdown-toggle navi-icon" data-toggle="dropdown">
+                                <img src="{{ MEDIA_IMG }}/icon-setting-gray.png" width="20" alt="" /><span class="ml5"><b class="caret"></b></span>
+                            </a>
                             <ul class="dropdown-menu">
                                 <li><a href="{% url 'bookmark_index' %}">ブックマーク</a></li>
                                 <li><a href="{% url 'category_index' %}">カテゴリ</a></li>
+                                <li><a href="{% url 'page_index' %}">ページ</a></li>
                                 {% comment %}
                                 <li class="divider"></li>
                                 <li><a href="#">インポート</a></li>
@@ -39,13 +62,14 @@
                                 <li><a href="{% url 'logout' %}">ログアウト</a></li>
                             </ul>
                         </li>
-                        <li class="divider-vertical"></li>
                     </ul>
 
+                    <a href="{% url 'portal_index' %}">
                     <ul class="nav pull-right">
                         <li class="mr10 mt4"><img border="0" src="{{ MEDIA_USER_BK_IMG }}/{{ user.type }}/{{ user.user_dir }}/{{ USER_IMAGE }}" width="32" alt="" /></li>
                         <li class="mr5 c_white font_14 mt10">{{ user.name }}</li>
                     </ul>
+                    </a>
                 </div>
             </div>
         </div>
@@ -135,6 +159,55 @@
         <button class="btn btn-primary" onclick="fnFormActionSubmit('regist-category', '{% url 'category_regist' %}', '', ''); return false;">登録</button>
     </div>
 </div>
+
+<div class="modal hide fade" id="regist-page">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal">×</a>
+        <h3>ページの登録</h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal" name="regist-page" method="post">
+            <fieldset>
+                <input type="hidden" name="return_url" value="{{ current_url }}">
+                <div class="modal-body">
+                    <div id="page-name-group" class="control-group">
+                        <label class="control-label" class="input-xlarge" for="name">ページ名</label>
+                        <div class="controls">
+                            <input type="text" name="name" id="page-name" autocomplete="off" />
+                            <div id="page-name-require-error" class="help-inline mt10 hide">ページ名は必須です</div>
+                        </div>
+                    </div>
+                </div>
+                {% if category_list %}
+                    <div>
+                        <table class="table table-bordered table-striped">
+                            <tr>
+                                <th width="10%"><div class="center">登録</div></th>
+                                <th><div class="center">カテゴリ名</div></th>
+                            </tr>
+                            {% for category in category_list %}
+                                <tr>
+                                    <td><div class="center"><input type="checkbox" name="regist_flg" value="{{ category.id }}"></div></td>
+                                    <td>
+                                        {{ category.name }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                     </div>
+                {% else %}
+                    <div class="mt60 mb80 alert alert-info ml15 mr15">
+                        カテゴリが登録されていません
+                    </div>
+                {% endif %}
+            </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal">キャンセル</button>
+        <button class="btn btn-primary" onclick="fnFormActionSubmit('regist-page', '{% url 'page_regist' %}', '', ''); return false;">登録</button>
+    </div>
+</div>
 {% endblock %}
 
 {% block footer %}
@@ -161,7 +234,7 @@
     <script src="{{ MEDIA_JS }}/bootstrap-dropdown.js"></script>
     <!-- <script src="{{ MEDIA_JS }}/bootstrap-scrollspy.js"></script> -->
     <!-- <script src="{{ MEDIA_JS }}/bootstrap-tab.js"></script> -->
-    <!-- <script src="{{ MEDIA_JS }}/bootstrap-tooltip.js"></script> -->
+    <script src="{{ MEDIA_JS }}/bootstrap-tooltip.js"></script>
     <!-- <script src="{{ MEDIA_JS }}/bootstrap-popover.js"></script> -->
     <script src="{{ MEDIA_JS }}/bootstrap-alert.js"></script>
     <script src="{{ MEDIA_JS }}/bootstrap-button.js"></script>
@@ -248,12 +321,33 @@
                     $('#category-name-require-error').hide();
                     $('#regist-category .control-group').removeClass('error');
                     break;
+                case 'page':
+                    $('#page-name').val('');
+                    $('#page-name-require-error').hide();
+                    $('#regist-page .control-group').removeClass('error');
+                    break;
             }
         }
 
+        /**
+         * ナビアイコンのマウスオーバー、ツールチップ
+         */
+  	    $(".navi-icon").mouseover(function(){
+            before_src = $(this).children("img").attr("src");
+            after_src = before_src.replace("gray","white");
+	        $(this).children("img").attr("src", after_src);
+	    });
+
+  	    $(".navi-icon").mouseout(function(){
+            before_src = $(this).children("img").attr("src");
+            after_src = before_src.replace("white","gray");
+	        $(this).children("img").attr("src", after_src);
+	    });
+
+		$('a[rel=tooltip]').tooltip({placement : 'bottom'});
+
     // -->
     </script>
-
     {% block local_js %}
     {% endblock %}
 

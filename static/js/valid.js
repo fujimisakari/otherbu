@@ -30,6 +30,19 @@ function fnValidCheck(mode){
             require_form['name'] = $('#category-name').val();
             check_flg = requireCheck(mode, require_form);
             break;
+        case 'page':
+            // 必須チェック
+            require_form = {};
+            require_form['name'] = $('#page-name').val();
+            check_flg = requireCheck(mode, require_form);
+            break;
+        case 'page-edit':
+            // 必須チェック
+            require_form = {};
+            require_form['name'] = $('#page-edit-name').val();
+            check_flg = requireCheck(mode, require_form);
+            break;
+
     }
     if(!check_flg){
         return false;
@@ -52,6 +65,7 @@ function requireCheck(mode, list_form){
             $('#'+mode+'-'+form+'-require-error').show();
             $('#'+mode+'-'+form+'-group').addClass('error');
         } else {
+            print 
             $('#'+mode+'-'+form+'-require-error').hide();
             $('#'+mode+'-'+form+'-group').removeClass('error');
         }

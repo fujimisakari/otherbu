@@ -10,6 +10,7 @@ from module.oauth.decorator import require_user
 from module.setting.bookmark_api import get_bookmark_form, b_regist, b_edit, b_delete
 from module.setting.category_api import get_category_form, c_regist, c_edit, c_delete
 from module.setting.design_api import get_design_form, d_edit
+from module.setting.page_api import get_page, p_regist, p_delete, p_edit, p_select, get_page_category_list
 from module.setting.forms import BookmarkFormSet, CategoryFormSet, DesignFormSet
 
 
@@ -31,14 +32,17 @@ def _render(request, user, name, param):
         param['title'] = settings.CATEGORY_TITLE
         param['current_url'] = reverse('category_index')
         param['active_flg'] = 'category'
+    elif name == 'page.html':
+        param['title'] = settings.PAGE_TITLE
+        param['current_url'] = reverse('page_index')
+        param['active_flg'] = 'page'
     elif name == 'design.html':
         param['title'] = settings.DESIGN_TITLE
         param['current_url'] = reverse('design_index')
         param['active_flg'] = 'design'
-    param['navi_active_flg'] = 'setting'             # ナビゲーションのsettingをアクティブ表示する
     param['body_padding'] = settings.SETTING_BODY_PADDING  # <body>のpadding-topを定義
     ctxt = RequestContext(request, param)
-    return render_to_response('setting/{0}'.format(name), ctxt)
+    return render_to_response('setting/{}'.format(name), ctxt)
 
 
 @require_user
@@ -48,19 +52,22 @@ def bookmark_index(request):
         'search_error': False,
         'is_disp': True,
     }
-    if request.session.get('comp_mode', False):
-        c_id = int(request.session['c_id'])
-        params['comp_mode'] = request.session['comp_mode']
-        params['formset'] = get_bookmark_form(user, c_id)
-        params['c_id'] = c_id
+    try:
+        if request.session.get('comp_mode', False):
+            c_id = int(request.session['c_id'])
+            params['comp_mode'] = request.session['comp_mode']
+            params['formset'] = get_bookmark_form(user, c_id)
+            params['c_id'] = c_id
+            session_keys = ['c_id', 'comp_mode']
+            _session_delete(request, session_keys)
+        else:
+            params['is_disp'] = False
+            if request.session.get('search_error', False):
+                params['search_error'] = True
+                del request.session['search_error']
+    except:
         session_keys = ['c_id', 'comp_mode']
         _session_delete(request, session_keys)
-    else:
-        params['is_disp'] = False
-        if request.session.get('search_error', False):
-            params['search_error'] = True
-            del request.session['search_error']
-
     return _render(request, user, 'bookmark.html', params)
 
 
@@ -120,14 +127,17 @@ def category_index(request):
     user = request.user
     params = {'is_disp': True}
 
-    if request.session.get('comp_mode', False):
-        params['comp_mode'] = request.session['comp_mode']
+    try:
+        if request.session.get('comp_mode', False):
+            params['comp_mode'] = request.session['comp_mode']
+            session_keys = ['comp_mode']
+            _session_delete(request, session_keys)
+        else:
+            params['comp_mode'] = None
+        params['formset'] = get_category_form(user)
+    except:
         session_keys = ['comp_mode']
         _session_delete(request, session_keys)
-    else:
-        params['comp_mode'] = None
-    params['formset'] = get_category_form(user)
-
     return _render(request, user, 'category.html', params)
 
 
@@ -166,17 +176,119 @@ def category_delete(request):
 
 
 @require_user
+def page_index(request):
+    user = request.user
+    params = {
+        'search_error': False,
+        'is_disp': True,
+        'page_list': user.page_list,
+    }
+    try:
+        if request.session.get('comp_mode', False):
+            params['comp_mode'] = request.session['comp_mode']
+            if request.session['comp_mode'] == 'delete':
+                params['is_disp'] = False
+            else:
+                page_id = int(request.session['page_id'])
+                page_category_list = get_page_category_list(user.id, page_id)
+                params['page_category_id_list'] = [pc.id for pc in page_category_list]
+                params['page'] = get_page(page_id)
+                session_keys = ['page_id', 'comp_mode']
+                _session_delete(request, session_keys)
+        else:
+            params['is_disp'] = False
+            if request.session.get('search_error', False):
+                params['search_error'] = True
+                del request.session['search_error']
+    except:
+        session_keys = ['page_id', 'comp_mode']
+        _session_delete(request, session_keys)
+    return _render(request, user, 'page.html', params)
+
+
+@require_user
+def page_search(request):
+    if request.POST.get('select_page', False):
+        page_id = int(request.POST['select_page'])
+        request.session['page_id'] = page_id
+        request.session['comp_mode'] = 'search'
+    else:
+        request.session['search_error'] = True
+
+    return HttpResponseRedirect(reverse('page_index'))
+
+
+@require_user
+@transaction.commit_on_success
+def page_select(request, page_id):
+    user = request.user
+    page_id = int(page_id)
+    p_select(user, page_id)
+    return HttpResponseRedirect(reverse('portal_index'))
+
+
+@require_user
+@transaction.commit_on_success
+def page_regist(request):
+    user = request.user
+    post_data = {
+        'name': request.POST['name'],
+        'category_ids': request.POST.getlist('regist_flg'),
+    }
+    p_regist(user, post_data)
+    if request.POST.get('return_url', False):
+        return HttpResponseRedirect(request.POST['return_url'])
+    return HttpResponseRedirect(reverse('page_index'))
+
+
+@require_user
+@transaction.commit_on_success
+def page_edit(request):
+    user = request.user
+    if request.method != 'POST':
+        return HttpResponseRedirect(reverse('page_index'))
+
+    page_id = int(request.POST['page_id'])
+    post_data = {
+        'page_id': page_id,
+        'name': request.POST['name'],
+        'category_ids': request.POST.getlist('regist_flg'),
+    }
+    p_edit(user, post_data)
+    request.session['comp_mode'] = 'edit'
+    request.session['page_id'] = page_id
+    return HttpResponseRedirect(reverse('page_index'))
+
+
+@require_user
+@transaction.commit_on_success
+def page_delete(request):
+    user = request.user
+    if not request.POST.get('page_id', False):
+        return HttpResponseRedirect(reverse('page_index'))
+
+    page_id = int(request.POST.get('page_id'))
+    p_delete(user, page_id)
+    request.session['comp_mode'] = 'delete'
+    return HttpResponseRedirect(reverse('page_index'))
+
+
+@require_user
 def design_index(request):
     user = request.user
     params = {'is_disp': True}
 
-    if request.session.get('comp_mode', False):
-        params['comp_mode'] = request.session['comp_mode']
+    try:
+        if request.session.get('comp_mode', False):
+            params['comp_mode'] = request.session['comp_mode']
+            session_keys = ['comp_mode']
+            _session_delete(request, session_keys)
+        else:
+            params['comp_mode'] = None
+        params['formset'] = get_design_form(user)
+    except:
         session_keys = ['comp_mode']
         _session_delete(request, session_keys)
-    else:
-        params['comp_mode'] = None
-    params['formset'] = get_design_form(user)
     return _render(request, user, 'design.html', params)
 
 

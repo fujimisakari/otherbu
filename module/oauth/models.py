@@ -3,7 +3,7 @@
 import datetime
 from django.db import models
 from django.conf import settings
-from module.setting.models import Category, Bookmark, Design
+from module.setting.models import Category, Bookmark, Design, Page
 
 
 class User(models.Model):
@@ -13,6 +13,7 @@ class User(models.Model):
     user_dir = models.CharField(u'ユーザーディレクトリ名', max_length=20)
     access_token_key = models.CharField(u'アクセストークン(key)', max_length=200)
     access_token_secret = models.CharField(u'アクセストークン(secret)', max_length=200)
+    page_id = models.IntegerField(u'現在のページ', default=0)
     created_at = models.DateTimeField(u'作成日時', auto_now_add=True)
 
     class Meta:
@@ -22,6 +23,8 @@ class User(models.Model):
     def category_list(self):
         c_list = Category.get_cache_user(self.pk)
         c_list = [c for c in c_list if not c.del_flg]
+        if self.page_id:
+            c_list = [c for c in c_list if c.id in self.page.category_ids]
         c_list = sorted(c_list, key=lambda x: x.angle)
         c_list = sorted(c_list, key=lambda x: x.sort)
         return c_list
@@ -33,6 +36,16 @@ class User(models.Model):
         bk_list = sorted(bk_list, key=lambda x: x.category)
         bk_list = sorted(bk_list, key=lambda x: x.sort)
         return bk_list
+
+    @property
+    def page_list(self):
+        page_list = Page.get_cache_user(self.pk)
+        page_list = [page for page in page_list]
+        return page_list
+
+    @property
+    def page(self):
+        return Page.objects.get(id=self.page_id)
 
     @property
     def design(self):

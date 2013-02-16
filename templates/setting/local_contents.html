@@ -19,6 +19,12 @@
                         <li><a href="{% url 'category_index' %}">カテゴリ</a></li>
                     {% endif %}
 
+                    {% if active_flg == "page" %}
+                        <li class="active"><a href="{% url 'page_index' %}"><strong>ページ</strong></a></li>
+                    {% else %}
+                        <li><a href="{% url 'page_index' %}">ページ</a></li>
+                    {% endif %}
+
                     {% comment %}
                     {% if active_flg == "import" %}
                         <li class="active"><a href="#"><strong>インポート</strong></a></li>
@@ -38,6 +44,7 @@
 
         {% block bookmark %}{% endblock %}
         {% block category %}{% endblock %}
+        {% block page %}{% endblock %}
         {% block design %}{% endblock %}
     </div>
 {% endblock %}

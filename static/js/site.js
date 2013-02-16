@@ -7,6 +7,16 @@ function fnAllCheck(){
     }
 }
 
+// 確認後、削除を行う。
+function fnDeleteSubmit(form, url){
+    if(!window.confirm('一度削除したデータは、元に戻せません。\n削除しても宜しいですか？')){
+        return;
+    }
+
+    document.forms[form].action = url;
+    document.forms[form].submit();
+}
+
 // チェックボックスで削除を行う。
 function fnCheckBoxDelete(checktag){
     check_flg = 0;
@@ -74,6 +84,16 @@ function fnFormActionSubmit(form, url, keyname, keyid) {
             break;
         case 'regist-category':
             if(!fnValidCheck('category')){
+                return;
+            }
+            break;
+        case 'regist-page':
+            if(!fnValidCheck('page')){
+                return;
+            }
+            break;
+        case 'page-edit':
+            if(!fnValidCheck('page-edit')){
                 return;
             }
             break;

@@ -20,6 +20,13 @@ urlpatterns += patterns(
     url(r'^category/edit/$', 'category_edit', name='category_edit'),
     url(r'^category/delete/$', 'category_delete', name='category_delete'),
 
+    url(r'^page/$', 'page_index', name='page_index'),
+    url(r'^page/select/(?P<page_id>\d+)/$', 'page_select', name='page_select'),
+    url(r'^page/regist/$', 'page_regist', name='page_regist'),
+    url(r'^page/search/$', 'page_search', name='page_search'),
+    url(r'^page/edit/$', 'page_edit', name='page_edit'),
+    url(r'^page/delete/$', 'page_delete', name='page_delete'),
+
     url(r'^design/$', 'design_index', name='design_index'),
     url(r'^design/edit/$', 'design_edit', name='design_edit'),
 )

@@ -1,0 +1,107 @@
+{% extends 'setting/local_contents.html' %}
+{% load url from future %}
+
+{% block page %}
+
+    <div class="span8 setting-form">
+        <form name="searchform" action="{% url 'page_search' %}" method="post">
+            <div class="mt15"></div>
+            <legend><span class="ml15"></span>ページ&nbsp;&nbsp;<small>ページ名、配置カテゴリの編集ができます</small></legend>
+            <div class="pl15 pr15">
+                <div class="form-search well">
+                    {% if search_error %}
+                        <div style="color: #B94A48;">
+                            <ul class="unstyled">
+                                <li>ページを選択してから [Search]ボタン を押してください</li>
+                            </ul>
+                        </div>
+                    {% endif %}
+                    <select name="select_page">
+                        {% if search_error %}
+                            <option value="">ページを選択してください</option>
+                            {% for page in page_list %}
+                                <option value="{{ page.id }}">{{ page.name }}</option>
+                            {% endfor %}
+                        {% else %}
+                            <option value="">ページを選択してください</option>
+                            {% for p in page_list %}
+                                {% if p.id == page.id %}
+                                    <option value="{{ p.id }}" selected>{{ p.name }}</option>
+                                {% else %}
+                                    <option value="{{ p.id }}">{{ p.name }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </select>
+                    <span class="ml10"></span>
+                    <input type="submit" class="btn" value="Search" />
+                </div>
+            </div>
+
+            {% if comp_mode == "edit" %}
+                <div class="alert alert-success ml15 mr15">
+                   ページを編集しました。
+                </div>
+            {% endif %}
+
+            {% if comp_mode == "delete" %}
+                <div class="alert alert-success ml15 mr15">
+                   ページを削除しました。
+                </div>
+            {% endif %}
+        </form>
+
+        {% if is_disp %}
+            <form name="page-edit" id="page-edit" method="post">
+                <input type="hidden" name="page_id" value="{{ page.id }}">
+
+
+                <div class="pl15 pr15">
+                    <div id="category-name-group" class="control-group">
+                        <label class="control-label bold" class="input-xlarge" for="name">ページ名</label>
+                        <div class="controls">
+                            <input type="text" name="name" id="page-edit-name" value="{{ page.name }}" autocomplete="off" />
+                            <span id="page-edit-name-require-error" style="color: #B94A48;" class="hide help-inline">ページ名は必須です</span>
+                        </div>
+                    </div>
+
+                    {% if page_category_id_list %}
+                        <div>
+                            <table class="table table-bordered table-striped">
+                                <tr>
+                                    <th width="10%"><div class="center"></div></th>
+                                    <th><div class="center">配置カテゴリ</div></th>
+                                </tr>
+                                {% for category in category_list %}
+                                        {% if category.id in page_category_id_list %}
+                                            <td><div class="center"><input type="checkbox" name="regist_flg" value="{{ category.id }}" style="margin-top: 3px;" checked></div></td>
+                                        {% else %}
+                                            <td><div class="center"><input type="checkbox" name="regist_flg" value="{{ category.id }}" style="margin-top: 3px;"></div></td>
+                                        {% endif %}
+                                        <td>
+                                            {{ category.name }}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                         </div>
+                    {% else %}
+                        <div class="mt60 mb80 alert alert-info ml15 mr15">
+                            カテゴリが登録されていません
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn btn-primary" onClick="fnFormActionSubmit('page-edit', '{% url 'page_edit' %}', '', ''); return false">変更</button>
+                    <span class="ml10"></span>
+                    <button class="btn btn-primary" onClick="fnDeleteSubmit('page-edit', '{% url 'page_delete' %}'); return false">削除</button>
+                </div>
+            </form>
+        {% endif %}
+    </div>
+
+{% endblock %}
+
+{% block sub_local_js %}
+{% endblock %}

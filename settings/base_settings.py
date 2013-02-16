@@ -168,6 +168,7 @@ COLUMN = [1, 2, 3]
 # setting
 CATEGORY_TITLE = 'OtherBu / カテゴリ設定'
 BOOKMARK_TITLE = 'OtherBu / ブックマーク設定'
+PAGE_TITLE = 'OtherBu / ページ設定'
 IMPORT_TITLE = 'OtherBu / インポート設定'
 DESIGN_TITLE = 'OtherBu / デザイン設定'
 

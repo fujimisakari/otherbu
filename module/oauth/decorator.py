@@ -11,11 +11,8 @@ from module.oauth.models import User, Passport
 def _passport_check(request):
     if settings.AUTO_LOGIN:
         passport_key = request.COOKIES.get('passport', None)
-        if passport_key:
-            request.user = User.objects.get(id=1)
-            return True
-        else:
-            return False
+        request.user = User.objects.get(id=1)
+        return True
 
     passport_key = request.COOKIES.get('passport', None)
     if passport_key:
