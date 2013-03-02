@@ -1,8 +1,24 @@
 {% extends 'setting/local_contents.html' %}
 {% load url from future %}
 
-{% block design %}
+{% block local_help %}
+    <legend><span class="ml15">デザイン編集</span></legend>
+    <div class="ml30">
+        <dl>
+            <dt>このページでは以下の操作が行えます</dt>
+            <dd>・各デザインのカスタマイズ</dd>
+        </dl>
 
+        <div class="ml10">
+            <dl>
+                <dt>各デザインのカスタマイズ</dt>
+                <dd>任意の設定を行い保存ボタンを押します</dd>
+            </dl>
+        </div>
+    </div>
+{% endblock %}
+
+{% block design %}
     <form class="form-horizontal" name="form1" id="form1" method="post" enctype="multipart/form-data">
         {{ formset.management_form }}
 

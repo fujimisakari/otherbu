@@ -1,8 +1,33 @@
 {% extends 'setting/local_contents.html' %}
 {% load url from future %}
 
-{% block bookmark %}
+{% block local_help %}
+    <legend><span class="ml15">ブックーマーク編集</span></legend>
+    <div class="ml30">
+        <dl>
+            <dt>このページでは以下の操作が行えます</dt>
+            <dd>・ブックーマーク名、URLの編集</dd>
+            <dd>・ブックマークの削除</dd>
+            <dd>・ブックマークの並び順変更</dd>
+        </dl>
 
+        <div class="ml10">
+            <dl>
+                <dt>ブックーマーク名、URLの編集</dt>
+                <dd>任意のブックーマーク名、URLフォームの編集後に保存ボタンを押します</dd>
+                <dt class="mt5">ブックマークの削除</dt>
+                <dd>任意の削除チェックボックスをチェック後に削除ボタンを押します</dd>
+                <dt class="mt5">ブックマークの並び順変更</dt>
+                <dd>
+                    ブックマーク一覧にマウスポインターを乗せると十字マークになります<br />
+                    そして、任意のブックマークをドラッグして並び変えを行い保存ボタンを押します
+                </dd>
+            </dl>
+        </div>
+    </div>
+{% endblock %}
+
+{% block bookmark %}
     <div class="span8 setting-form">
         <form name="searchform" action="{% url 'bookmark_search' %}" method="post">
             <div class="mt15"></div>

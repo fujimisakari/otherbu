@@ -1,6 +1,26 @@
 {% extends 'setting/local_contents.html' %}
 {% load url from future %}
 
+{% block local_help %}
+    <legend><span class="ml15">カテゴリ編集</span></legend>
+    <div class="ml30">
+        <dl>
+            <dt>このページでは以下の操作が行えます</dt>
+            <dd>・カテゴリ名の編集</dd>
+            <dd>・カテゴリの削除</dd>
+        </dl>
+
+        <div class="ml10">
+            <dl>
+                <dt>カテゴリ名の編集</dt>
+                <dd>任意のカテゴリ名の編集後に保存ボタンを押します</dd>
+                <dt class="mt5">カテゴリの削除</dt>
+                <dd>任意の削除チェックボックスをチェック後に削除ボタンを押します</dd>
+            </dl>
+        </div>
+    </div>
+{% endblock %}
+
 {% block category %}
     <form name="form1" id="form1" method="post">
         <div class="span8 form-inline setting-form">

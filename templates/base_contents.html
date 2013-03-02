@@ -64,6 +64,11 @@
                                 <li><a href="{% url 'logout' %}">ログアウト</a></li>
                             </ul>
                         </li>
+                        <li>
+                            <a class="navi-icon ml5 mr5 navi-help" data-toggle="modal" rel="tooltip" title="ヘルプ" href="#">
+                                <img src="{{ MEDIA_IMG }}/icon-help-gray.png" width="20" alt="" />
+                            </a>
+                        </li>
                     </ul>
 
                     <a href="{% url 'portal_index' %}">
@@ -212,6 +217,13 @@
 </div>
 {% endblock %}
 
+{% block help %}
+    <div class="mb10 help-area" style="display: none;">
+        {% block local_help %}
+        {% endblock %}
+    </div>
+{% endblock %}
+
 {% block footer %}
     <!-- <hr> -->
     <!-- <footer> -->
@@ -347,6 +359,10 @@
 	    });
 
 		$('a[rel=tooltip]').tooltip({placement : 'bottom'});
+
+        $('.navi-help').click(function(){
+            $('.help-area').slideToggle('slow');
+        });
 
     // -->
     </script>

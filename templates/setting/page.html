@@ -1,8 +1,27 @@
 {% extends 'setting/local_contents.html' %}
 {% load url from future %}
 
-{% block page %}
+{% block local_help %}
+    <legend><span class="ml15">ページ編集</span></legend>
+    <div class="ml30">
+        <dl>
+            <dt>このページでは以下の操作が行えます</dt>
+            <dd>・ページ名の編集</dd>
+            <dd>・ページ内の配置カテゴリの編集</dd>
+        </dl>
 
+        <div class="ml10">
+            <dl>
+                <dt>ページ名の編集</dt>
+                <dd>任意のページ名の編集後に変更ボタンを押します</dd>
+                <dt class="mt5">ページ内の配置カテゴリの編集</dt>
+                <dd>該当のページに配置したいチェックボックスにチェックし変更ボタンを押します</dd>
+            </dl>
+        </div>
+    </div>
+{% endblock %}
+
+{% block page %}
     <div class="span8 setting-form">
         <form name="searchform" action="{% url 'page_search' %}" method="post">
             <div class="mt15"></div>

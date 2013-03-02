@@ -1,8 +1,27 @@
 {% extends 'setting/local_contents.html' %}
 {% load url from future %}
 
-{% block bookmark_move %}
+{% block local_help %}
+    <legend><span class="ml15">ブックーマーク移動</span></legend>
+    <div class="ml30">
+        <dl>
+            <dt>このページでは以下の操作が行えます</dt>
+            <dd>・ブックーマークを別のカテゴリへ移動</dd>
+        </dl>
 
+        <div class="ml10">
+            <dl>
+                <dt>ブックーマークを別のカテゴリへ移動</dt>
+                <dd>
+                    移動元のカテゴリをSearch後、移動させたい任意のチェックボックスをチェックします<br />
+                    そして、移動先のカテゴリを選択し移動ボタンを押します
+                </dd>
+            </dl>
+        </div>
+    </div>
+{% endblock %}
+
+{% block bookmark_move %}
     <div class="span8 setting-form">
         <form name="searchform" action="{% url 'bookmark_move_search' %}" method="post">
             <div class="mt15"></div>
