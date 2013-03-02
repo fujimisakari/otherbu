@@ -28,7 +28,10 @@ class Category(AbustractCachedModel):
 
 class CategoryColor(AbustractCachedModel):
     name = models.CharField(u'カラー名', max_length=30)
-    color_code = models.CharField(u'カラーコード', max_length=10)
+    thumbnail_color_code = models.CharField(u'選択サムネイル_カラーコード', max_length=10)
+    color_code1 = models.CharField(u'カラーコード1', max_length=10)
+    color_code2 = models.CharField(u'カラーコード2', max_length=10)
+    color_code3 = models.CharField(u'カラーコード3', max_length=10)
     font_color = models.CharField(u'fontカラー', max_length=10)
     icon_color = models.CharField(u'iconカラー', max_length=10, default='white')
     sort = models.IntegerField(u'順番')

@@ -13,7 +13,7 @@
                                 <p>Set Color ：</p>
                                 <ul class="colors">
                                 {% for color in color_list %}
-                                    <li class="color-{{ color.id }}"></li>
+                                    <li class="color-{{ color.id }}" style="background: {{ color.thumbnail_color_code }}"></li>
                                     {% if forloop.counter|divisibleby:6 %}
                                         {% if forloop.last %}
                                             </ul>

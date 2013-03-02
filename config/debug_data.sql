@@ -1,5 +1,5 @@
 
-INSERT INTO `oauth_user` VALUES (1,'facebook',100000000000000,'debug user','debug.user','AAACbJuimgFIBAMtwe15nPjyXImczsxtimgNgDjyK7URk1xnatfAmmMfISiimdgN5Yz0R2mqj5evwMuZAFUwLTJ9ls7nTWkwpwufagZDZD','','2012-05-11 01:59:27');
+INSERT INTO `oauth_user` VALUES (1,'facebook',100000000000000,'debug user','debug.user','AAACbJuimgFIBAMtwe15nPjyXImczsxtimgNgDjyK7URk1xnatfAmmMfISiimdgN5Yz0R2mqj5evwMuZAFUwLTJ9ls7nTWkwpwufagZDZD','','2012-05-11 01:59:27', 0);
 
 INSERT INTO `oauth_passport` VALUES (1,1,'6ad8bf8d-379f-40b0-815a-9bb2e5b54082','2012-05-11 01:59:27');
 
