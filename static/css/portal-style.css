@@ -95,9 +95,9 @@ ul.colors li {
 .column .dragbox{
     margin: 5px 2px 15px;
     position: relative;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
 }
 .column .dragbox h2{
     margin: 0;
@@ -105,6 +105,9 @@ ul.colors li {
     padding: 8px;
     line-height: 18px;
     cursor: move;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 
 .column .dragbox h2 .category-title{

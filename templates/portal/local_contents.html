@@ -23,9 +23,9 @@
         {% for color in color_list %}
             .color-{{ color.id }} {
                 background: {{ color.color_code3 }};
-                border: 2px solid {{ color.color_code3 }};
-                -moz-box-shadow: 0 0 1px {{ color.color_code3 }};
-                -webkit-box-shadow: 0 0 1px {{ color.color_code3 }};
+                border: 1px solid {{ color.color_code2 }};
+                -moz-box-shadow: 0 0 1px {{ color.color_code2 }};
+                -webkit-box-shadow: 0 0 2px {{ color.color_code2 }};
             }
 
             .color-{{ color.id }} h2{
