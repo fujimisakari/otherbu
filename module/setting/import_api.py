@@ -17,6 +17,8 @@ def import_proc(request, user):
     Category.objects.filter(user_id=user.id).delete()
     Page.objects.filter(user_id=user.id).delete()
     Bookmark.objects.filter(user_id=user.id).delete()
+    user.page_id = 0
+    user.save()
 
     # アップロードファイルからブックマークリストを作成
     file_name = "/tmp/tmp_bookmark_%d" % user.id
