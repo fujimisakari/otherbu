@@ -31,18 +31,16 @@
                         <li><a href="{% url 'page_index' %}">ページ</a></li>
                     {% endif %}
 
-                    {% comment %}
-                    {% if active_flg == "import" %}
-                        <li class="active"><a href="#"><strong>インポート</strong></a></li>
-                    {% else %}
-                        <li><a href="#">インポート</a></li>
-                    {% endif %}
-                    {% endcomment %}
-
                     {% if active_flg == "design" %}
                         <li class="active"><a href="{% url 'design_index' %}"><strong>デザイン</strong></a></li>
                     {% else %}
                         <li><a href="{% url 'design_index' %}">デザイン</a></li>
+                    {% endif %}
+
+                    {% if active_flg == "import" %}
+                        <li class="active"><a href="{% url 'import_index' %}"><strong>インポート</strong></a></li>
+                    {% else %}
+                        <li><a href="{% url 'import_index' %}">インポート</a></li>
                     {% endif %}
 
                     {% if active_flg == "info" %}
@@ -59,6 +57,7 @@
         {% block category %}{% endblock %}
         {% block page %}{% endblock %}
         {% block design %}{% endblock %}
+        {% block import %}{% endblock %}
         {% block info %}{% endblock %}
     </div>
 {% endblock %}

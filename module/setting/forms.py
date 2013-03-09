@@ -55,6 +55,12 @@ class DesignForm(forms.Form):
             else:
                 raise forms.ValidationError(u'拡張子が不明です')
 
+
+class ImportForm(forms.Form):
+    bookmark_upload = forms.FileField()
+
+
 BookmarkFormSet = formset_factory(BookmarkForm, extra=0)
 CategoryFormSet = formset_factory(CategoryForm, extra=0)
 DesignFormSet = formset_factory(DesignForm, max_num=1)
+ImportFormSet = formset_factory(ImportForm)

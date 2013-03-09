@@ -94,10 +94,15 @@ function fnModeSubmit(mode, keyname, keyid) {
                 return;
             }
             break;
+        case 'import':
+            if(!window.confirm('現在設定しているデータは、削除されます。\nインポートしても宜しいですか？')){
+                return;
+            }
+            break;
         default:
             break;
     }
-    document.form1['mode'].value = mode;
+    // document.form1['mode'].value = mode;
     if(keyname != "" && keyid != "") {
         document.form1[keyname].value = keyid;
     }

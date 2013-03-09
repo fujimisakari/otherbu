@@ -9,7 +9,7 @@ class Category(AbustractCachedModel):
     name = models.CharField(u'カテゴリ名', max_length=100)
     angle = models.IntegerField(u'位置', default=0)
     sort = models.IntegerField(u'Sort番号', blank=True, null=True)
-    color_id = models.IntegerField(u'カテゴリカラーID', default=1)
+    color_id = models.IntegerField(u'カテゴリカラーID', default=18)
     tag_open = models.BooleanField(u'初期開放', default=1)
     del_flg = models.BooleanField(u'削除フラグ', default=0)
     # 複合インデックス： ['user_id', 'del_flg'], ['user_id', 'angle', 'del_flg']

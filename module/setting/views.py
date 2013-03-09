@@ -11,7 +11,8 @@ from module.setting.bookmark_api import get_bookmark_form, b_regist, b_edit, b_d
 from module.setting.category_api import get_category_form, c_regist, c_edit, c_delete
 from module.setting.design_api import get_design_form, d_edit
 from module.setting.page_api import get_page, p_regist, p_delete, p_edit, p_select, get_page_category_list
-from module.setting.forms import BookmarkFormSet, CategoryFormSet, DesignFormSet
+from module.setting.import_api import get_import_form, import_proc
+from module.setting.forms import BookmarkFormSet, CategoryFormSet, DesignFormSet, ImportFormSet
 
 
 def _session_delete(request, session_keys):
@@ -45,6 +46,10 @@ def _render(request, user, name, param):
         param['title'] = settings.DESIGN_TITLE
         param['current_url'] = reverse('design_index')
         param['active_flg'] = 'design'
+    elif name == 'import.html':
+        param['title'] = settings.IMPORT_TITLE
+        param['current_url'] = reverse('import_index')
+        param['active_flg'] = 'import'
     elif name == 'info.html':
         param['title'] = settings.INFO_TITLE
         param['current_url'] = reverse('info_index')
@@ -369,6 +374,41 @@ def design_edit(request):
         return HttpResponseRedirect(reverse('design_index'))
     else:
         return HttpResponseRedirect(reverse('design_index'))
+
+
+@require_user
+def import_index(request):
+    user = request.user
+    params = {'is_disp': True}
+    try:
+        if request.session.get('comp_mode', False):
+            params['comp_mode'] = request.session['comp_mode']
+            session_keys = ['comp_mode']
+            _session_delete(request, session_keys)
+        else:
+            params['comp_mode'] = None
+        params['formset'] = get_import_form()
+    except:
+        session_keys = ['comp_mode']
+        _session_delete(request, session_keys)
+    return _render(request, user, 'import.html', params)
+
+
+@require_user
+@transaction.commit_on_success
+def import_exec(request):
+    user = request.user
+    if request.method == 'POST':
+        if not request.FILES.get('form-0-bookmark_upload', False):
+            return HttpResponseRedirect(reverse('import_index'))
+        try:
+            import_proc(request, user)
+        except:
+            return HttpResponseRedirect(reverse('import_index'))
+        request.session['comp_mode'] = 'import'
+        return HttpResponseRedirect(reverse('import_index'))
+    else:
+        return HttpResponseRedirect(reverse('import_index'))
 
 
 @require_user
