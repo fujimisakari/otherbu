@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import os
 from django.conf import settings
 from module.misc.common_api import uploader, get_file_property, url_exchnge
 from module.misc.html_parser import get_import_list
@@ -21,13 +22,14 @@ def import_proc(request, user):
     user.save()
 
     # アップロードファイルからブックマークリストを作成
-    file_name = "/tmp/tmp_bookmark_%d" % user.id
+    file_name = "%s/tmp_bookmark_%d" % (settings.USER_TMP_DIR, user.id)
     upfile = request.FILES['form-0-bookmark_upload']
     create_file = open(file_name, mode='w')
     for chunk in upfile.chunks():
         create_file.write(chunk)
     create_file.close()
     bookmark_html = open(file_name).read()
+    os.remove(file_name)
     bookmark_list = get_import_list(bookmark_html)
 
     # カテゴリ名リストを作成
