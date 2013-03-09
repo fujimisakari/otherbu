@@ -172,7 +172,7 @@ BOOKMARK_MOVE_TITLE = 'OtherBu / ブックマーク移動設定'
 PAGE_TITLE = 'OtherBu / ページ設定'
 IMPORT_TITLE = 'OtherBu / インポート設定'
 DESIGN_TITLE = 'OtherBu / デザイン設定'
-INFO_TITLE = 'OtherBu / 更新履歴'
+INFO_TITLE = 'OtherBu / OtherBuについて'
 
 # 決め打ちデザイン
 # <body>のpadding-topを定義
