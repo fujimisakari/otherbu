@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from module.setting.models import Category
+from module.setting.models import Category, Bookmark
 from module.setting.forms import CategoryFormSet
 
 
 def get_category_form(user):
-    category_list = Category.objects.filter(user_id=user.pk, del_flg=False).order_by('angle').order_by('sort')
+    category_list = Category.objects.filter(user_id=user.pk).order_by('angle').order_by('sort')
     form_category = []
     for category in category_list:
         d = {}
@@ -18,7 +18,7 @@ def get_category_form(user):
 def c_regist(user, post_data):
 
     def get_next_sort_count():
-        return Category.objects.filter(user_id=user.pk, angle=post_data['angle'], del_flg=False).count() + 1
+        return Category.objects.filter(user_id=user.pk, angle=post_data['angle']).count() + 1
 
     Category.objects.create(
         user_id=user.pk,
@@ -45,7 +45,7 @@ def c_delete(user, formset):
             if c_data['del_flg']:
                 try:
                     category = Category.objects.get(id=c_data['id'], user_id=user.pk)
+                    Bookmark.objects.filter(user_id=user.pk, category_id=category.id).delete()
                 except Category.DoesNotExist:
                     return False
-                category.del_flg = True
-                category.save()
+                category.delete()

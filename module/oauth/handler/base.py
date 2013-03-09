@@ -85,7 +85,6 @@ class OauthBase(object):
                 sort=init_data['category'][2],
                 color_id=init_data['category'][3],
                 tag_open=init_data['category'][4],
-                del_flg=init_data['category'][5],
             )
             category.save()
 
@@ -96,7 +95,6 @@ class OauthBase(object):
                     name=b_tupl[0],
                     url=b_tupl[1],
                     sort=b_tupl[2],
-                    del_flg=b_tupl[3],
                 )
                 bookmark_list.append(bookmark)
         Bookmark.objects.bulk_create(bookmark_list)

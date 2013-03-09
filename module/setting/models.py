@@ -11,13 +11,12 @@ class Category(AbustractCachedModel):
     sort = models.IntegerField(u'Sort番号', blank=True, null=True)
     color_id = models.IntegerField(u'カテゴリカラーID', default=18)
     tag_open = models.BooleanField(u'初期開放', default=1)
-    del_flg = models.BooleanField(u'削除フラグ', default=0)
-    # 複合インデックス： ['user_id', 'del_flg'], ['user_id', 'angle', 'del_flg']
+    # 複合インデックス： ['user_id', 'angle']
 
     @property
     def bookmark_list(self):
         bk_list = Bookmark.get_cache_user(self.user_id)
-        bk_list = [bk for bk in bk_list if bk.category_id == self.pk and not bk.del_flg]
+        bk_list = [bk for bk in bk_list if bk.category_id == self.pk]
         bk_list = sorted(bk_list, key=lambda x: x.sort)
         return bk_list
 
@@ -55,8 +54,7 @@ class Bookmark(AbustractCachedModel):
     name = models.CharField(u'Bookmark名', max_length=200, default=0)
     url = models.CharField(u'URL', max_length=200)
     sort = models.IntegerField(u'Sort番号', blank=True, null=True)
-    del_flg = models.BooleanField(u'削除フラグ', default=0)
-    # 複合インデックス： ['user_id', 'del_flg'], ['user_id', 'category_id', 'del_flg']
+    # 複合インデックス： ['user_id', 'category_id']
 
     @property
     def category(self):

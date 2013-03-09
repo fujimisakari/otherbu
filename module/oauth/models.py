@@ -22,7 +22,6 @@ class User(models.Model):
     @property
     def category_list(self):
         c_list = Category.get_cache_user(self.pk)
-        c_list = [c for c in c_list if not c.del_flg]
         if self.page_id:
             c_list = [c for c in c_list if c.id in self.page.category_ids]
         c_list = sorted(c_list, key=lambda x: x.angle)
@@ -32,7 +31,6 @@ class User(models.Model):
     @property
     def all_category_list(self):
         c_list = Category.get_cache_user(self.pk)
-        c_list = [c for c in c_list if not c.del_flg]
         c_list = sorted(c_list, key=lambda x: x.angle)
         c_list = sorted(c_list, key=lambda x: x.sort)
         return c_list
@@ -40,7 +38,6 @@ class User(models.Model):
     @property
     def bookmark_list(self):
         bk_list = Bookmark.get_cache_user(self.pk)
-        bk_list = [bk for bk in bk_list if not bk.del_flg]
         bk_list = sorted(bk_list, key=lambda x: x.category)
         bk_list = sorted(bk_list, key=lambda x: x.sort)
         return bk_list

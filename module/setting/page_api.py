@@ -12,7 +12,6 @@ def get_page_category_list(user_id, p_id):
     if not page.category_ids_str:
         return []
     c_list = Category.get_cache_user(user_id)
-    c_list = [c for c in c_list if not c.del_flg]
     c_list = [c for c in c_list if c.id in page.category_ids]
     c_list = sorted(c_list, key=lambda x: x.angle)
     c_list = sorted(c_list, key=lambda x: x.sort)

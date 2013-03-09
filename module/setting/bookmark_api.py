@@ -6,7 +6,7 @@ from module.misc.common_api import url_exchnge
 
 
 def get_bookmark_form(user, c_id):
-    bookmark_list = Bookmark.objects.filter(user_id=user.pk, category_id=c_id, del_flg=False).order_by('sort')
+    bookmark_list = Bookmark.objects.filter(user_id=user.pk, category_id=c_id).order_by('sort')
     form_bookmark = []
     for bookmark in bookmark_list:
         d = {}
@@ -21,7 +21,7 @@ def get_bookmark_form(user, c_id):
 def b_regist(user, post_data):
 
     def get_next_sort_count(user, c_id):
-        return Bookmark.objects.filter(user_id=user.pk, category_id=c_id, del_flg=False).count() + 1
+        return Bookmark.objects.filter(user_id=user.pk, category_id=c_id).count() + 1
 
     Bookmark.objects.create(
         user_id=user.pk,
@@ -53,6 +53,8 @@ def b_delete(user, c_id, formset):
     if formset.is_valid():
         for c_data in formset.cleaned_data:
             if c_data['del_flg']:
-                bookmark = Bookmark.objects.get(user_id=user.pk, id=c_data['id'])
-                bookmark.del_flg = True
-                bookmark.save()
+                try:
+                    bookmark = Bookmark.objects.get(user_id=user.pk, id=c_data['id'])
+                except Bookmark.DoesNotExist:
+                    return False
+                bookmark.delete()
