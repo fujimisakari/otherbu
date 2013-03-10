@@ -6,6 +6,15 @@
 {% endblock %}
 
 {% block info %}
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/ja_JP/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
     <div class="span8 form-inline setting-form">
         <div class="pl15 pr15">
             <legend class="mt15"><span class="ml15">Otherbuについて</span></legend>
@@ -16,11 +25,9 @@
                 <table>
                     <tr>
                         <td>
-                            <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fotherbu.com&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;font&amp;colorscheme=light&amp;action=like&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe>
+<div class="fb-like" data-href="http://otherbu.com" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
                         </td>
                         <td>
-                            <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://otherbu.com" data-text="OtherBu ブックマークの配置やデザインをお好みで指定できる カスタマイズ性の高さが特徴のWebブックマークです" data-lang="ja">ツイート</a>
-                            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
                         </td>
                     </tr>
                 </table>
