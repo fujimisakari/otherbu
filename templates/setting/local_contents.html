@@ -43,6 +43,12 @@
                         <li><a href="{% url 'import_index' %}">インポート</a></li>
                     {% endif %}
 
+                    {% if active_flg == "export" %}
+                        <li class="active"><a href="{% url 'export_index' %}"><strong>エクスポート</strong></a></li>
+                    {% else %}
+                        <li><a href="{% url 'export_index' %}">エクスポート</a></li>
+                    {% endif %}
+
                     {% if active_flg == "info" %}
                         <li class="active"><a href="{% url 'info_index' %}"><strong>OtherBuについて</strong></a></li>
                     {% else %}
@@ -58,6 +64,7 @@
         {% block page %}{% endblock %}
         {% block design %}{% endblock %}
         {% block import %}{% endblock %}
+        {% block export %}{% endblock %}
         {% block info %}{% endblock %}
     </div>
 {% endblock %}

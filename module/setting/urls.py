@@ -37,5 +37,8 @@ urlpatterns += patterns(
     url(r'^import/$', 'import_index', name='import_index'),
     url(r'^import/exec/$', 'import_exec', name='import_exec'),
 
+    url(r'^export/$', 'export_index', name='export_index'),
+    url(r'^export/exec/$', 'export_exec', name='export_exec'),
+
     url(r'^info/$', 'info_index', name='info_index'),
 )

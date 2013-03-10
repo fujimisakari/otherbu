@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
+import csv
 from django.db import transaction
 from django.conf import settings
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse
@@ -50,6 +51,10 @@ def _render(request, user, name, param):
         param['title'] = settings.IMPORT_TITLE
         param['current_url'] = reverse('import_index')
         param['active_flg'] = 'import'
+    elif name == 'export.html':
+        param['title'] = settings.EXPORT_TITLE
+        param['current_url'] = reverse('export_index')
+        param['active_flg'] = 'export'
     elif name == 'info.html':
         param['title'] = settings.INFO_TITLE
         param['current_url'] = reverse('info_index')
@@ -409,6 +414,36 @@ def import_exec(request):
         return HttpResponseRedirect(reverse('import_index'))
     else:
         return HttpResponseRedirect(reverse('import_index'))
+
+
+@require_user
+def export_index(request):
+    user = request.user
+    return _render(request, user, 'export.html', {})
+
+
+@require_user
+def export_exec(request):
+    user = request.user
+
+    response = HttpResponse(mimetype='text/csv')
+    response['Content-Disposition'] = 'attachment; filename=otherbu_bookmark.csv'
+
+    encode_type = 'cp932'
+    writer = csv.writer(response)
+    writer.writerow([u'カテゴリ'.encode(encode_type), u'ブックマーク'.encode(encode_type), u'URL'.encode(encode_type)])
+    for bookmark in user.bookmark_list:
+        try:
+            category_name = bookmark.category.name.encode(encode_type)
+        except:
+            category_name = bookmark.category.name.encode('utf-8')
+
+        try:
+            bookmark_name = bookmark.name.encode('cp932')
+        except:
+            bookmark_name = bookmark.name.encode('utf-8')
+        writer.writerow([category_name, bookmark_name, bookmark.url])
+    return response
 
 
 @require_user

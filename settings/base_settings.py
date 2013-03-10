@@ -171,8 +171,9 @@ CATEGORY_TITLE = 'OtherBu / カテゴリ設定'
 BOOKMARK_TITLE = 'OtherBu / ブックマーク設定'
 BOOKMARK_MOVE_TITLE = 'OtherBu / ブックマーク移動設定'
 PAGE_TITLE = 'OtherBu / ページ設定'
-IMPORT_TITLE = 'OtherBu / インポート設定'
 DESIGN_TITLE = 'OtherBu / デザイン設定'
+IMPORT_TITLE = 'OtherBu / インポート設定'
+EXPORT_TITLE = 'OtherBu / エクスポート設定'
 INFO_TITLE = 'OtherBu / OtherBuについて'
 
 # 決め打ちデザイン

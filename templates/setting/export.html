@@ -1,0 +1,32 @@
+{% extends 'setting/local_contents.html' %}
+{% load url from future %}
+
+{% block local_help %}
+    <p>このページにはヘルプ情報はありません</p>
+{% endblock %}
+
+{% block info %}
+    <form class="form-horizontal" name="form1" id="form1" action="{% url 'import_exec' %}" method="post" enctype="multipart/form-data">
+        {{ formset.management_form }}
+
+        <div class="span8 form-inline setting-form">
+            <div class="mt15"></div>
+            <legend><span class="ml15"></span>エクスポート&nbsp;&nbsp;<small>ブックマーク情報をエクスポートしましょう</small></legend>
+
+            <fieldset>
+                <div class="control-group portal_back_image">
+                    <label class="control-label"></label>
+                    <div class="controls">
+                        <a class="btn btn-primary" href="{% url 'export_exec' %}">エクスポート</a>
+                        <p class="help-block">
+                            OtherBuに登録されているブックマーク情報をCSV形式で<br />エクスポートすることができます
+                        </p>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </form>
+{% endblock %}
+
+{% block sub_local_js %}
+{% endblock %}
