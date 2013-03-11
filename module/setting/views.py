@@ -432,7 +432,8 @@ def export_exec(request):
     encode_type = 'cp932'
     writer = csv.writer(response)
     writer.writerow([u'カテゴリ'.encode(encode_type), u'ブックマーク'.encode(encode_type), u'URL'.encode(encode_type)])
-    for bookmark in user.bookmark_list:
+    bookmark_list = sorted(user.bookmark_list, key=lambda x: x.category_id)
+    for bookmark in bookmark_list:
         try:
             category_name = bookmark.category.name.encode(encode_type)
         except:
