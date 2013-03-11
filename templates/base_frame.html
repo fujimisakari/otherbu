@@ -20,6 +20,11 @@
                 {% if design.image_position == 'repeat' %}
                     background-image: url({{ MEDIA_USER_BK_IMG }}/{{ user.type }}/{{ user.user_dir }}/{{ BK_IMAGE_NAME }}.{{ design.bk_image_ext }});
                     background-repeat: {{ design.image_position }};
+                {% elif design.image_position == 'original' %}
+                    background-image: url({{ MEDIA_USER_BK_IMG }}/{{ user.type }}/{{ user.user_dir }}/{{ BK_IMAGE_NAME }}.{{ design.bk_image_ext }});
+                    background-repeat: no-repeat;
+                    background-position: center 41px;
+                    background-color: {{ design.portal_back_color }};
                 {% endif %}
             {% else %}
                 background-color: {{ design.portal_back_color }};

@@ -26,7 +26,7 @@ class CategoryForm(forms.Form):
 class DesignForm(forms.Form):
     LINKMARK_CHOICES = ((False, u'黒'), (True, u'白'))
     PORTAL_KIND_CHOICES = ((False, u'背景色'), (True, u'背景画像'))
-    PORTAL_BACK_CHOICES = (('no-repeat', u'画像を1枚のみ表示'), ('repeat', u'画像を繰り返し表示'))
+    PORTAL_BACK_CHOICES = (('no-repeat', u'画像を引き伸ばして全体表示'), ('repeat', u'画像を繰り返し表示'), ('original', u'画像をそのままのサイズで表示'))
 
     linkmark_flg = forms.ChoiceField(initial=False, choices=LINKMARK_CHOICES, widget=forms.RadioSelect)
     link_color = forms.CharField(initial='#005580', max_length=7,
