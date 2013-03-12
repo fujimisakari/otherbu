@@ -38,7 +38,7 @@ class User(models.Model):
     @property
     def bookmark_list(self):
         bk_list = Bookmark.get_cache_user(self.pk)
-        bk_list = sorted(bk_list, key=lambda x: x.category)
+        bk_list = sorted(bk_list, key=lambda x: x.category_id)
         bk_list = sorted(bk_list, key=lambda x: x.sort)
         return bk_list
 
