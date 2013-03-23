@@ -2,13 +2,19 @@
 
 {% block contents %}
     <div class="viewport">
+       <div class="pointer">
+           <span class="current"></span>
+           <span></span>
+           <span></span>
+       </div>
+
        <div class="flipsnap">
            {% for column_id in COLUMN %}
                <div class="column item" id="column-{{ forloop.counter }}">
                    {% for category in category_list %}
                        {% if category.angle == column_id %}
                        <div class="dragbox color-{{ category.color.id }}" id="item-{{ category.id }}">
-                           <h2 id="h2-{{ category.id }}"><span class="category-title" >{{ category.name }}</span></h2>
+                           <h2 id="h2-{{ category.id }}"><div class="category-title" >{{ category.name }}</div></h2>
                            {% if category.tag_open %}
                                <div class="dragbox-content">
                            {% else %}
@@ -18,7 +24,7 @@
                                    {% for bookmark in bookmark_list %}
                                        {% if category.id == bookmark.category_id %}
                                            <li>
-                                               <span class="linkmark-color">●</span>&nbsp;&nbsp;<a href="{{ bookmark.url }}" target="_blank"><span class="link-color">{{ bookmark.name }}</span></a>
+                                               <div class="font_14 mt4 mb4"><span class="linkmark-color">●</span>&nbsp;&nbsp;<a href="{{ bookmark.url }}" target="_blank"><span class="link-color">{{ bookmark.name }}</span></a></div>
                                            </li>
                                        {% endif %}
                                    {% endfor %}

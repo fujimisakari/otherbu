@@ -70,6 +70,23 @@
             width: 300px;
             padding: 0 70px 0 10px;
         }
+
+        .viewport .pointer {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .viewport .pointer span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 8px;
+            border: 1px solid #000;
+        }
+
+        .viewport .pointer span.current {
+            background: red;
+        }
     </style>
 {% endblock %}
 
@@ -79,7 +96,11 @@
     <script src="{{ MEDIA_JS }}/portal.js"></script>
     <script type="text/javascript">
     <!--
-        Flipsnap('.flipsnap');
+        var flipsnap = Flipsnap('.flipsnap');
+        flipsnap.element.addEventListener('fspointmove', function() {
+        $(".viewport .pointer span").filter('.current').removeClass('current');
+        $(".viewport .pointer span").eq(flipsnap.currentPoint).addClass('current');
+        }, false);
     // -->
     </script>
 {% endblock %}
