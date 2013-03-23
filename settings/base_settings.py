@@ -86,6 +86,7 @@ TEMPLATE_LOADERS = (
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
+    'module.misc.middleware.TemplateFilterMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -100,8 +101,14 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(ROOT_PATH, '../templates'),
+    os.path.join(ROOT_PATH, '../templates/pc'),
 )
+
+# スマートフォン版用テンプレート
+SMARTPHONE_TEMPLATE_DIRS = (
+    os.path.join(ROOT_PATH, '../templates/sp'),
+)
+
 
 INSTALLED_APPS = (
     'django.contrib.auth',

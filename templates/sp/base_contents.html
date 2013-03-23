@@ -1,0 +1,369 @@
+{% extends 'base_frame.html' %}
+{% load url from future %}
+
+{% block header_navi %}
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="{% url 'portal_index' %}" ><span class="title-logo">{{ SITE_TITLE }}</span></a>
+                <div class="nav-collapse">
+                    <form method="GET" class="asholder navbar-search pull-left" action="http://www.google.co.jp/search">
+                        <input type="hidden" name="ie" value="UTF-8">
+                        <input type="hidden" name="oe" value="UTF-8">
+                        <input type="hidden" name="hl" value="ja">
+                        <input id="search-engin" type="text" name="q" class="search-query span4" autocomplete="off" placeholder="Google Search">
+                    </form>
+
+                    <ul class="nav">
+                        <li>
+                            <a class="navi-icon ml15 mr5" data-toggle="modal" rel="tooltip" title="ブックマークの登録" onClick="fnFormatModel('bookmark'); return false;" href="#regist-bookmark">
+                                <img src="{{ MEDIA_IMG }}/icon-bookmark-gray.png" width="20" alt="" />
+                            </a>
+                        </li>
+                        <li>
+                            <a class="navi-icon ml5 mr5" data-toggle="modal" rel="tooltip" title="カテゴリの登録" onClick="fnFormatModel('category'); return false;" href="#regist-category">
+                                <img src="{{ MEDIA_IMG }}/icon-category-gray.png" width="20" alt="" />
+                            </a>
+                        </li>
+                        <li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle navi-icon ml5 mr5" rel="tooltip" title="ページの登録・変更" data-toggle="dropdown">
+                                    <img src="{{ MEDIA_IMG }}/icon-page-gray.png" width="20" alt="" /><span class="ml5"><b class="caret"></b></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a data-toggle="modal" onClick="fnFormatModel('page'); return false;" href="#regist-page">
+                                            ページ登録
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li><a href="{% url 'page_select' '0' %}">ページ選択しない</a></li>
+                                    {% for page in page_list %}
+                                        <li><a href="{% url 'page_select' page.id %}">{{ page.name }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" rel="tooltip" title="各種設定" class="dropdown-toggle navi-icon" data-toggle="dropdown">
+                                <img src="{{ MEDIA_IMG }}/icon-setting-gray.png" width="20" alt="" /><span class="ml5"><b class="caret"></b></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'bookmark_index' %}">ブックマーク</a></li>
+                                <li><a href="{% url 'bookmark_move_index' %}">ブックマーク移動</a></li>
+                                <li><a href="{% url 'category_index' %}">カテゴリ</a></li>
+                                <li><a href="{% url 'page_index' %}">ページ</a></li>
+                                <li><a href="{% url 'design_index' %}">デザイン</a></li>
+                                <li><a href="{% url 'import_index' %}">インポート</a></li>
+                                <li><a href="{% url 'export_index' %}">エクスポート</a></li>
+                                <li><a href="{% url 'info_index' %}">OtherBuについて</a></li>
+                                <li class="divider"></li>
+                                <li><a href="{% url 'logout' %}">ログアウト</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="navi-icon ml5 mr5 navi-help" data-toggle="modal" rel="tooltip" title="ヘルプ" href="#">
+                                <img src="{{ MEDIA_IMG }}/icon-help-gray.png" width="20" alt="" />
+                            </a>
+                        </li>
+                    </ul>
+
+                    <a href="{% url 'portal_index' %}">
+                    <ul class="nav pull-right">
+                        <li class="mr10 mt4"><img border="0" src="{{ MEDIA_USER_BK_IMG }}/{{ user.type }}/{{ user.user_dir }}/{{ USER_IMAGE }}" width="32" alt="" /></li>
+                        <li class="mr5 c_white font_14 mt10">{{ user.name }}</li>
+                    </ul>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block add %}
+<div class="modal hide fade" id="regist-bookmark">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal">×</a>
+        <h3>ブックマークの登録</h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal" name="regist-bookmark" method="post">
+            <fieldset>
+                <input type="hidden" name="return_url" value="{{ current_url }}">
+                <div class="modal-body">
+                    <div id="bookmark-category-group" class="control-group">
+                        <label class="control-label" for="select_category">カテゴリ</label>
+                        <div class="controls">
+                          <select id="bookmark-category" name="select_category">
+                                <option value="">カテゴリを選択してください</option>
+                                {% for category in category_list %}
+                                    <option value="{{ category.id }}">{{ category.name }}</option>
+                                {% endfor %}
+                            </select><br />
+                            <div id="bookmark-category-require-error" class="hide help-inline mt10">カテゴリが選択されていません</div>
+                        </div>
+                    </div>
+                    <div id="bookmark-url-group" class="control-group">
+                        <label class="control-label" for="url">URL</label>
+                        <div class="controls">
+                            <input type="text" class="input-xlarge" name="url" id="bookmark-url" autocomplete="off" /><br />
+                            <div id="bookmark-url-require-error" class="hide help-inline mt10">URLは必須です</div>
+                            <div id="bookmark-url-url-error" class="hide help-inline mt10">URLで使用できない文字が入力されてます</div>
+                        </div>
+                    </div>
+                    <div id="bookmark-name-group" class="control-group">
+                        <label class="control-label" for="name">ブックマーク名</label>
+                        <div class="controls">
+                            <input type="text" class="input-xlarge" name="name" id="bookmark-name" autocomplete="off" /><br />
+                            <div id="bookmark-name-require-error" class="help-inline mt10 hide">ブックマーク名は必須です</div>
+                            <div id="bookmark-name-title-error" class="help-inline mt10 hide">URLからブックマーク名を取得できませんでした</div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal">キャンセル</button>
+        <button class="btn btn-primary" onClick="fnFormActionSubmit('regist-bookmark', '{% url 'bookmark_regist' %}', '', ''); return false;">登録</button>
+    </div>
+</div>
+
+<div class="modal hide fade" id="regist-category">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal">×</a>
+        <h3>カテゴリの登録</h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal" name="regist-category" method="post">
+            <fieldset>
+                <input type="hidden" name="return_url" value="{{ current_url }}">
+                <div class="modal-body">
+                    <div class="control-group">
+                        <label class="control-label" for="angle">位置</label>
+                        <div class="controls" style="position: relative; top: 3px;">
+                            <input type="radio" name="angle" value="1" checked><span style="position: relative; top: 3px;">&nbsp;&nbsp;左&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <input type="radio" name="angle" value="2"><span style="position: relative; top: 3px;">&nbsp;&nbsp;中央&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <input type="radio" name="angle" value="3"><span style="position: relative; top: 3px;">&nbsp;&nbsp;右</span>
+                        </div>
+                    </div>
+                    <div id="category-name-group" class="control-group">
+                        <label class="control-label" class="input-xlarge" for="name">カテゴリ名</label>
+                        <div class="controls">
+                            <input type="text" name="name" id="category-name" autocomplete="off" />
+                            <div id="category-name-require-error" class="help-inline mt10 hide">カテゴリ名は必須です</div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal">キャンセル</button>
+        <button class="btn btn-primary" onclick="fnFormActionSubmit('regist-category', '{% url 'category_regist' %}', '', ''); return false;">登録</button>
+    </div>
+</div>
+
+<div class="modal hide fade" id="regist-page">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal">×</a>
+        <h3>ページの登録</h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal" name="regist-page" method="post">
+            <fieldset>
+                <input type="hidden" name="return_url" value="{{ current_url }}">
+                <div class="modal-body">
+                    <div id="page-name-group" class="control-group">
+                        <label class="control-label" class="input-xlarge" for="name">ページ名</label>
+                        <div class="controls">
+                            <input type="text" name="name" id="page-name" autocomplete="off" />
+                            <div id="page-name-require-error" class="help-inline mt10 hide">ページ名は必須です</div>
+                        </div>
+                    </div>
+                </div>
+                {% if all_category_list %}
+                    <div>
+                        <table class="table table-bordered table-striped">
+                            <tr>
+                                <th width="10%"><div class="center">登録</div></th>
+                                <th><div class="center">カテゴリ名</div></th>
+                            </tr>
+                            {% for category in all_category_list %}
+                                <tr>
+                                    <td><div class="center"><input type="checkbox" name="regist_flg" value="{{ category.id }}"></div></td>
+                                    <td>
+                                        {{ category.name }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                     </div>
+                {% else %}
+                    <div class="mt60 mb80 alert alert-info ml15 mr15">
+                        カテゴリが登録されていません
+                    </div>
+                {% endif %}
+            </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal">キャンセル</button>
+        <button class="btn btn-primary" onclick="fnFormActionSubmit('regist-page', '{% url 'page_regist' %}', '', ''); return false;">登録</button>
+    </div>
+</div>
+{% endblock %}
+
+{% block help %}
+    <div class="mb10 help-area" style="display: none;">
+        {% block local_help %}
+        {% endblock %}
+    </div>
+{% endblock %}
+
+{% block footer %}
+    <!-- <hr> -->
+    <!-- <footer> -->
+    <!--     <p>&copy; Company 2012</p> -->
+    <!-- </footer> -->
+{% endblock %}
+
+{% block css %}
+    {% block local_css %}
+    {% endblock %}
+    <style>
+    .asholder{
+        position: relative;
+    }
+    </style>
+{% endblock %}
+
+{% block js %}
+    <script src="{{ MEDIA_JS }}/jquery.js"></script>
+    <script src="{{ MEDIA_JS }}/bootstrap-transition.js"></script>
+    <script src="{{ MEDIA_JS }}/bootstrap-modal.js"></script>
+    <script src="{{ MEDIA_JS }}/bootstrap-dropdown.js"></script>
+    <!-- <script src="{{ MEDIA_JS }}/bootstrap-scrollspy.js"></script> -->
+    <!-- <script src="{{ MEDIA_JS }}/bootstrap-tab.js"></script> -->
+    <script src="{{ MEDIA_JS }}/bootstrap-tooltip.js"></script>
+    <!-- <script src="{{ MEDIA_JS }}/bootstrap-popover.js"></script> -->
+    <script src="{{ MEDIA_JS }}/bootstrap-alert.js"></script>
+    <script src="{{ MEDIA_JS }}/bootstrap-button.js"></script>
+    <script src="{{ MEDIA_JS }}/bootstrap-collapse.js"></script>
+    <!-- <script src="{{ MEDIA_JS }}/bootstrap-carousel.js"></script> -->
+    <!-- <script src="{{ MEDIA_JS }}/bootstrap-typeahead.js"></script> -->
+    <script src="{{ MEDIA_JS }}/jquery-ui-1.7.2.custom.min.js"></script>
+    <!-- <script src="{{ MEDIA_JS }}/bsn.AutoSuggest.js"></script> -->
+    <script src="{{ MEDIA_JS }}/bsn.AutoSuggest_2.1.3.js"></script>
+    <script src="{{ MEDIA_JS }}/valid.js"></script>
+    <script src="{{ MEDIA_JS }}/site.js"></script>
+    <script type="text/javascript">
+    <!--
+
+        /**
+         * URLからタイトルを取得する
+         */
+        $('#bookmark-url').change(function(){
+            url = $(this).val();
+            token = $("input[name='csrfmiddlewaretoken']").val();
+            $.ajax({
+                type: "POST",
+                url: "/get_title/",
+                data: {"url": url, "csrfmiddlewaretoken": token},
+                dataType: "json",
+                async: true,
+                success: function(response){
+                            if(response.result){
+                                $('#bookmark-name').val(response.title);
+                                $('#bookmark-name-title-error').hide();
+                                $('#bookmark-name-require-error').hide();
+                                $('#bookmark-name-group').removeClass('error');
+                            } else {
+                                $('#bookmark-name').val('');
+                                $('#bookmark-name-title-error').show();
+                                $('#bookmark-name-group').addClass('error');
+                            }
+                         }
+            });
+            return false;
+        });
+
+        /**
+         * 検索フォームからフォーカスが外れた場合に
+         * サジェスト候補ボックスを消す
+         */
+        $('#search-engin').blur(function(){
+            window.setTimeout(function(){$('#as_search-engin').hide();}, 200);
+        });
+
+        /**
+         * オートサジェストの実装
+         */
+        var options = {
+            script:"/get_suggest/?json=true&limit=10&",
+            varname:"input",
+            json:true,
+            shownoresults:false,
+            maxresults:8,
+            delay:300,
+            timeout:500,
+            callback: function (obj) {}
+        };
+        var as_json = new bsn.AutoSuggest('search-engin', options);
+
+        /**
+         * ブックマーク、カテゴリの登録画面表示毎に値をリセットする
+         */
+        function fnFormatModel(mode){
+            switch(mode) {
+                case 'bookmark':
+                    $('#bookmark-category').val('');
+                    $('#bookmark-url').val('');
+                    $('#bookmark-name').val('');
+                    $('#bookmark-category-require-error').hide();
+                    $('#bookmark-url-require-error').hide();
+                    $('#bookmark-name-require-error').hide();
+                    $('#bookmark-url-url-error').hide();
+                    $('#bookmark-name-title-error').hide();
+                    $('#regist-bookmark .control-group').removeClass('error');
+                    break;
+                case 'category':
+                    $('#category-name').val('');
+                    $('#category-name-require-error').hide();
+                    $('#regist-category .control-group').removeClass('error');
+                    break;
+                case 'page':
+                    $('#page-name').val('');
+                    $('#page-name-require-error').hide();
+                    $('#regist-page .control-group').removeClass('error');
+                    break;
+            }
+        }
+
+        /**
+         * ナビアイコンのマウスオーバー、ツールチップ
+         */
+  	    $(".navi-icon").mouseover(function(){
+            before_src = $(this).children("img").attr("src");
+            after_src = before_src.replace("gray","white");
+	        $(this).children("img").attr("src", after_src);
+	    });
+
+  	    $(".navi-icon").mouseout(function(){
+            before_src = $(this).children("img").attr("src");
+            after_src = before_src.replace("white","gray");
+	        $(this).children("img").attr("src", after_src);
+	    });
+
+		$('a[rel=tooltip]').tooltip({placement : 'bottom'});
+
+        $('.navi-help').click(function(){
+            $('.help-area').slideToggle('slow');
+        });
+
+    // -->
+    </script>
+    {% block local_js %}
+    {% endblock %}
+
+{% endblock %}

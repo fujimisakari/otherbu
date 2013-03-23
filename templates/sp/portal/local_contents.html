@@ -1,0 +1,63 @@
+{% extends 'base_contents.html' %}
+
+{% block local_css %}
+    <link href="{{ MEDIA_CSS }}/portal-style.css" rel="stylesheet">
+    <style>
+        .dragbox-content,
+        .category-color{
+            background-color: {{ design.category_back_color }};
+        }
+
+        .linkmark-color{
+            {% if design.linkmark_flg %}
+                color: #FFF;
+            {% else %}
+                color: #000;
+            {% endif %}
+        }
+
+        .dragbox-content a{
+            color: {{ design.link_color }};
+        }
+
+        {% for color in color_list %}
+            .color-{{ color.id }} {
+                background: {{ color.color_code3 }};
+                border: 1px solid {{ color.color_code2 }};
+                -moz-box-shadow: 0 0 1px {{ color.color_code2 }};
+                -webkit-box-shadow: 0 0 2px {{ color.color_code2 }};
+            }
+
+            .color-{{ color.id }} h2{
+                /* Mozilla Firefox */
+                background-image: -moz-linear-gradient(top, {{ color.color_code1 }} 0%, {{ color.color_code2 }} 50%, {{ color.color_code3 }} 50%);
+
+                /* Opera */
+                background-image: -o-linear-gradient(top, {{ color.color_code1 }} 0%, {{ color.color_code2 }} 50%, {{ color.color_code3 }} 50%);
+
+                /* Webkit (Safari/Chrome 10) */
+                background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, {{ color.color_code1 }}), color-stop(0.5, {{ color.color_code2 }}), color-stop(0.5, {{ color.color_code3 }}));
+
+                /* Webkit (Chrome 11+) */
+                background-image: -webkit-linear-gradient(top, {{ color.color_code1 }} 0%, {{ color.color_code2 }} 50%, {{ color.color_code3 }} 50%);
+            }
+
+            {% if color.font_color == "#000" %}
+                .color-{{ color.id }} h2 {color:#000;}
+                .color-{{ color.id }} h2 {text-shadow: 2px 2px 5px rgba(0,0,0,0.5);}
+            {% else %}
+                .color-{{ color.id }} h2 {color:#FFF;}
+                .color-{{ color.id }} h2 {text-shadow: 3px 4px 4px rgba(0,0,0,0.5);}
+            {% endif %}
+
+            {% if color.icon_color == "white" %}
+                .color-{{ color.id }} i {background-image: url("{{ MEDIA_IMG }}/glyphicons-halflings-white.png");}
+            {% endif %}
+        {% endfor %}
+    </style>
+{% endblock %}
+
+{% block local_js %}
+    <script src="{{ MEDIA_JS }}/jquery-ui-1.7.2.custom.min.js"></script>
+    <script src="{{ MEDIA_JS }}/portal.js"></script>
+{% endblock %}

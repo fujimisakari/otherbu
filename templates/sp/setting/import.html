@@ -1,0 +1,64 @@
+{% extends 'setting/local_contents.html' %}
+{% load url from future %}
+
+{% block local_help %}
+    <legend><span class="ml15">インポート</span></legend>
+    <div class="ml30">
+        <dl>
+            <dt>このページでは以下の操作が行えます</dt>
+            <dd>・ブラウザブックマークのインポート</dd>
+        </dl>
+
+        <div class="ml10">
+            <dl>
+                <dt>アップロードファイルについて</dt>
+                <dd>各ブラウザ(GoogleChrome, FireFoxなど)のブックマークエクスポート機能で出力されたhtmlファイルが対象ファイルとなります</dd>
+                <dt>作成されるブックマークについて</dt>
+                <dd>ブラウザブックマークの構成でカテゴリとブックマーク作成されます<br />なお、urlが255文字以上のものはインポートされません</dd>
+                <dt>現在の設定されてるブックマーク情報について</dt>
+                <dd>現在の設定されてるブックマーク情報(ブックマーク、カテゴリ、ページ)は削除されインポートしたブックマーク情報に差し変わります</dd>
+            </dl>
+        </div>
+    </div>
+{% endblock %}
+
+{% block import %}
+    <form class="form-horizontal" name="form1" id="form1" action="{% url 'import_exec' %}" method="post" enctype="multipart/form-data">
+        {{ formset.management_form }}
+
+        <div class="span8 form-inline setting-form">
+            <div class="mt15"></div>
+            <legend><span class="ml15"></span>インポート&nbsp;&nbsp;<small>ブラウザのブックマークをインポートしましょう</small></legend>
+
+            {% if comp_mode == "import" %}
+                <div class="alert alert-success ml15 mr15">
+                   インポートを完了しました。
+                </div>
+            {% endif %}
+
+            <fieldset>
+                {% for form in formset.forms %}
+                    <div class="control-group portal_back_image">
+                        <label class="control-label">uploadファイル</label>
+                        <div class="controls">
+                            {% if form.bookmark_upload.errors %}
+                                <span style="color:  #B94A48;" class="unstyled">
+                                    {{ form.bookmark_upload.errors }}
+                                </span>
+                            {% endif %}
+                            {{ form.bookmark_upload }}
+                            <p class="help-block">
+                                uploadファイルはブラウザからエクスポートしたhtmlファイルになります。<br />
+                                なお、現在の設定されてるブックマーク、カテゴリ、ページは削除されます
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </fieldset>
+
+            <div class="form-actions">
+                <button class="btn btn-primary" onClick="fnModeSubmit('import', '', ''); return false">インポート</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends 'setting/local_contents.html' %}
+{% load url from future %}
+
+{% block local_help %}
+    <legend><span class="ml15">ブックーマーク移動</span></legend>
+    <div class="ml30">
+        <dl>
+            <dt>このページでは以下の操作が行えます</dt>
+            <dd>・ブックーマークを別のカテゴリへ移動</dd>
+        </dl>
+
+        <div class="ml10">
+            <dl>
+                <dt>ブックーマークを別のカテゴリへ移動</dt>
+                <dd>
+                    移動元のカテゴリをSearch後、移動させたい任意のチェックボックスをチェックします<br />
+                    そして、移動先のカテゴリを選択し移動ボタンを押します
+                </dd>
+            </dl>
+        </div>
+    </div>
+{% endblock %}
+
+{% block bookmark_move %}
+    <div class="span8 setting-form">
+        <form name="searchform" action="{% url 'bookmark_move_search' %}" method="post">
+            <div class="mt15"></div>
+            <legend><span class="ml15"></span>ブックマーク移動&nbsp;&nbsp;<small>ブックマークを別カテゴリに移動させます</small></legend>
+            <div class="pl15 pr15">
+                <div class="form-search well">
+                    {% if search_error %}
+                        <div style="color: #B94A48;">
+                            <ul class="unstyled">
+                                <li>移動元カテゴリを選択してから [Search]ボタン を押してください</li>
+                            </ul>
+                        </div>
+                    {% endif %}
+                    <select name="select_category" style="width:320px;">
+                        {% if search_error %}
+                            <option value="">移動元カテゴリを選択してください</option>
+                            {% for category in all_category_list %}
+                                <option value="{{ category.id }}">{{ category.name }}</option>
+                            {% endfor %}
+                        {% else %}
+                            <option value="">移動元カテゴリを選択してください</option>
+                            {% for category in all_category_list %}
+                                {% if category.id == c_id %}
+                                    <option value="{{ category.id }}" selected>{{ category.name }}</option>
+                                {% else %}
+                                    <option value="{{ category.id }}">{{ category.name }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </select>
+                    <span class="ml10"></span>
+                    <input type="submit" class="btn" value="Search" />
+                </div>
+            </div>
+
+            {% if comp_mode == "move" %}
+                <div class="alert alert-success ml15 mr15">
+                   ブックマークを移動しました。
+                </div>
+            {% endif %}
+        </form>
+
+        {% if is_disp %}
+            <form name="move-bookmark" id="move-bookmark" method="post">
+                <input type="hidden" name="category_id" value="{{ c_id }}">
+
+                <div class="pl15 pr15">
+                    {% if select_bookmark_list %}
+                        <div>
+                            <table class="table table-bordered table-striped">
+                                <tr>
+                                    <th width="10%"><div class="center"></div></th>
+                                    <th><div class="center">ブックマーク名</div></th>
+                                </tr>
+                                {% for bookmark in select_bookmark_list %}
+                                        <td><div class="center"><input type="checkbox" name="move_flg" value="{{ bookmark.id }}" style="margin-top: 3px;"></div></td>
+                                        <td>
+                                            {{ bookmark.name }}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                         </div>
+                    {% else %}
+                        <div class="mt60 mb80 alert alert-info ml15 mr15">
+                            ブックマークが登録されていません
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="form-actions">
+                    <div id="move_category-require-error" style="color: #B94A48;" class="hide help-inline">移動先カテゴリが選択されてません</div>
+                    <select id="move_category" name="move_category" style="width:320px; margin-bottom: 0px;">
+                        <option value="">移動先カテゴリを選択してください</option>
+                        {% for category in all_category_list %}
+                            <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <span class="ml10 mr10">へ</span>
+                    <button class="btn btn-primary" onClick="fnCheckSelectSubmit('move-bookmark', '{% url 'bookmark_move_exec' %}', '[name*=\'move_flg\']'); return false"">移動</button>
+                </div>
+            </form>
+        {% endif %}
+    </div>
+
+{% endblock %}
+
+{% block sub_local_js %}
+{% endblock %}
