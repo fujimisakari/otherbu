@@ -12,16 +12,14 @@
 {% endblock %}
 
 {% block contents %}
-    <header class="jumbotron masthead">
-        <div class="inner">
-            <h1>OtherBu(アザブ)</h1>
-            <p>ブックマークの配置やデザインをお好みで指定できる<br />カスタマイズ性の高さが特徴のWebブックマークです</p>
-            <p class="download-info mt40">
-               <a href="{% url 'auth_login' 'twitter' %}" class="btn btn-info btn-large">Twitter Login</a>
-               <a href="{% url 'auth_login' 'facebook' %}" class="btn btn-primary btn-large">Facebook Login</a>
-            </p>
-        </div>
-    </header>
+    <div class="center">
+        <h1>OtherBu(アザブ)</h1>
+        <p>ブックマークの配置やデザインを<br />お好みで指定できるカスタマイズ性の高さが<br />特徴のWebブックマークです</p>
+        <p class="download-info mt20">
+           <a href="{% url 'auth_login' 'twitter' %}" class="btn btn-info btn-large">Twitter Login</a>
+           <a href="{% url 'auth_login' 'facebook' %}" class="btn btn-primary btn-large">Facebook Login</a>
+        </p>
+    </div>
 {% endblock %}
 
 {% block footer %}
@@ -43,10 +41,6 @@
           background-position: 0 40px;
         }
 
-        .asholder{
-            position: relative;
-        }
-
         .navbar .brand:hover {
             text-decoration: none;
         }
@@ -62,55 +56,11 @@
             color: #ffffff;
         }
 
-        /* Jumbotrons
-        -------------------------------------------------- */
-        .jumbotron {
-          position: relative;
-        }
-        .jumbotron h1 {
-          margin-bottom: 9px;
-          font-size: 81px;
-          letter-spacing: -1px;
-          line-height: 1;
-        }
-        .jumbotron p {
-          margin-bottom: 18px;
-          font-weight: 300;
-        }
-        .jumbotron .btn-large {
-          font-size: 20px;
-          font-weight: normal;
-          padding: 14px 24px;
-          margin-right: 10px;
-          -webkit-border-radius: 6px;
-             -moz-border-radius: 6px;
-                  border-radius: 6px;
-        }
-
-        /* Masthead (docs home) */
-        .masthead {
-          padding-top: 36px;
-          margin-bottom: 72px;
-        }
-        .masthead h1,
-        .masthead p {
-          text-align: center;
-        }
-        .masthead h1 {
-          margin-bottom: 18px;
-        }
-        .masthead p {
-          margin-left: 5%;
-          margin-right: 5%;
-          font-size: 30px;
-          line-height: 36px;
-        }
-
         /* Footer
         -------------------------------------------------- */
         .footer {
           margin-top: 45px;
-          padding: 35px 0 36px;
+          padding: 5px 10px;
           border-top: 1px solid #e5e5e5;
         }
         .footer p {

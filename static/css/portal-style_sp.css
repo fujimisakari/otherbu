@@ -1,0 +1,85 @@
+
+/*  カテゴリカラー
+========================================== */
+.category-color {
+    margin: 0px 2px 3px 2px;
+    padding: 5px 0 15px 0;
+}
+
+.category-color p {
+    float: left;
+    width: 30%;
+    padding: 35px 0 0 5px;
+}
+
+ul.colors li {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #EEE;
+    float: left;
+    display: inline;
+    margin: 0 8px 0 0;
+    cursor: pointer;
+}
+
+.category-color:after { /* for Modern Browser */
+    content: "."; display: block; clear: both; height: 0; visibility: hidden; font-size: 0;
+}
+
+
+/*  ブックマーク、カテゴリ
+========================================== */
+.column{
+    margin-right: 3%;
+    min-height: 300px;
+}
+.column .dragbox{
+    margin: 5px 2px 15px;
+    position: relative;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+}
+.column .dragbox h2{
+    margin: 0;
+    font-size: 14px;
+    padding: 8px;
+    line-height: 18px;
+    cursor: move;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.column .dragbox h2 .category-title{
+    cursor: pointer;
+}
+
+.dragbox h2 .configure{
+    float:right;
+    cursor: pointer;
+}
+
+.dragbox-content{
+    margin: 0px 2px 2px 2px;
+    padding: 8px 0;
+}
+
+.dragbox-content ul{
+    margin: 0 0 0 10px;
+}
+
+.dragbox-content ul li{
+    line-height: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.column .placeholder{
+    border: 3px dashed #999;
+}
+
+.dragbox h2 .subcollapse{
+	/* background:#f2bc00 url('/bookmark/static/img/collapse.png') no-repeat top right; */
+}
+

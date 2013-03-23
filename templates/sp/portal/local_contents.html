@@ -1,7 +1,7 @@
 {% extends 'base_contents.html' %}
 
 {% block local_css %}
-    <link href="{{ MEDIA_CSS }}/portal-style.css" rel="stylesheet">
+    <link href="{{ MEDIA_CSS }}/portal-style_sp.css" rel="stylesheet">
     <style>
         .dragbox-content,
         .category-color{
@@ -54,10 +54,32 @@
                 .color-{{ color.id }} i {background-image: url("{{ MEDIA_IMG }}/glyphicons-halflings-white.png");}
             {% endif %}
         {% endfor %}
+
+        .viewport {
+            width: 320px;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        .flipsnap {
+            width: 1255px;
+        }
+
+        .item {
+            float: left;
+            width: 300px;
+            padding: 0 70px 0 10px;
+        }
     </style>
 {% endblock %}
 
 {% block local_js %}
     <script src="{{ MEDIA_JS }}/jquery-ui-1.7.2.custom.min.js"></script>
+    <script src="{{ MEDIA_JS }}/flipsnap.min.js"></script>
     <script src="{{ MEDIA_JS }}/portal.js"></script>
+    <script type="text/javascript">
+    <!--
+        Flipsnap('.flipsnap');
+    // -->
+    </script>
 {% endblock %}
