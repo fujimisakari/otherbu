@@ -72,6 +72,7 @@
         }
 
         .viewport .pointer {
+            position: relative;
             text-align: center;
             margin-bottom: 10px;
         }
@@ -85,7 +86,7 @@
         }
 
         .viewport .pointer span.current {
-            background: red;
+            background: #ffff00;
         }
     </style>
 {% endblock %}
@@ -101,6 +102,10 @@
         $(".viewport .pointer span").filter('.current').removeClass('current');
         $(".viewport .pointer span").eq(flipsnap.currentPoint).addClass('current');
         }, false);
+
+        window.onload = function(){
+             setTimeout("scrollTo(0,1)", 100);
+        }
     // -->
     </script>
 {% endblock %}
