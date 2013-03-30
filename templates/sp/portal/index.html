@@ -1,6 +1,12 @@
 {% extends 'portal/local_contents.html' %}
 
 {% block contents %}
+    {% if design.portal_back_kind %}
+        {% if design.image_position == 'no-repeat' %}
+            <img class="bg" src="{{ MEDIA_USER_BK_IMG }}/{{ user.type }}/{{ user.user_dir }}/{{ BK_IMAGE_NAME }}.{{ design.bk_image_ext }}" alt="background-image" />
+        {% endif %}
+    {% endif %}
+
     <div class="viewport">
        <div class="pointer">
            <span class="current"></span>

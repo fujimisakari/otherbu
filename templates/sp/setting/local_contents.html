@@ -1,0 +1,30 @@
+{% extends 'base_contents.html' %}
+{% load url from future %}
+
+{% block contents %}
+    {% block info %}{% endblock %}
+{% endblock %}
+
+{% block local_css %}
+    <link href="{{ MEDIA_CSS }}/setting-style.css" rel="stylesheet">
+    <style>
+        .setting-container{
+            background-image: url({{ MEDIA_IMG }}/wash-white.png);
+            padding: 15px 15px 0 15px;
+        }
+
+        .setting-form {
+          background-color: #eee;
+        }
+
+        .setting-form legend {
+          margin-bottom: 15px;
+          border-bottom: 1px solid #333;
+        }
+    </style>
+    {% block sub_local_css %}{% endblock %}
+{% endblock %}
+
+{% block local_js %}
+    {% block sub_local_js %}{% endblock %}
+{% endblock %}
