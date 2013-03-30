@@ -25,3 +25,4 @@ class TemplateFilterMiddleware(object):
             else:
                 # PCの場合
                 request.is_pc = True
+                settings.TEMPLATE_DIRS = settings.PC_TEMPLATE_DIRS
