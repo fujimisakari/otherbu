@@ -54,7 +54,7 @@ class User(models.Model):
 
     @property
     def page(self):
-        return Page.objects.get(self.page_id)
+        return Page.get_cache(self.page_id)
 
     @property
     def design(self):
