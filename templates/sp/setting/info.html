@@ -55,26 +55,36 @@
                     <dt>2013/03/24</dt>
                     <dd>・SmartPhone(iPhone, Android)に対応</dd>
                 </dl>
-                <dl>
-                    <dt>2013/03/10</dt>
-                    <dd>・インポート機能の追加</dd>
-                    <dd>・エクスポート機能の追加</dd>
-                </dl>
-                <dl>
-                    <dt>2013/03/02</dt>
-                    <dd>・カテゴリデザインの変更</dd>
-                    <dd>・ヘルプを追加</dd>
-                </dl>
-                <dl>
-                    <dt>2013/02/17</dt>
-                    <dd>・ページ機能の追加</dd>
-                    <dd>・ブックマーク移動機能の追加</dd>
-                    <dd>・ナビゲーションメニューのデザイン変更</dd>
-                </dl>
+                <div class="navi-history mb20" style="cursor: pointer;">もっと見る</div>
+                <div class="history-area" style="display: none">
+                    <dl>
+                        <dt>2013/03/10</dt>
+                        <dd>・インポート機能の追加</dd>
+                        <dd>・エクスポート機能の追加</dd>
+                    </dl>
+                    <dl>
+                        <dt>2013/03/02</dt>
+                        <dd>・カテゴリデザインの変更</dd>
+                        <dd>・ヘルプを追加</dd>
+                    </dl>
+                    <dl>
+                        <dt>2013/02/17</dt>
+                        <dd>・ページ機能の追加</dd>
+                        <dd>・ブックマーク移動機能の追加</dd>
+                        <dd>・ナビゲーションメニューのデザイン変更</dd>
+                    </dl>
+                </div>
             </div>
         </div>
     </div>
 {% endblock %}
 
 {% block sub_local_js %}
+    <script type="text/javascript">
+    <!--
+        $('.navi-history').click(function(){
+            $('.history-area').slideToggle('slow');
+        });
+    // -->
+    </script>
 {% endblock %}

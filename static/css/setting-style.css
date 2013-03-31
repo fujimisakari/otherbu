@@ -101,6 +101,9 @@ body > .container {
     width: 450px
 }
 
+.setting-form {
+    margin-bottom: 20px;
+}
 /* ブックマークの余分なマージンを消す */
 .setting-form form {
     margin: 0;
