@@ -23,7 +23,11 @@ class User(models.Model):
     def category_list(self):
         c_list = Category.get_cache_user(self.pk)
         if self.page_id:
-            c_list = [c for c in c_list if c.id in self.page.category_ids]
+            try:
+                c_list = [c for c in c_list if c.id in self.page.category_ids]
+            except:
+                self.page_id = 0
+                self.save()
         c_list = sorted(c_list, key=lambda x: x.angle)
         c_list = sorted(c_list, key=lambda x: x.sort)
         return c_list
@@ -50,7 +54,7 @@ class User(models.Model):
 
     @property
     def page(self):
-        return Page.get_cache(self.page_id)
+        return Page.objects.get(self.page_id)
 
     @property
     def design(self):
