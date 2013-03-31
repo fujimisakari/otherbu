@@ -58,7 +58,11 @@
                                 <li><a href="{% url 'export_index' %}">エクスポート</a></li>
                                 <li><a href="{% url 'info_index' %}">OtherBuについて</a></li>
                                 <li class="divider"></li>
-                                <li><a href="{% url 'logout' %}">ログアウト</a></li>
+                                {% if is_demo %}
+                                    <li><a href="{% url 'logout' %}">DEMOからログアウト</a></li>
+                                {% else %}
+                                    <li><a href="{% url 'logout' %}">ログアウト</a></li>
+                                {% endif %}
                             </ul>
                         </li>
                         <li>
@@ -96,7 +100,7 @@
                         <div class="controls">
                           <select id="bookmark-category" name="select_category">
                                 <option value="">カテゴリを選択してください</option>
-                                {% for category in category_list %}
+                                {% for category in all_category_list %}
                                     <option value="{{ category.id }}">{{ category.name }}</option>
                                 {% endfor %}
                             </select><br />
