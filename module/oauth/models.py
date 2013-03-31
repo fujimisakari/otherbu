@@ -23,6 +23,15 @@ class User(models.Model):
     def category_list(self):
         c_list = Category.get_cache_user(self.pk)
         if self.page_id:
+            c_list = [c for c in c_list if c.id in self.page.category_ids]
+        c_list = sorted(c_list, key=lambda x: x.angle)
+        c_list = sorted(c_list, key=lambda x: x.sort)
+        return c_list
+
+    @property
+    def no_cache_category_list(self):
+        c_list = Category.objects.filter(user_id=self.pk)
+        if self.page_id:
             try:
                 c_list = [c for c in c_list if c.id in self.page.category_ids]
             except:
@@ -40,6 +49,13 @@ class User(models.Model):
         return c_list
 
     @property
+    def no_cache_all_category_list(self):
+        c_list = Category.objects.filter(user_id=self.pk)
+        c_list = sorted(c_list, key=lambda x: x.angle)
+        c_list = sorted(c_list, key=lambda x: x.sort)
+        return c_list
+
+    @property
     def bookmark_list(self):
         bk_list = Bookmark.get_cache_user(self.pk)
         bk_list = sorted(bk_list, key=lambda x: x.category_id)
@@ -47,9 +63,20 @@ class User(models.Model):
         return bk_list
 
     @property
+    def no_cache_bookmark_list(self):
+        bk_list = Bookmark.objects.filter(user_id=self.pk)
+        bk_list = sorted(bk_list, key=lambda x: x.category_id)
+        bk_list = sorted(bk_list, key=lambda x: x.sort)
+        return bk_list
+
+    @property
     def page_list(self):
         page_list = Page.get_cache_user(self.pk)
-        page_list = [page for page in page_list]
+        return page_list
+
+    @property
+    def no_cache_page_list(self):
+        page_list = Page.objects.filter(user_id=self.pk)
         return page_list
 
     @property

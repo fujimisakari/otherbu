@@ -32,15 +32,26 @@ def user_context(request):
         if isinstance(user, User):
             cc_list = CategoryColor.get_cache_all()
             cc_list = sorted(cc_list, key=lambda x: x.sort)
-            return {
+            result_dict = {
                 'user': user,
-                'category_list': user.category_list,
-                'all_category_list': user.all_category_list,
-                'bookmark_list': user.bookmark_list,
-                'page_list': user.page_list,
                 'color_list': cc_list,
                 'design': user.design,
             }
+            if request.session.get('DEMO_PAGE', False):
+                result_dict.update({
+                    'category_list': user.no_cache_category_list,
+                    'all_category_list': user.no_cache_all_category_list,
+                    'bookmark_list': user.no_cache_bookmark_list,
+                    'page_list': user.no_cache_page_list,
+                })
+            else:
+                result_dict.update({
+                    'category_list': user.category_list,
+                    'all_category_list': user.all_category_list,
+                    'bookmark_list': user.bookmark_list,
+                    'page_list': user.page_list,
+                })
+            return result_dict
         else:
             return {}
     else:
