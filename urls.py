@@ -3,7 +3,7 @@
 from django.conf import settings
 from django.conf.urls.defaults import patterns, include, url
 from module.ajax.views import get_page_title, get_sugetst, swap_category, tag_open, update_color
-from module.oauth.views import logout
+from module.oauth.views import logout, demo_page
 
 urlpatterns = patterns(
     '',
@@ -11,6 +11,7 @@ urlpatterns = patterns(
     (r'^login/', include('module.root.urls')),
     (r'^oauth/', include('module.oauth.urls')),
     (r'^setting/', include('module.setting.urls')),
+    url(r'^demo_page/$', demo_page, name='demo_page'),
     url(r'^logout/$', logout, name='logout'),
     url(r'^get_title/$', get_page_title, name='get_title'),
     url(r'^get_suggest/$', get_sugetst, name='get_suggest'),

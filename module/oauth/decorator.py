@@ -9,9 +9,16 @@ from module.oauth.models import User, Passport
 
 
 def _passport_check(request):
+    # 開発用
     if settings.AUTO_LOGIN:
         passport_key = request.COOKIES.get('passport', None)
         request.user = User.objects.get(id=1)
+        return True
+
+    # デモページ用
+    if request.session.get('DEMO_PAGE', False):
+        passport_key = request.COOKIES.get('passport', None)
+        request.user = User.objects.get(id=settings.DEMO_USER_ID)
         return True
 
     passport_key = request.COOKIES.get('passport', None)

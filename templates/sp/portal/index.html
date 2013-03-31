@@ -14,6 +14,12 @@
            <span></span>
        </div>
 
+       {% if is_demo %}
+           <div class="demo_msg center font_13 bold mb10">
+               DEMOページです。<br />3分毎に登録・編集情報はリセットされます
+           </div>
+       {% endif %}
+
        <div class="flipsnap">
            {% for column_id in COLUMN %}
                <div class="column item" id="column-{{ forloop.counter }}">

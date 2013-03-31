@@ -30,9 +30,23 @@ def login(request, auth_type=None):
         response = HttpResponseRedirect(reverse('portal_index'))
         response.set_cookie('passport', value=uuid.uuid4(), expires=expire_date)
         return response
+    if request.session.get('DEMO_PAGE', False):
+        del request.session['DEMO_PAGE']
     auth_handler = select_auth_type(auth_type)
     auth_url = auth_handler.auth_login(request)
     return HttpResponseRedirect(auth_url)
+
+
+def demo_page(request):
+    if settings.AUTO_LOGIN:
+        return HttpResponseRedirect(reverse('root_index'))
+    request.session['DEMO_PAGE'] = True
+    now = datetime.datetime.now()
+    expire = datetime.timedelta(days=settings.PASSPORT_EXPIRE)
+    expire_date = now + expire
+    response = HttpResponseRedirect(reverse('portal_index'))
+    response.set_cookie('passport', value=uuid.uuid4(), expires=expire_date)
+    return response
 
 
 @transaction.commit_on_success

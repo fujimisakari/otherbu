@@ -96,6 +96,8 @@
         {% endif %}
     {% endif %}
 
+
+
     {% block header_navi %}
     {% endblock %}
 
@@ -103,6 +105,13 @@
     {% endblock %}
 
     <div class="container setting-container">
+
+        {% if is_demo %}
+            <div class="center font_16 bold mb10">
+                DEMOページです。<br />3分毎に登録・編集情報はリセットされます
+            </div>
+        {% endif %}
+
         {% block help %}
         {% endblock %}
 
