@@ -18,6 +18,7 @@ def common_context(request):
         'MEDIA_USER_BK_IMG': settings.MEDIA_USER_BK_IMG,
         'BK_IMAGE_NAME': settings.BK_IMAGE_NAME,
         'USER_IMAGE': settings.USER_IMAGE,
+        'demo_reset_time': settings.DEMO_RESET_TIME,
         'is_demo': request.session.get('DEMO_PAGE', False),
     }
 
