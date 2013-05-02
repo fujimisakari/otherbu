@@ -1,7 +1,9 @@
 BeautifulSoup==3.2.1
 Django==1.4
+IPy==0.76
 MySQL-python==1.2.3
 South==0.7.6
 simplejson==2.6.0
 tweepy==1.10
+uamobile==0.2.16
 wsgiref==0.1.2
