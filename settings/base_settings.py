@@ -164,8 +164,8 @@ DEMO_RESET_TIME = 10
 # MEDIA_BASE = '/media/'
 # MEDIA_URL = '/static/'
 SITE_TITLE = 'OtherBu'
-MEDIA_CSS = '/otherbu/static/css'
-MEDIA_JS = '/otherbu/static/js'
+MEDIA_CSS = '/static/css'
+MEDIA_JS = '/static/js'
 MEDIA_IMG = '/otherbu/static/img'
 MEDIA_USER_BK_IMG = '/otherbu/static/user'
 USER_IMG_DIR = os.path.join(ROOT_PATH, '../static/user')
@@ -209,18 +209,18 @@ BK_IMAGE_EXT = "jpg"
 
 # bookmark, category
 INIT_DATA_LIST = [
-    {'category': ('動画サイト', 2, 2, 3, 1, 0),
-     'bookmark': [('YouTube - Broadcast Yourself  ', 'http://youtube.co.jp', 1, 0),
-                  ('ニコニコ動画(原宿)', 'http://www.nicovideo.jp/video_top/', 2, 0)]},
-    {'category': ('SNS', 3, 1, 4, 1, 0),
-     'bookmark': [('Facebook - フェイスブック - ログイン (日本語)', 'http://facebook.com', 1, 0),
+    {'category': ('動画サイト', 2, 2, 3, 1),
+     'bookmark': [('YouTube - Broadcast Yourself  ', 'http://youtube.co.jp', 1),
+                  ('ニコニコ動画(原宿)', 'http://www.nicovideo.jp/video_top/', 2)]},
+    {'category': ('SNS', 3, 1, 4, 1),
+     'bookmark': [('Facebook - フェイスブック - ログイン (日本語)', 'http://facebook.com', 1),
                   ('Twitter', 'https://twitter.com/', 2, 0),
-                  ('ソーシャル・ネットワーキング サービス [mixi(ミクシィ)]', 'http://mixi.jp/', 3, 0)]},
-    {'category': ('ポータルサイト', 1, 1, 9, 0, 0),
-     'bookmark': [('Google', 'http://google.co.jp', 1, 0),
-                 ('Yahoo! JAPAN', 'http://yahoo.co.jp', 2, 0)]},
-    {'category': ('お気に入り', 1, 2, 16, 1, 0),
-     'bookmark': [('カミソリ・髭剃りとメンズグルーミングの専門店　｜　カミソリ倶楽部', 'http://www.kamisoriclub.co.jp/', 3, 0),
-                  ('日本大相撲協会公式サイト', 'http://www.sumo.or.jp/', 2, 0),
-                  ('グルメ・レストランガイド 食べログ', 'http://tabelog.com/', 1, 0)]},
+                  ('ソーシャル・ネットワーキング サービス [mixi(ミクシィ)]', 'http://mixi.jp/', 3)]},
+    {'category': ('ポータルサイト', 1, 1, 9, 0),
+     'bookmark': [('Google', 'http://google.co.jp', 1),
+                 ('Yahoo! JAPAN', 'http://yahoo.co.jp', 2)]},
+    {'category': ('お気に入り', 1, 2, 16, 1),
+     'bookmark': [('カミソリ・髭剃りとメンズグルーミングの専門店　｜　カミソリ倶楽部', 'http://www.kamisoriclub.co.jp/', 3),
+                  ('日本大相撲協会公式サイト', 'http://www.sumo.or.jp/', 2),
+                  ('グルメ・レストランガイド 食べログ', 'http://tabelog.com/', 1)]},
 ]

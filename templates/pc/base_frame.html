@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja" dir="ltr" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="content-style-type" content="text/css; charset=utf-8" />
@@ -10,6 +10,14 @@
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="author" content="" />
+    <meta property="og:title" content="Otherbu" />
+    <meta property="og:type" content="article" />
+    <meta property="og:description" content="ブックマークの配置やデザインをお好みで指定できる\nカスタマイズ性の高さが特徴のWebブックマークです" />
+    <meta property="og:url" content="http://otherbu.com" />
+    <meta property="og:image" content="http://otherbu.com/static/img/logo.png" />
+    <meta property="og:site_name" content="Otherbu" />
+    <meta property="og:locale" content="ja" />
+    <meta property="fb:app_id" content="170591299734610" />
     <link rel="shortcut icon" href="{{ MEDIA_IMG }}/favicon.ico">
     <link rel="icon" href="{{ MEDIA_IMG }}/favicon.ico">
     <link href="{{ MEDIA_CSS }}/bootstrap.css" rel="stylesheet">
@@ -104,9 +112,11 @@
 
     <div class="container setting-container">
 
-        {% if is_demo %}
+        {% if not is_demo %}
             <div class="center font_16 bold mb10">
-                DEMOページです。<br />{{ demo_reset_time }}分毎に登録・編集情報はリセットされます
+                DEMOページです。{{ demo_reset_time }}分毎に登録・編集情報はリセットされます<br />
+                カテゴリ名をクリックすると開閉できます<br />
+                カテゴリバーをドラッグすると配置移動できます<br />
             </div>
         {% endif %}
 
