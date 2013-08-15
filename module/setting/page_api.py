@@ -57,17 +57,17 @@ def p_select(user, page_id):
 
 
 def p_edit(user, post_data):
-    category_ids = ''
+    page = Page.objects.get(user_id=user.id, id=post_data['page_id'])
+    page.name = post_data['name']
+    angle_dict = page.angle_dict
+    sort_dict = page.sort_dict
     angle_ids_str_list = []
     sort_ids_str_list = []
     if post_data['category_ids']:
-        category_ids = ','.join(post_data['category_ids'])
-        for i, category_id in enumerate(post_data['category_ids'], 1):
-            angle_ids_str_list.append(u'{}:{}'.format(category_id, 1))
-            sort_ids_str_list.append(u'{}:{}'.format(category_id, i))
-    page = Page.objects.get(user_id=user.id, id=post_data['page_id'])
-    page.name = post_data['name']
-    page.category_ids_str = category_ids
+        for category_id in post_data['category_ids']:
+            angle_ids_str_list.append(u'{}:{}'.format(category_id, angle_dict.get(int(category_id), 1)))
+            sort_ids_str_list.append(u'{}:{}'.format(category_id, sort_dict.get(int(category_id), 0)))
+    page.category_ids_str = ','.join(post_data['category_ids'])
     page.angle_ids_str = u','.join(angle_ids_str_list)
     page.sort_ids_str = u','.join(sort_ids_str_list)
     page.save()
