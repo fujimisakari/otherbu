@@ -13,7 +13,7 @@ from module.setting.category_api import get_category_form, c_regist, c_edit, c_d
 from module.setting.design_api import get_design_form, d_edit
 from module.setting.page_api import get_page, p_regist, p_delete, p_edit, p_select, get_page_category_list
 from module.setting.import_api import get_import_form, import_proc
-from module.setting.forms import BookmarkFormSet, CategoryFormSet, DesignFormSet, ImportFormSet
+from module.setting.forms import BookmarkFormSet, CategoryFormSet, DesignFormSet
 
 
 def _session_delete(request, session_keys):

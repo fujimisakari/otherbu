@@ -38,8 +38,7 @@ def tag_open(request):
     if request.method == 'POST':
         r = re.compile(r"h2-")
         category_id = r.sub('', request.POST['category_id'])
-        user = request.user
-        category = Category.objects.get(id=category_id, user_id=user.id)
+        category = Category.get_cache(category_id)
         if category.tag_open:
             category.tag_open = False
         else:
@@ -58,8 +57,7 @@ def update_color(request):
         r2 = re.compile(r"color-")
         category_id = r1.sub('', request.POST['category_id'])
         color_id = r2.sub('', request.POST['color'])
-        user = request.user
-        category = Category.objects.get(id=category_id, user_id=user.id)
+        category = Category.get_cache(category_id)
         category.color_id = color_id
         category.save()
         return HttpResponse()
@@ -79,22 +77,38 @@ def swap_category(request):
         otherColumnFlg = request.POST['otherColumnFlg']
         r = re.compile(r"column-")
         r1 = re.compile(r",$")
+        r2 = re.compile(r"item-")
 
         # 移動元、移動先どちらの更新か判定
         user = request.user
-        if otherColumnFlg == 'true':
-            # 移動先
+        if user.page_id:
+            page = user.page
+            angle_ids_str_list = []
+            sort_ids_str_list = []
             for columns, category_ids in update_col.iteritems():
-                if columns != beginColumn:
-                    category_ids = category_ids + ','
-                    if re.search(beginRow + ",", category_ids):
-                        angle_id = r.sub('', columns)
-                        category_ids = r1.sub('', category_ids)
-                        _portal_update(category_ids, angle_id, user)
+                angle_id = r.sub('', columns)
+                if category_ids:
+                    update_col = r2.sub('', category_ids)
+                    for i, category_id in enumerate(update_col.split(','), 1):
+                        angle_ids_str_list.append(u'{}:{}'.format(category_id, angle_id))
+                        sort_ids_str_list.append(u'{}:{}'.format(category_id, i))
+            page.angle_ids_str = ','.join(angle_ids_str_list)
+            page.sort_ids_str = ','.join(sort_ids_str_list)
+            page.save()
         else:
-            # 移動元
-            angle_id = r.sub('', beginColumn)
-            _portal_update(update_col[beginColumn], angle_id, user)
+            if otherColumnFlg == 'true':
+                # 移動先
+                for columns, category_ids in update_col.iteritems():
+                    if columns != beginColumn:
+                        category_ids = category_ids + ','
+                        if re.search(beginRow + ",", category_ids):
+                            angle_id = r.sub('', columns)
+                            category_ids = r1.sub('', category_ids)
+                            _portal_update(category_ids, angle_id, user)
+            else:
+                # 移動元
+                angle_id = r.sub('', beginColumn)
+                _portal_update(update_col[beginColumn], angle_id, user)
         return HttpResponse()
 
 
@@ -105,7 +119,7 @@ def _portal_update(columns, angle_id, user):
     r = re.compile(r"item-")
     update_col = r.sub('', columns)
     for i, category_id in enumerate(update_col.split(',')):
-        category = Category.objects.get(id=category_id, user_id=user.id)
+        category = Category.get_cache(category_id)
         category.angle = angle_id
         category.sort = i + 1
         category.save()

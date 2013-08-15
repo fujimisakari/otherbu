@@ -20,12 +20,18 @@ def c_regist(user, post_data):
     def get_next_sort_count():
         return Category.objects.filter(user_id=user.pk, angle=post_data['angle']).count() + 1
 
-    Category.objects.create(
+    category = Category.objects.create(
         user_id=user.pk,
         name=post_data['name'],
         angle=post_data['angle'],
         sort=get_next_sort_count(),
     )
+    if user.page_id:
+        page = user.page
+        page.category_ids_str += u',{}'.format(category.id)
+        page.angle_ids_str += u',{}:{}'.format(category.id, post_data['angle'])
+        page.sort_ids_str += u',{}:0'.format(category.id)
+        page.save()
 
 
 def c_edit(user, formset):

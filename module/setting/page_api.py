@@ -13,6 +13,13 @@ def get_page_category_list(user_id, p_id):
         return []
     c_list = Category.get_cache_user(user_id)
     c_list = [c for c in c_list if c.id in page.category_ids]
+    angle_dict = page.angle_dict
+    sort_dict = page.sort_dict
+    for c in c_list:
+        if angle_dict:
+            c.angle = angle_dict[c.id]
+        if sort_dict:
+            c.sort = sort_dict[c.id]
     c_list = sorted(c_list, key=lambda x: x.angle)
     c_list = sorted(c_list, key=lambda x: x.sort)
     return c_list
@@ -31,7 +38,7 @@ def p_regist(user, post_data):
 
 def p_select(user, page_id):
     try:
-        page = Page.objects.get(user_id=user.id, id=page_id)
+        page = Page.get_cache(page_id)
     except:
         user.page_id = 0
         user.save()

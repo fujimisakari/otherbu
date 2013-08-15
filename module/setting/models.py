@@ -40,12 +40,38 @@ class Page(AbustractCachedModel):
     user_id = models.IntegerField(u'ユーザーID', db_index=True)
     name = models.CharField(u'カテゴリ名', max_length=100)
     category_ids_str = models.CharField(u'ページに含むカテゴリ', max_length=255)
+    angle_ids_str = models.CharField(u'ページに含むカテゴリ位置', max_length=255, blank=True, null=True)
+    sort_ids_str = models.CharField(u'ページに含むカテゴリ順番', max_length=255, blank=True, null=True)
 
     @property
     def category_ids(self):
         category_ids = self.category_ids_str.split(',')
         category_ids = [int(c) for c in category_ids]
         return category_ids
+
+    @property
+    def angle_dict(self):
+        result_dict = {}
+        if self.angle_ids_str:
+            angle_ids = self.angle_ids_str.split(',')
+            for angle_id_str in angle_ids:
+                angle_list = angle_id_str.split(':')
+                category_id = int(angle_list[0])
+                angle_id = int(angle_list[1])
+                result_dict[category_id] = angle_id
+        return result_dict
+
+    @property
+    def sort_dict(self):
+        result_dict = {}
+        if self.sort_ids_str:
+            sort_ids = self.sort_ids_str.split(',')
+            for sort_id_str in sort_ids:
+                sort_list = sort_id_str.split(':')
+                category_id = int(sort_list[0])
+                sort_id = int(sort_list[1])
+                result_dict[category_id] = sort_id
+        return result_dict
 
 
 class Bookmark(AbustractCachedModel):
@@ -61,7 +87,7 @@ class Bookmark(AbustractCachedModel):
         return Category.get_cache(self.category_id)
 
 
-class Design(models.Model):
+class Design(AbustractCachedModel):
     user_id = models.IntegerField(u'ユーザーID', unique=True, db_index=True)
     linkmark_flg = models.BooleanField(u'リンクマーク', default=0)
     link_color = models.CharField(u'リンク色', max_length=10, default='#005580')

@@ -24,6 +24,13 @@ class User(models.Model):
         c_list = Category.get_cache_user(self.pk)
         if self.page_id:
             c_list = [c for c in c_list if c.id in self.page.category_ids]
+            angle_dict = self.page.angle_dict
+            sort_dict = self.page.sort_dict
+            for c in c_list:
+                if angle_dict:
+                    c.angle = angle_dict[c.id]
+                if sort_dict:
+                    c.sort = sort_dict[c.id]
         c_list = sorted(c_list, key=lambda x: x.angle)
         c_list = sorted(c_list, key=lambda x: x.sort)
         return c_list
@@ -85,7 +92,7 @@ class User(models.Model):
 
     @property
     def design(self):
-        return Design.objects.get(user_id=self.pk)
+        return Design.get_cache_user(self.pk)[0]
 
     @property
     def passport(self):

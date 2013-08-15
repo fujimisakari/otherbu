@@ -7,7 +7,7 @@ from module.setting.forms import DesignFormSet
 
 
 def get_design_form(user):
-    design = Design.objects.get(user_id=user.id)
+    design = Design.get_cache_user(user.id)[0]
     design_dict = {'linkmark_flg': design.linkmark_flg,
                    'link_color': design.link_color,
                    'category_back_color': design.category_back_color,
@@ -21,7 +21,7 @@ def get_design_form(user):
 
 def d_edit(request, user, formset):
     for c_data in formset.cleaned_data:
-        design = Design.objects.get(user_id=user.id)
+        design = Design.get_cache_user(user.id)[0]
         # イメージ画像をアップロード
         if request.FILES.get('form-0-image_upload', False):
             dir_path = "%s/%s/%s" % (settings.USER_IMG_DIR, user.type, user.user_dir)
