@@ -51,8 +51,7 @@ class User(models.Model):
     @property
     def all_category_list(self):
         c_list = Category.get_cache_user(self.pk)
-        c_list = sorted(c_list, key=lambda x: x.angle)
-        c_list = sorted(c_list, key=lambda x: x.sort)
+        c_list = sorted(c_list, key=lambda x: x.name)
         return c_list
 
     @property
