@@ -11,8 +11,8 @@ class User(models.Model):
     type_id = models.CharField(u'認証先ID', max_length=255)
     name = models.CharField(u'ユーザー名', max_length=50)
     user_dir = models.CharField(u'ユーザーディレクトリ名', max_length=20)
-    access_token_key = models.CharField(u'アクセストークン(key)', max_length=200)
-    access_token_secret = models.CharField(u'アクセストークン(secret)', max_length=200)
+    access_token_key = models.CharField(u'アクセストークン(key)', max_length=255)
+    access_token_secret = models.CharField(u'アクセストークン(secret)', max_length=255)
     page_id = models.IntegerField(u'現在のページ', default=0)
     created_at = models.DateTimeField(u'作成日時', auto_now_add=True)
 

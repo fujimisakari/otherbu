@@ -53,4 +53,4 @@ class Me(object):
         self.screen_name = simplejson.loads(json_user)['name']
         self.access_token_key = access_token
         self.access_token_secret = ""
-        self.user_dir = simplejson.loads(json_user)['username']
+        self.user_dir = simplejson.loads(json_user)['id']
