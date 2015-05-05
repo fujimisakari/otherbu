@@ -8,12 +8,6 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Deleting field 'Bookmark.del_flg'
-        db.delete_column('setting_bookmark', 'del_flg')
-
-        # Deleting field 'Category.del_flg'
-        db.delete_column('setting_category', 'del_flg')
-
         db.delete_index('setting_bookmark', ['user_id', 'del_flg'])
         db.delete_index('setting_bookmark', ['user_id', 'category_id', 'del_flg'])
         db.delete_index('setting_category', ['user_id', 'del_flg'])
@@ -22,6 +16,11 @@ class Migration(SchemaMigration):
         db.create_index('setting_bookmark', ['user_id', 'category_id'])
         db.create_index('setting_category', ['user_id', 'angle'])
 
+        # Deleting field 'Bookmark.del_flg'
+        db.delete_column('setting_bookmark', 'del_flg')
+
+        # Deleting field 'Category.del_flg'
+        db.delete_column('setting_category', 'del_flg')
 
     def backwards(self, orm):
         # Adding field 'Bookmark.del_flg'
