@@ -5,7 +5,7 @@ import uuid
 import shutil
 from django.conf import settings
 from module.oauth.models import User, Passport
-from module.setting.models import Bookmark, Category, Design
+from module.setting.models import Bookmark, Category, Design, DeleteManager
 from module.misc.common_api import create_userdir
 
 
@@ -73,6 +73,9 @@ class OauthBase(object):
             image_position=settings.IMAGE_POSITION,
             bk_image_ext=settings.BK_IMAGE_EXT,
         )
+
+        # 削除の同期管理クラスのインスタンスを生成
+        DeleteManager.objects.create(user_id=user.id)
 
         # カテゴリ, ブックマークの初期設定
         bookmark_list = []

@@ -36,6 +36,7 @@ def b_move(user, post_data):
     for bookmark in user.bookmark_list:
         if bookmark.id in post_data['bookmark_ids']:
             bookmark.category_id = post_data['after_category_id']
+            bookmark.sync_flag = True
             bookmark.save()
 
 
@@ -46,6 +47,7 @@ def b_edit(user, c_id, formset):
             bookmark.name = c_data['name']
             bookmark.url = url_exchnge(c_data['url'])
             bookmark.sort = c_data['sort']
+            bookmark.sync_flag = True
             bookmark.save()
 
 
@@ -57,4 +59,5 @@ def b_delete(user, c_id, formset):
                     bookmark = Bookmark.objects.get(user_id=user.pk, id=c_data['id'])
                 except Bookmark.DoesNotExist:
                     return False
+                user.delte_manager.add_delete_id('bookmark', bookmark.id)
                 bookmark.delete()

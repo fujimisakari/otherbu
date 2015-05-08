@@ -42,6 +42,7 @@ def p_regist(user, post_data):
         sort_ids_str=u','.join(sort_ids_str_list),
     )
     user.page_id = page.id
+    user.sync_flag = True
     user.save()
 
 
@@ -50,9 +51,11 @@ def p_select(user, page_id):
         page = Page.objects.get(id=page_id)
     except:
         user.page_id = 0
+        user.sync_flag = True
         user.save()
         return
     user.page_id = page.id
+    user.sync_flag = True
     user.save()
 
 
@@ -70,9 +73,11 @@ def p_edit(user, post_data):
     page.category_ids_str = ','.join(post_data['category_ids'])
     page.angle_ids_str = u','.join(angle_ids_str_list)
     page.sort_ids_str = u','.join(sort_ids_str_list)
+    page.sync_flag = True
     page.save()
 
 
 def p_delete(user, page_id):
     page = Page.objects.get(user_id=user.id, id=page_id)
+    user.delte_manager.add_delete_id('page', page.id)
     page.delete()

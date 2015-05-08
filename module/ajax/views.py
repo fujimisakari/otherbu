@@ -43,6 +43,7 @@ def tag_open(request):
             category.tag_open = False
         else:
             category.tag_open = True
+        category.sync_flag = True
         category.save()
         return HttpResponse()
 
@@ -59,6 +60,7 @@ def update_color(request):
         color_id = r2.sub('', request.POST['color'])
         category = Category.get_cache(category_id)
         category.color_id = color_id
+        category.sync_flag = True
         category.save()
         return HttpResponse()
 
@@ -94,6 +96,7 @@ def swap_category(request):
                         sort_ids_str_list.append(u'{}:{}'.format(category_id, i))
             page.angle_ids_str = ','.join(angle_ids_str_list)
             page.sort_ids_str = ','.join(sort_ids_str_list)
+            page.sync_flag = True
             page.save()
         else:
             if otherColumnFlg == 'true':
@@ -122,6 +125,7 @@ def _portal_update(columns, angle_id, user):
         category = Category.get_cache(category_id)
         category.angle = angle_id
         category.sort = i + 1
+        category.sync_flag = True
         category.save()
 
 

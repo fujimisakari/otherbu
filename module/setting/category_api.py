@@ -31,6 +31,7 @@ def c_regist(user, post_data):
         page.category_ids_str += u',{}'.format(category.id)
         page.angle_ids_str += u',{}:{}'.format(category.id, post_data['angle'])
         page.sort_ids_str += u',{}:0'.format(category.id)
+        page.sync_flag = True
         page.save()
 
 
@@ -42,6 +43,7 @@ def c_edit(user, formset):
             except Category.DoesNotExist:
                 return False
             category.name = c_data['name']
+            category.sync_flag = True
             category.save()
 
 
@@ -51,7 +53,11 @@ def c_delete(user, formset):
             if c_data['del_flg']:
                 try:
                     category = Category.objects.get(id=c_data['id'], user_id=user.pk)
-                    Bookmark.objects.filter(user_id=user.pk, category_id=category.id).delete()
+                    bookmark_list = Bookmark.objects.filter(user_id=user.pk, category_id=category.id)
+                    for bookmark in bookmark_list:
+                        user.delte_manager.add_delete_id('bookmark', bookmark.id)
+                        bookmark.delete()
                 except Category.DoesNotExist:
                     return False
+                user.delte_manager.add_delete_id('category', category.id)
                 category.delete()

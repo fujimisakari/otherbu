@@ -35,4 +35,5 @@ def d_edit(request, user, formset):
         design.portal_back_kind = c_data['portal_back_kind']  == "True"
         design.portal_back_color = c_data['portal_back_color']
         design.image_position = c_data['image_position']
+        design.sync_flag = True
         design.save()
