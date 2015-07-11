@@ -19,7 +19,7 @@ class OauthFacebookHandler(OauthBase):
     def auth_login(self, request):
         # 認証URLへリダイレクト
         auth_url = "https://graph.facebook.com/oauth/authorize"
-        auth_url = "%s?client_id=%s&redirect_uri=%s&scope=offline_access" % (auth_url,
+        auth_url = "%s?client_id=%s&redirect_uri=%s" % (auth_url,
                                                                              settings.FACEBOOK_APP_KEY,
                                                                              settings.FACEBOOK_REDIRECT_URI)
         return auth_url
@@ -53,4 +53,4 @@ class Me(object):
         self.screen_name = simplejson.loads(json_user)['name']
         self.access_token_key = access_token
         self.access_token_secret = ""
-        self.user_dir = simplejson.loads(json_user)['username']
+        self.user_dir = simplejson.loads(json_user)['id']
