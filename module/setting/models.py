@@ -6,12 +6,24 @@ from module.misc.common_models import AbustractCachedModel
 
 class Category(AbustractCachedModel):
     user_id = models.IntegerField(u'ユーザーID', db_index=True)
+    mobile_id = models.CharField(u'スマホ版のID', max_length=100, blank=True, null=True)
     name = models.CharField(u'カテゴリ名', max_length=100)
     angle = models.IntegerField(u'位置', default=0)
     sort = models.IntegerField(u'Sort番号', blank=True, null=True)
     color_id = models.IntegerField(u'カテゴリカラーID', default=18)
     tag_open = models.BooleanField(u'初期開放', default=1)
-    # 複合インデックス： ['user_id', 'angle']
+    sync_flag = models.BooleanField(u'同期対象', default=1)
+    updated_at = models.DateTimeField(u'更新日時', auto_now=True)
+    # 複合インデックス： ['user_id', 'angle'], ['user_id', 'sync_flag']
+
+    def __str__(self):
+        member_str = '\nid={},\nuser_id={},\nmobile_id={},\nname={},\nangle={},\nsort={},\ncolor_id={},\ntag_open={},\nsync_flag={},\nupdated_at={}\n'
+        return member_str.format(self.id, self.user_id, self.mobile_id, self.name, self.angle,
+                                 self.sort, self.color_id, self.tag_open, self.sync_flag, self.updated_at)
+
+    def to_dict(self):
+        target = ['id', 'name', 'angle', 'sort', 'color_id', 'tag_open']
+        return dict((x, getattr(self, x)) for x in target)
 
     @property
     def bookmark_list(self):
@@ -38,10 +50,23 @@ class CategoryColor(AbustractCachedModel):
 
 class Page(AbustractCachedModel):
     user_id = models.IntegerField(u'ユーザーID', db_index=True)
+    mobile_id = models.CharField(u'スマホ版のID', max_length=100, blank=True, null=True)
     name = models.CharField(u'カテゴリ名', max_length=100)
-    category_ids_str = models.CharField(u'ページに含むカテゴリ', max_length=255)
-    angle_ids_str = models.CharField(u'ページに含むカテゴリ位置', max_length=255, blank=True, null=True)
-    sort_ids_str = models.CharField(u'ページに含むカテゴリ順番', max_length=255, blank=True, null=True)
+    category_ids_str = models.TextField(u'ページに含むカテゴリ')
+    angle_ids_str = models.TextField(u'ページに含むカテゴリ位置', blank=True, null=True)
+    sort_ids_str = models.TextField(u'ページに含むカテゴリ順番', blank=True, null=True)
+    sync_flag = models.BooleanField(u'同期対象', default=1)
+    updated_at = models.DateTimeField(u'更新日時', auto_now=True)
+    # 複合インデックス： ['user_id', 'angle'], ['user_id', 'sync_flag']
+
+    def __str__(self):
+        member_str = '\nid={}\nuser_id={},\nmobile_id={},\nname={},\ncategory_ids_str={},\nangle_ids_str={},\nsort_ids_str={},\nsync_flag={},\nupdated_at={}\n'
+        return member_str.format(self.id, self.user_id, self.mobile_id, self.name, self.category_ids_str,
+                                 self.angle_ids_str, self.sort_ids_str, self.sync_flag, self.updated_at)
+
+    def to_dict(self):
+        target = ['id', 'user_id', 'mobile_id', 'name', 'category_ids_str', 'angle_ids_str', 'sort_ids_str']
+        return dict((x, getattr(self, x)) for x in target)
 
     @property
     def category_ids(self):
@@ -76,19 +101,31 @@ class Page(AbustractCachedModel):
 
 class Bookmark(AbustractCachedModel):
     user_id = models.IntegerField(u'ユーザーID', db_index=True)
+    mobile_id = models.CharField(u'スマホ版のID', max_length=100, blank=True, null=True)
     category_id = models.IntegerField(u'カテゴリID')
     name = models.CharField(u'Bookmark名', max_length=200, default=0)
     url = models.CharField(u'URL', max_length=200)
     sort = models.IntegerField(u'Sort番号', blank=True, null=True)
-    # 複合インデックス： ['user_id', 'category_id']
+    sync_flag = models.BooleanField(u'同期対象', default=1)
+    updated_at = models.DateTimeField(u'更新日時', auto_now=True)
+    # 複合インデックス： ['user_id', 'category_id'], ['user_id', 'sync_flag']
+
+    def __str__(self):
+        member_str = '\nid={},\nuser_id={},\nmobile_id={},\ncategory_id={},\nname={},\nurl={},\nsort={},\nsync_flag={},\nupdated_at={}\n'
+        return member_str.format(self.id, self.user_id, self.mobile_id, self.category_id,
+                                 self.name, self.url, self.sort, self.sync_flag, self.updated_at)
 
     @property
     def category(self):
         return Category.get_cache(self.category_id)
 
+    def to_dict(self):
+        target = ['id', 'category_id', 'name', 'url', 'sort']
+        return dict((x, getattr(self, x)) for x in target)
+
 
 class Design(AbustractCachedModel):
-    user_id = models.IntegerField(u'ユーザーID', unique=True, db_index=True)
+    user_id = models.IntegerField(u'ユーザーID', unique=True)
     linkmark_flg = models.BooleanField(u'リンクマーク', default=0)
     link_color = models.CharField(u'リンク色', max_length=10, default='#005580')
     category_back_color = models.CharField(u'カテゴリ背景色', max_length=10, default='#FFF')
@@ -96,3 +133,44 @@ class Design(AbustractCachedModel):
     portal_back_color = models.CharField(u'画面背景色', max_length=10, default='#FFF')
     image_position = models.CharField(u'画像の配置', max_length=30)
     bk_image_ext = models.CharField(u'背景画像の拡張子', max_length=30, null=True)
+    sync_flag = models.BooleanField(u'同期対象', default=1)
+    updated_at = models.DateTimeField(u'更新日時', auto_now=True)
+
+    def __str__(self):
+        member_str = '\nid={},\nlinkmark_flg={},\nlink_color={},\ncategory_back_color={},\nportal_back_kind={},\nportal_back_color={},\nimage_position={},\nbk_image_ext={},\nsync_flag={},\nupdated_at={}\n'
+        return member_str.format(self.id, self.linkmark_flg, self.link_color, self.category_back_color, self.portal_back_kind,
+                                 self.portal_back_color, self.image_position, self.bk_image_ext, self.sync_flag, self.updated_at)
+
+    def to_dict(self):
+        target = ['id', 'category_back_color', 'link_color']
+        return dict((x, getattr(self, x)) for x in target)
+
+
+class DeleteManager(AbustractCachedModel):
+
+    """
+    同期するために削除したIDを保持するクラス
+    """
+    user_id = models.IntegerField(u'ユーザーID', unique=True)
+    bookmark = models.TextField(u'ブックマークの削除ID', blank=True, null=True)
+    category = models.TextField(u'カテゴリの削除ID', blank=True, null=True)
+    page = models.TextField(u'ページの削除ID', blank=True, null=True)
+
+    def __str__(self):
+        member_str = '\nid={},\nuser_id={},\nbookmark={},\ncategory={},\npage={}\n'
+        return member_str.format(self.id, self.user_id, self.bookmark, self.category, self.page)
+
+    @property
+    def user(self):
+        return User.objects.get(id=self.user_id)
+
+    def add_delete_id(self, data_type, delete_id):
+        if self.user.use_mobile and hasattr(self, data_type):
+            id_list = getattr(self, data_type).split(',')
+            id_list.append(delete_id)
+            setattr(self, data_type, ','.join(id_list))
+
+    def reset(self):
+        self.bookmark = ''
+        self.category = ''
+        self.page = ''

@@ -1,0 +1,207 @@
+# -*- coding: utf-8 -*-
+
+mock_data = {
+    'Bookmark': {
+        'delete': {
+            'D844421A-38E9-49E6-81A9-2BB689A4DFF1': {
+                'category_id': '2C378211-9438-4660-90C4-67134E831061',
+                'id': 'D844421A-38E9-49E6-81A9-2BB689A4DFF1',
+                'name': 'Google',
+                'sort': '1',
+                'updated_at': '2015,5,6,23,30,53',
+                'url': 'https://www.google.co.jp/',
+            }
+        },
+        'insert': {
+            '3DBF2771-6164-4739-A5BA-B1A0F5A9B9FD': {
+                'category_id': '25F3002A-6252-453F-ACFE-25B60BEFE0A1',
+                'id': '3DBF2771-6164-4739-A5BA-B1A0F5A9B9FD',
+                'name': 'yahoo',
+                'sort': '1',
+                'updated_at': '2015,5,6,23,21,43',
+                'url': 'http://yahoo.co.jp',
+            },
+            'B7F349D6-17D5-45FD-97B6-D2C73C7666FF': {
+                'category_id': '7C9A6189-9F75-4C1B-80B7-24A0EEC8C144',
+                'id': 'B7F349D6-17D5-45FD-97B6-D2C73C7666FF',
+                'name': 'sample1',
+                'sort': '1',
+                'updated_at': '2015,5,6,23,22,52',
+                'url': 'http://headlines.yahoo.co.jp/hl?a:20150506-00000011-mantan-ent',
+            },
+            'BEFF4C3E-E14C-49AB-B4FE-A2C03B821093': {
+                'category_id': '7C9A6189-9F75-4C1B-80B7-24A0EEC8C144',
+                'id': 'BEFF4C3E-E14C-49AB-B4FE-A2C03B821093',
+                'name': 'amazon',
+                'sort': '2',
+                'updated_at': '2015,5,6,23,24,57',
+                'url': 'http://www.amazon.co.jp/%E5%85%89%E3%82%8B%E3%81%AA%E3%82%89-%E6%9C%9F%E9%96%93%E7%94%9F%E7%94%A3%E9%99%90%E5%AE%9A%E3%82%A2%E3%83%8B%E3%83%A1%E7%9B%A4-DVD%E4%BB%98-Goose-house/dp/B00NLLNGKG',
+            },
+            'D844421A-38E9-49E6-81A9-2BB689A4DFF1': {
+                'category_id': '2C378211-9438-4660-90C4-67134E831061',
+                'id': 'D844421A-38E9-49E6-81A9-2BB689A4DFF1',
+                'name': 'Google',
+                'sort': '1',
+                'updated_at': '2015,5,6,23,23,32',
+                'url': 'https://www.google.co.jp/',
+            },
+        },
+        'update': {
+            'B7F349D6-17D5-45FD-97B6-D2C73C7666FF': {
+                'category_id': '25F3002A-6252-453F-ACFE-25B60BEFE0A1',
+                'id': 'B7F349D6-17D5-45FD-97B6-D2C73C7666FF',
+                'name': 'yahoo news',
+                'sort': '1',
+                'updated_at': '2015,5,6,23,37,26',
+                'url': 'http://headlines.yahoo.co.jp/hl?a:20150506-00000011-mantan-ent',
+            },
+        },
+    },
+    'Category': {
+        'delete': {
+            '2C378211-9438-4660-90C4-67134E831061': {
+                'angle': '2',
+                'color_id': '3',
+                'id': '2C378211-9438-4660-90C4-67134E831061',
+                'name': 'category3',
+                'sort': '2',
+                'tag_open': '1',
+                'updated_at': '2015,5,6,23,30,53',
+            },
+        },
+        'insert': {
+            '25F3002A-6252-453F-ACFE-25B60BEFE0A1': {
+                'angle': '1',
+                'color_id': '2',
+                'id': '25F3002A-6252-453F-ACFE-25B60BEFE0A1',
+                'name': 'category1',
+                'sort': '1',
+                'tag_open': '0',
+                'updated_at': '2015,5,6,23,14,11',
+            },
+            '2C378211-9438-4660-90C4-67134E831061': {
+                'angle': '1',
+                'color_id': '3',
+                'id': '2C378211-9438-4660-90C4-67134E831061',
+                'name': 'category3',
+                'sort': '3',
+                'tag_open': '0',
+                'updated_at': '2015,5,6,23,23,15',
+            },
+            '7C9A6189-9F75-4C1B-80B7-24A0EEC8C144': {
+                'angle': '1',
+                'color_id': '12',
+                'id': '7C9A6189-9F75-4C1B-80B7-24A0EEC8C144',
+                'name': 'category2',
+                'sort': '2',
+                'tag_open': '0',
+                'updated_at': '2015,5,6,23,14,59',
+            },
+        },
+        'update': {
+            '25F3002A-6252-453F-ACFE-25B60BEFE0A1': {
+                'angle': '2',
+                'color_id': '2',
+                'id': '25F3002A-6252-453F-ACFE-25B60BEFE0A1',
+                'name': 'category1',
+                'sort': '1',
+                'tag_open': '1',
+                'updated_at': '2015,5,6,23,30,34',
+            },
+            '2C378211-9438-4660-90C4-67134E831061': {
+                'angle': '2',
+                'color_id': '3',
+                'id': '2C378211-9438-4660-90C4-67134E831061',
+                'name': 'category3',
+                'sort': '2',
+                'tag_open': '1',
+                'updated_at': '2015,5,6,23,30,34',
+            },
+            '7C9A6189-9F75-4C1B-80B7-24A0EEC8C144': {
+                'angle': '1',
+                'color_id': '12',
+                'id': '7C9A6189-9F75-4C1B-80B7-24A0EEC8C144',
+                'name': 'category2',
+                'sort': '1',
+                'tag_open': '1',
+                'updated_at': '2015,5,6,23,30,34',
+            },
+        },
+    },
+    'Design': {
+        'category_back_color': '#e6e6e6',
+        'link_color': '#1e90ff',
+        'updated_at': '2015,5,6,23,29,13',
+    },
+    'Page': {
+        'delete': {
+            '07BB482E-6D42-4046-85E1-64BEAAAF6B81': {
+                'angle_ids_str': '25F3002A-6252-453F-ACFE-25B60BEFE0A1:1',
+                'category_ids_str': '25F3002A-6252-453F-ACFE-25B60BEFE0A1',
+                'id': '07BB482E-6D42-4046-85E1-64BEAAAF6B81',
+                'name': 'page3',
+                'sort_ids_str': '25F3002A-6252-453F-ACFE-25B60BEFE0A1:1',
+                'updated_at': '2015,5,6,23,29,53',
+            },
+        },
+        'insert': {
+            '07BB482E-6D42-4046-85E1-64BEAAAF6B81': {
+                'angle_ids_str': '',
+                'category_ids_str': '',
+                'id': '07BB482E-6D42-4046-85E1-64BEAAAF6B81',
+                'name': 'page3',
+                'sort_ids_str': '',
+                'updated_at': '2015,5,6,23,27,8',
+            },
+            '666E9647-B583-44BB-AD77-9F019CD7659C': {
+                'angle_ids_str': '',
+                'category_ids_str': '',
+                'id': '666E9647-B583-44BB-AD77-9F019CD7659C',
+                'name': 'page2',
+                'sort_ids_str': '',
+                'updated_at': '2015,5,6,23,26,6',
+            },
+            'BE6E392D-663C-4311-9F2C-15D241D905B3': {
+                'angle_ids_str': '',
+                'category_ids_str': '',
+                'id': 'BE6E392D-663C-4311-9F2C-15D241D905B3',
+                'name': 'page1',
+                'sort_ids_str': '',
+                'updated_at': '2015,5,6,23,25,36',
+            },
+        },
+        'update': {
+            '07BB482E-6D42-4046-85E1-64BEAAAF6B81': {
+                'angle_ids_str': '25F3002A-6252-453F-ACFE-25B60BEFE0A1:1',
+                'category_ids_str': '25F3002A-6252-453F-ACFE-25B60BEFE0A1',
+                'id': '07BB482E-6D42-4046-85E1-64BEAAAF6B81',
+                'name': 'page3',
+                'sort_ids_str': '25F3002A-6252-453F-ACFE-25B60BEFE0A1:1',
+                'updated_at': '2015,5,6,23,27,11',
+            },
+            '666E9647-B583-44BB-AD77-9F019CD7659C': {
+                'angle_ids_str': '2C378211-9438-4660-90C4-67134E831061:1',
+                'category_ids_str': '2C378211-9438-4660-90C4-67134E831061',
+                'id': '666E9647-B583-44BB-AD77-9F019CD7659C',
+                'name': 'page2',
+                'sort_ids_str': '2C378211-9438-4660-90C4-67134E831061:1',
+                'updated_at': '2015,5,6,23,26,9',
+            },
+            'BE6E392D-663C-4311-9F2C-15D241D905B3': {
+                'angle_ids_str': '25F3002A-6252-453F-ACFE-25B60BEFE0A1:1,7C9A6189-9F75-4C1B-80B7-24A0EEC8C144:1',
+                'category_ids_str': '7C9A6189-9F75-4C1B-80B7-24A0EEC8C144,25F3002A-6252-453F-ACFE-25B60BEFE0A1',
+                'id': 'BE6E392D-663C-4311-9F2C-15D241D905B3',
+                'name': 'page1',
+                'sort_ids_str': '25F3002A-6252-453F-ACFE-25B60BEFE0A1:2,7C9A6189-9F75-4C1B-80B7-24A0EEC8C144:1',
+                'updated_at': '2015,5,6,23,30,53',
+            },
+        },
+    },
+    'User': {
+        'id': '2',
+        'page_id': '666E9647-B583-44BB-AD77-9F019CD7659C',
+        'type': '',
+        'typeId': '',
+        'updated_at': '2015,5,6,23,26,14',
+    }
+}

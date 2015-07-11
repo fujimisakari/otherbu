@@ -3,7 +3,7 @@
 import datetime
 from django.db import models
 from django.conf import settings
-from module.setting.models import Category, Bookmark, Design, Page
+from module.setting.models import Category, Bookmark, Design, Page, DeleteManager
 
 
 class User(models.Model):
@@ -11,13 +11,20 @@ class User(models.Model):
     type_id = models.CharField(u'認証先ID', max_length=255)
     name = models.CharField(u'ユーザー名', max_length=50)
     user_dir = models.CharField(u'ユーザーディレクトリ名', max_length=20)
-    access_token_key = models.CharField(u'アクセストークン(key)', max_length=200)
-    access_token_secret = models.CharField(u'アクセストークン(secret)', max_length=200)
+    access_token_key = models.CharField(u'アクセストークン(key)', max_length=255)
+    access_token_secret = models.CharField(u'アクセストークン(secret)', max_length=255)
     page_id = models.IntegerField(u'現在のページ', default=0)
+    sync_flag = models.BooleanField(u'同期対象', default=1)
+    use_mobile = models.BooleanField(u'モバイル版を使用してるかどうか', default=0)
     created_at = models.DateTimeField(u'作成日時', auto_now_add=True)
+    updated_at = models.DateTimeField(u'更新日時', auto_now=True)
 
     class Meta:
         unique_together = (('type', 'type_id'),)
+
+    def to_dict(self):
+        target = ['id', 'type', 'type_id', 'page_id']
+        return dict((x, getattr(self, x)) for x in target)
 
     @property
     def category_list(self):
@@ -92,6 +99,10 @@ class User(models.Model):
     @property
     def design(self):
         return Design.get_cache_user(self.pk)[0]
+
+    @property
+    def delete_manager(self):
+        return DeleteManager.get_cache_user(self.pk)[0]
 
     @property
     def passport(self):
