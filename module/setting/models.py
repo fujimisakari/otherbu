@@ -16,6 +16,15 @@ class Category(AbustractCachedModel):
     updated_at = models.DateTimeField(u'更新日時', auto_now=True)
     # 複合インデックス： ['user_id', 'angle'], ['user_id', 'sync_flag']
 
+    def __str__(self):
+        member_str = '\nid={},\nuser_id={},\nmobile_id={},\nname={},\nangle={},\nsort={},\ncolor_id={},\ntag_open={},\nsync_flag={},\nupdated_at={}\n'
+        return member_str.format(self.id, self.user_id, self.mobile_id, self.name, self.angle,
+                                 self.sort, self.color_id, self.tag_open, self.sync_flag, self.updated_at)
+
+    def to_dict(self):
+        target = ['id', 'name', 'angle', 'sort', 'color_id', 'tag_open']
+        return dict((x, getattr(self, x)) for x in target)
+
     @property
     def bookmark_list(self):
         bk_list = Bookmark.get_cache_user(self.user_id)
@@ -49,6 +58,15 @@ class Page(AbustractCachedModel):
     sync_flag = models.BooleanField(u'同期対象', default=1)
     updated_at = models.DateTimeField(u'更新日時', auto_now=True)
     # 複合インデックス： ['user_id', 'angle'], ['user_id', 'sync_flag']
+
+    def __str__(self):
+        member_str = '\nid={}\nuser_id={},\nmobile_id={},\nname={},\ncategory_ids_str={},\nangle_ids_str={},\nsort_ids_str={},\nsync_flag={},\nupdated_at={}\n'
+        return member_str.format(self.id, self.user_id, self.mobile_id, self.name, self.category_ids_str,
+                                 self.angle_ids_str, self.sort_ids_str, self.sync_flag, self.updated_at)
+
+    def to_dict(self):
+        target = ['id', 'user_id', 'mobile_id', 'name', 'category_ids_str', 'angle_ids_str', 'sort_ids_str']
+        return dict((x, getattr(self, x)) for x in target)
 
     @property
     def category_ids(self):
@@ -92,9 +110,18 @@ class Bookmark(AbustractCachedModel):
     updated_at = models.DateTimeField(u'更新日時', auto_now=True)
     # 複合インデックス： ['user_id', 'category_id'], ['user_id', 'sync_flag']
 
+    def __str__(self):
+        member_str = '\nid={},\nuser_id={},\nmobile_id={},\ncategory_id={},\nname={},\nurl={},\nsort={},\nsync_flag={},\nupdated_at={}\n'
+        return member_str.format(self.id, self.user_id, self.mobile_id, self.category_id,
+                                 self.name, self.url, self.sort, self.sync_flag, self.updated_at)
+
     @property
     def category(self):
         return Category.get_cache(self.category_id)
+
+    def to_dict(self):
+        target = ['id', 'category_id', 'name', 'url', 'sort']
+        return dict((x, getattr(self, x)) for x in target)
 
 
 class Design(AbustractCachedModel):
@@ -109,8 +136,18 @@ class Design(AbustractCachedModel):
     sync_flag = models.BooleanField(u'同期対象', default=1)
     updated_at = models.DateTimeField(u'更新日時', auto_now=True)
 
+    def __str__(self):
+        member_str = '\nid={},\nlinkmark_flg={},\nlink_color={},\ncategory_back_color={},\nportal_back_kind={},\nportal_back_color={},\nimage_position={},\nbk_image_ext={},\nsync_flag={},\nupdated_at={}\n'
+        return member_str.format(self.id, self.linkmark_flg, self.link_color, self.category_back_color, self.portal_back_kind,
+                                 self.portal_back_color, self.image_position, self.bk_image_ext, self.sync_flag, self.updated_at)
+
+    def to_dict(self):
+        target = ['id', 'category_back_color', 'link_color']
+        return dict((x, getattr(self, x)) for x in target)
+
 
 class DeleteManager(AbustractCachedModel):
+
     """
     同期するために削除したIDを保持するクラス
     """
@@ -118,6 +155,10 @@ class DeleteManager(AbustractCachedModel):
     bookmark = models.TextField(u'ブックマークの削除ID', blank=True, null=True)
     category = models.TextField(u'カテゴリの削除ID', blank=True, null=True)
     page = models.TextField(u'ページの削除ID', blank=True, null=True)
+
+    def __str__(self):
+        member_str = '\nid={},\nuser_id={},\nbookmark={},\ncategory={},\npage={}\n'
+        return member_str.format(self.id, self.user_id, self.bookmark, self.category, self.page)
 
     @property
     def user(self):

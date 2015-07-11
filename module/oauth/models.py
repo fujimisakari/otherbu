@@ -22,6 +22,10 @@ class User(models.Model):
     class Meta:
         unique_together = (('type', 'type_id'),)
 
+    def to_dict(self):
+        target = ['id', 'type', 'type_id', 'page_id']
+        return dict((x, getattr(self, x)) for x in target)
+
     @property
     def category_list(self):
         c_list = Category.get_cache_user(self.pk)
