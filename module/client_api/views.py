@@ -51,6 +51,5 @@ def sync(request):
         'delete_bookmark_list': [],
     }
     json_data = json.dumps(ret_json, ensure_ascii=False)
-    print json_data
 
     return HttpResponse(json_data, mimetype='application/json')
