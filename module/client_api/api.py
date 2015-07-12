@@ -157,15 +157,15 @@ def update_date(request_data, response_data_dict):
 
     # category
     response_data_dict['Category'].update({x.id: x.to_dict() for x in user.no_cache_all_category_list if x.sync_flag})
-    Category.objects.filter(user_id=user_id).update(sync_flag=False)
+    Category.objects.filter(user_id=user_id).update(sync_flag=True)
 
     # bookmark
     response_data_dict['Bookmark'].update({x.id: x.to_dict() for x in user.no_cache_bookmark_list if x.sync_flag})
-    Bookmark.objects.filter(user_id=user_id).update(sync_flag=False)
+    Bookmark.objects.filter(user_id=user_id).update(sync_flag=True)
 
     # Page
     response_data_dict['Page'].update({x.id: x.to_dict() for x in user.no_cache_page_list if x.sync_flag})
-    Page.objects.filter(user_id=user_id).update(sync_flag=False)
+    Page.objects.filter(user_id=user_id).update(sync_flag=True)
 
     # design
     design = Design.objects.get(user_id=user_id)
