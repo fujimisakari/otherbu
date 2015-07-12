@@ -104,7 +104,7 @@ def _insert_page(user_id, insert_data, category_map, delete_category_id_list):
         # 削除されたCategory情報を保持しないようにする
         def _deta_format(id_str):
             str_list = []
-            ids = id_str.split(',')
+            ids = [x for x in id_str.split(',') if x]
             for id_str in ids:
                 alist = id_str.split(':')
                 category_id = alist[0]

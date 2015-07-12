@@ -34,7 +34,6 @@ class TemplateFilterMiddleware(object):
 class ExceptionMiddleware(object):
 
     def process_exception(self, request, ex):
-        print 'test'
         traceback_str = traceback.format_exc()
         user_id = "-"
         try:
@@ -49,8 +48,6 @@ class ExceptionMiddleware(object):
         except:
             view_name = "(Can't resolve) path=" + path
 
-        print 'cc'
-
         ExceptionTraceback.objects.create(
             user_id=user_id,
             view_name=view_name,
@@ -60,4 +57,3 @@ class ExceptionMiddleware(object):
             traceback_log=traceback_str,
             post_data=request.POST,
         )
-        print 'last'
