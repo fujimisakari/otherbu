@@ -87,6 +87,7 @@ TEMPLATE_LOADERS = (
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'module.misc.middleware.TemplateFilterMiddleware',
+    'module.misc.middleware.ExceptionMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -128,6 +129,7 @@ INSTALLED_APPS = (
     'module.setting',
     'module.oauth',
     'module.client_api',
+    'module.misc',
 
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',

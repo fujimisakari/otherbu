@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import re
+import traceback
 from uamobile import detect
+from django.core.urlresolvers import resolve
 from django.conf import settings
 from django.http import HttpResponse
+from module.misc.models import ExceptionTraceback
 
 
 class TemplateFilterMiddleware(object):
@@ -26,3 +29,35 @@ class TemplateFilterMiddleware(object):
                 # PCの場合
                 request.is_pc = True
                 settings.TEMPLATE_DIRS = settings.PC_TEMPLATE_DIRS
+
+
+class ExceptionMiddleware(object):
+
+    def process_exception(self, request, ex):
+        print 'test'
+        traceback_str = traceback.format_exc()
+        user_id = "-"
+        try:
+            user_id = request.user.id
+        except:
+            pass
+
+        path = request.path
+        view_name = None
+        try:
+            view_name = resolve(path).view_name
+        except:
+            view_name = "(Can't resolve) path=" + path
+
+        print 'cc'
+
+        ExceptionTraceback.objects.create(
+            user_id=user_id,
+            view_name=view_name,
+            request_path=path + '?' + request.GET.urlencode(),
+            exception_type=ex.__class__.__name__,
+            exception_message=unicode(ex.message),
+            traceback_log=traceback_str,
+            post_data=request.POST,
+        )
+        print 'last'
