@@ -134,11 +134,46 @@ def update_date(request_data, response_data_dict):
     """
     Clentデータの更新
     """
-    update_dict = {}
     user_id = request_data['User']['id']
+    user = User.objects.get(id=user_id)
+    update_dict = {}
 
     # user
-    user = User.objects.get(id=user_id)
+    update_dict = _update_user_data(user, update_dict, request_data, response_data_dict)
+
+    # category
+    response_data_dict['Category'].update({x.id: x.to_dict() for x in user.no_cache_all_category_list if x.sync_flag})
+    Category.objects.filter(user_id=user_id).update(sync_flag=True)
+
+    # bookmark
+    response_data_dict['Bookmark'].update({x.id: x.to_dict() for x in user.no_cache_bookmark_list if x.sync_flag})
+    Bookmark.objects.filter(user_id=user_id).update(sync_flag=True)
+
+    # Page
+    response_data_dict['Page'].update({x.id: x.to_dict() for x in user.no_cache_page_list if x.sync_flag})
+    Page.objects.filter(user_id=user_id).update(sync_flag=True)
+
+    # design
+    # todo サーバー側で更新したときの反映対応が必要
+    design = Design.objects.get(user_id=user_id)
+    update_design = request_data['Design']
+    if update_design:
+        date = update_design['updated_at'].split(',')
+        date = [int(x) for x in date]
+        update_at = datetime.datetime(date[0], date[1], date[2], date[3], date[4], date[5])
+
+        if update_at > design.updated_at:
+            design.category_back_color = update_design['category_back_color']
+            design.link_color = update_design['link_color']
+            design.save()
+        update_dict['design'] = design.to_dict()
+    else:
+        update_dict['design'] = {}
+
+    return update_dict
+
+
+def _update_user_data(user, update_dict, request_data, response_data_dict):
     update_user = request_data['User']
     page_id = request_data['User']['page_id']
     date = str(update_user['updated_at']).split(',')
@@ -154,33 +189,4 @@ def update_date(request_data, response_data_dict):
         user.use_mobile = True
         user.save()
     update_dict['user'] = user.to_dict()
-
-    # category
-    response_data_dict['Category'].update({x.id: x.to_dict() for x in user.no_cache_all_category_list if x.sync_flag})
-    Category.objects.filter(user_id=user_id).update(sync_flag=True)
-
-    # bookmark
-    response_data_dict['Bookmark'].update({x.id: x.to_dict() for x in user.no_cache_bookmark_list if x.sync_flag})
-    Bookmark.objects.filter(user_id=user_id).update(sync_flag=True)
-
-    # Page
-    response_data_dict['Page'].update({x.id: x.to_dict() for x in user.no_cache_page_list if x.sync_flag})
-    Page.objects.filter(user_id=user_id).update(sync_flag=True)
-
-    # design
-    design = Design.objects.get(user_id=user_id)
-    update_design = request_data['Design']
-    if update_design:
-        date = update_design['updated_at'].split(',')
-        date = [int(x) for x in date]
-        update_at = datetime.datetime(date[0], date[1], date[2], date[3], date[4], date[5])
-
-        if design.updated_at > update_at:
-            design.category_back_color = update_design['category_back_color']
-            design.link_color = update_design['link_color']
-            design.save()
-        update_dict['design'] = design.to_dict()
-    else:
-        update_dict['design'] = {}
-
     return update_dict

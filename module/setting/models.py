@@ -25,6 +25,16 @@ class Category(AbustractCachedModel):
         target = ['id', 'name', 'angle', 'sort', 'color_id', 'tag_open']
         return dict((x, getattr(self, x)) for x in target)
 
+    def update_sync(self, sync_data):
+        self.mobile_id = sync_data['id']
+        self.name = sync_data['name']
+        self.angle = int(sync_data['angle'])
+        self.sort = int(sync_data['sort'])
+        self.color_id = int(sync_data['color_id'])
+        self.tag_open = int(sync_data['tag_open'])
+        self.sync_flag = False
+        self.save()
+
     @property
     def bookmark_list(self):
         bk_list = Bookmark.get_cache_user(self.user_id)
@@ -67,6 +77,15 @@ class Page(AbustractCachedModel):
     def to_dict(self):
         target = ['id', 'user_id', 'mobile_id', 'name', 'category_ids_str', 'angle_ids_str', 'sort_ids_str']
         return dict((x, getattr(self, x)) for x in target)
+
+    def update_sync(self, sync_data):
+        self.mobile_id = sync_data['id']
+        self.name = sync_data['name']
+        self.category_ids_str = int(sync_data['category_ids_str'])
+        self.angle_ids_str = int(sync_data['angle_ids_str'])
+        self.sort_ids_str = int(sync_data['sort_ids_str'])
+        self.sync_flag = False
+        self.save()
 
     @property
     def category_ids(self):
@@ -123,6 +142,15 @@ class Bookmark(AbustractCachedModel):
         target = ['id', 'category_id', 'name', 'url', 'sort']
         return dict((x, getattr(self, x)) for x in target)
 
+    def update_sync(self, sync_data, category_id):
+        self.mobile_id = sync_data['id']
+        self.name = sync_data['name']
+        self.category_id = category_id
+        self.url = sync_data['url']
+        self.sort = int(sync_data['sort'])
+        self.sync_flag = False
+        self.save()
+
 
 class Design(AbustractCachedModel):
     user_id = models.IntegerField(u'ユーザーID', unique=True)
@@ -147,7 +175,6 @@ class Design(AbustractCachedModel):
 
 
 class DeleteManager(AbustractCachedModel):
-
     """
     同期するために削除したIDを保持するクラス
     """
