@@ -144,12 +144,13 @@ class UpdateController(BaseController):
         サーバー側とクライアント側の更新でどちらを優先させるか判定
         """
         for data_id, data in server_sync_data.items():
+            key = data.mobile_id if data.mobile_id else data_id
             if request_data.get(data_id, False):
                 # サーバーとクライアントの更新がかぶってサーバーの方が新しかった場合
                 if data.updated_at > self._update_at(request_data['updated_at']):
-                    response_data[data.mobile_id] = data.to_dict()
+                    response_data[key] = data.to_dict()
                     # クライアントの更新対象から省く
                     exclude_data.append(data_id)
             else:
                 # サーバーのみの更新の場合
-                response_data[data.mobile_id] = data.to_dict()
+                response_data[key] = data.to_dict()
