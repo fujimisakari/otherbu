@@ -59,5 +59,5 @@ def c_delete(user, formset):
                         bookmark.delete()
                 except Category.DoesNotExist:
                     return False
-                user.delte_manager.add_delete_id('category', category.id)
+                user.delete_manager.add_delete_id('category', category.id)
                 category.delete()

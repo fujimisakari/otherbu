@@ -59,5 +59,5 @@ def b_delete(user, c_id, formset):
                     bookmark = Bookmark.objects.get(user_id=user.pk, id=c_data['id'])
                 except Bookmark.DoesNotExist:
                     return False
-                user.delte_manager.add_delete_id('bookmark', bookmark.id)
+                user.delete_manager.add_delete_id('bookmark', bookmark.id)
                 bookmark.delete()

@@ -79,5 +79,5 @@ def p_edit(user, post_data):
 
 def p_delete(user, page_id):
     page = Page.objects.get(user_id=user.id, id=page_id)
-    user.delte_manager.add_delete_id('page', page.id)
+    user.delete_manager.add_delete_id('page', page.id)
     page.delete()
