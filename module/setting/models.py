@@ -2,6 +2,7 @@
 
 from django.db import models
 from module.misc.common_models import AbustractCachedModel
+from module.oauth.models import User
 
 
 class Category(AbustractCachedModel):
