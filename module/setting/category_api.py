@@ -55,7 +55,7 @@ def c_delete(user, formset):
                     category = Category.objects.get(id=c_data['id'], user_id=user.pk)
                     bookmark_list = Bookmark.objects.filter(user_id=user.pk, category_id=category.id)
                     for bookmark in bookmark_list:
-                        user.delte_manager.add_delete_id('bookmark', bookmark.id)
+                        user.delete_manager.add_delete_id('bookmark', bookmark.id)
                         bookmark.delete()
                 except Category.DoesNotExist:
                     return False
