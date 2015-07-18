@@ -56,7 +56,7 @@ class InsertController(BaseController):
         bookmark_id_list = []
         create_bookmark_data = []
         for data_id, data in self.request_data['Bookmark']['insert'].items():
-            category_id = category_map[data['category_id']]['id']
+            category_id = category_map[data['category_id']]['id'] if category_map.get(data['category_id'], False) else data['category_id']
             bookmark = Bookmark(user_id=int(self.user.id), mobile_id=data['id'], category_id=category_id, name=data['name'],
                                 url=data['url'], sort=int(data['sort']), sync_flag=False)
             create_bookmark_data.append(bookmark)
