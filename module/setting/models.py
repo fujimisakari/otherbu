@@ -81,9 +81,9 @@ class Page(AbustractCachedModel):
     def update_sync(self, sync_data):
         self.mobile_id = sync_data['id']
         self.name = sync_data['name']
-        self.category_ids_str = int(sync_data['category_ids_str'])
-        self.angle_ids_str = int(sync_data['angle_ids_str'])
-        self.sort_ids_str = int(sync_data['sort_ids_str'])
+        self.category_ids_str = sync_data['category_ids_str']
+        self.angle_ids_str = sync_data['angle_ids_str']
+        self.sort_ids_str = sync_data['sort_ids_str']
         self.sync_flag = False
         self.save()
 
