@@ -2,7 +2,6 @@
 
 from django.db import models
 from module.misc.common_models import AbustractCachedModel
-from module.oauth.models import User
 
 
 class Category(AbustractCachedModel):
@@ -190,6 +189,7 @@ class DeleteManager(AbustractCachedModel):
 
     @property
     def user(self):
+        from module.oauth.models import User
         return User.objects.get(id=self.user_id)
 
     def add_delete_id(self, data_type, delete_id):
