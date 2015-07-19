@@ -21,11 +21,11 @@ class UpdateController(BaseController):
         """
         実行
         """
-        self.update_user()
         self.update_category()
         self.update_bookmark()
         self.update_page()
         self.update_design()
+        self.update_user()
 
     def result(self):
         """
