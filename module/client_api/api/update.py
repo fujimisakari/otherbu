@@ -117,6 +117,8 @@ class UpdateController(BaseController):
         for data_id, sync_data in request_data.items():
             if data_id not in exclude_data:
                 try:
+                    category_map = self.response_data['Category']
+                    self._update_category_id_by_page_data(sync_data, category_map, self.delete_category_id_list)
                     page = Page.objects.get(id=data_id)
                     page.update_sync(sync_data)
                 except Page.DoesNotExist:

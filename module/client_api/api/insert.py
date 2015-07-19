@@ -75,33 +75,10 @@ class InsertController(BaseController):
         create_page_data = []
         for data_id, data in self.request_data['Page']['insert'].items():
             # pageにClientで作成されたIDを保持してる場合は,DBで生成されたIDに差し替える
-            for mobile_id, category in category_map.items():
-                data['category_ids_str'] = data['category_ids_str'].replace(str(mobile_id), str(category['id']))
-                data['angle_ids_str'] = data['angle_ids_str'].replace(str(mobile_id), str(category['id']))
-                data['sort_ids_str'] = data['sort_ids_str'].replace(str(mobile_id), str(category['id']))
+            self._update_category_id_by_page_data(data, category_map, self.delete_category_id_list)
 
             data = Page(user_id=int(self.user.id), mobile_id=data['id'], name=data['name'], category_ids_str=data['category_ids_str'],
                         angle_ids_str=data['angle_ids_str'], sort_ids_str=data['sort_ids_str'], sync_flag=False)
-
-            # 削除されたCategory情報を保持しないようにする
-            def _deta_format(id_str):
-                str_list = []
-                ids = [x for x in id_str.split(',') if x]
-                for id_str in ids:
-                    alist = id_str.split(':')
-                    category_id = alist[0]
-                    value = alist[1]
-                    if category_id not in self.delete_category_id_list:
-                        str_list.append('{}:{}'.format(category_id, value))
-                return str_list
-
-            # カテゴリ
-            category_id_list = data.category_ids_str.split(',')
-            data.category_ids_str = ','.join([str(category_id) for category_id in category_id_list if category_id not in self.delete_category_id_list])
-            # アングル
-            data.angle_ids_str = ','.join(_deta_format(data.angle_ids_str))
-            # 順番
-            data.sort_ids_str = ','.join(_deta_format(data.sort_ids_str))
 
             create_page_data.append(data)
             page_id_list.append(data_id)
