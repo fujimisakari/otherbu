@@ -91,6 +91,10 @@ class UpdateController(BaseController):
             if data_id not in exclude_data:
                 try:
                     category_map = self.response_data['Category']
+                    if category_map.get(sync_data['category_id'], False):
+                        category_id = category_map[sync_data['category_id']]['id']
+                    else:
+                        category_id = sync_data['category_id']
                     category_id = category_map[data_id] if category_map.get(data_id, False) else sync_data['id']
                     bookmark = Bookmark.objects.get(id=data_id)
                     bookmark.update_sync(sync_data, category_id)
