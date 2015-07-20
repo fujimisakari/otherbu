@@ -1,0 +1,78 @@
+{% extends 'base_frame.html' %}
+{% load url from future %}
+
+{% comment %}
+{% block header_navi %}
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="{% url 'root_index' %}" >OtherBu</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% endcomment %}
+
+{% block contents %}
+    <div class="center">
+        <h1>ログイン</h1>
+        <p>ログインすることによって<br />Web版OtherBuと同期することができます</p>
+        <p class="download-info mt20">
+           <a href="{% url 'auth_login' 'facebook' %}" class="btn btn-primary btn-large">Facebook Login</a>
+        </p>
+        <p class="download-info mt15">
+           <a href="{% url 'auth_login' 'twitter' %}" class="btn btn-info btn-large">Twitter Login</a>
+        </p>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    <footer class="footer">
+        <p class="right">Copyright © otherbu.com All Rights Reserved.</p>
+    </footer>
+{% endblock %}
+
+{% block css %}
+    <style>
+        /* Body and structure
+        -------------------------------------------------- */
+        body {
+          position: relative;
+          padding-top: 90px;
+          background-color: #fff;
+          background-image: url({{ MEDIA_IMG }}/grid-18px-masked.png);
+          background-repeat: repeat-x;
+          background-position: 0 40px;
+        }
+
+        .navbar .brand:hover {
+            text-decoration: none;
+        }
+
+        .navbar .brand {
+            float: left;
+            display: block;
+            padding: 8px 20px 12px;
+            margin-left: -20px;
+            font-size: 20px;
+            font-weight: 200;
+            line-height: 1;
+            color: #ffffff;
+        }
+
+        /* Footer
+        -------------------------------------------------- */
+        .footer {
+          margin-top: 45px;
+          padding: 5px 10px;
+          border-top: 1px solid #e5e5e5;
+        }
+        .footer p {
+          margin-bottom: 0;
+          color: #555;
+        }
+    </style>
+{% endblock %}
+
+{% block js %}
+{% endblock %}
