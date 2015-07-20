@@ -45,7 +45,7 @@ class DeleteController(BaseController):
 
     def _get_delete_ids(self, ids_str):
         if ids_str:
-            return str(ids_str.bookmark).split(',')
+            return str(ids_str).split(',')
         else:
             return []
 
