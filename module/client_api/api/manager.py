@@ -16,7 +16,7 @@ class APIManager(object):
         self.user = user
         self.request_data = request_data
         self.update_response = {'Category': {}, 'Bookmark': {}, 'Page': {}, 'User': {}, 'Design': {}}
-        self.delete_response = {'Category': {}, 'Bookmark': {}, 'Page': {}}
+        self.delete_response = {'Category': [], 'Bookmark': [], 'Page': []}
         self.delete_category_id_list = [category_id for category_id, _ in self.request_data['Category']['delete'].items()]
         # 追加や更新、削除などで重複データがあれば解消させる(優先順位: 削除 > 更新 > 追加)
         self.delete_duplicate_date(self.request_data['Category'])

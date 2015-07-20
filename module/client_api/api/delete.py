@@ -22,9 +22,9 @@ class DeleteController(BaseController):
         実行
         """
         # クライアント変更分を更新
-        self.delete(Category, self.request_data['Category']['delete'])
-        self.delete(Bookmark, self.request_data['Bookmark']['delete'])
-        self.delete(Page, self.request_data['Page']['delete'])
+        self._delete(Category, self.request_data['Category']['delete'])
+        self._delete(Bookmark, self.request_data['Bookmark']['delete'])
+        self._delete(Page, self.request_data['Page']['delete'])
 
         # サーバー側の変更分を更新
         try:
@@ -32,17 +32,24 @@ class DeleteController(BaseController):
         except DeleteManager.DoesNotExist:
             return
 
-        self.response_data['Bookmark'] = str(delete_manage.bookmark).split(',')
-        self.response_data['Category'] = str(delete_manage.category).split(',')
-        self.response_data['Page'] = str(delete_manage.page).split(',')
-
-    def delete(self, obj, data):
-        delete_id_list = [data_id for data_id, _ in data.items()]
-        if delete_id_list:
-            obj.objects.filter(id__in=delete_id_list).delete()
+        self.response_data['Bookmark'] = self._get_delete_ids(delete_manage.bookmark)
+        self.response_data['Category'] = self._get_delete_ids(delete_manage.category)
+        self.response_data['Page'] = self._get_delete_ids(delete_manage.page)
+        delete_manage.reset()
 
     def result(self):
         """
         結果
         """
         return self.response_data
+
+    def _get_delete_ids(self, ids_str):
+        if ids_str:
+            return str(ids_str.bookmark).split(',')
+        else:
+            return []
+
+    def _delete(self, obj, data):
+        delete_id_list = [data_id for data_id, _ in data.items()]
+        if delete_id_list:
+            obj.objects.filter(id__in=delete_id_list).delete()

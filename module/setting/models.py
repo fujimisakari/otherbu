@@ -200,8 +200,10 @@ class DeleteManager(AbustractCachedModel):
                 setattr(self, data_type, u','.join(id_list))
             else:
                 setattr(self, data_type, str(delete_id))
+            self.save()
 
     def reset(self):
         self.bookmark = ''
         self.category = ''
         self.page = ''
+        self.save()
