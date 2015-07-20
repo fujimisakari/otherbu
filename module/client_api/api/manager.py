@@ -42,8 +42,7 @@ class APIManager(object):
                     {'class': DeleteController,
                      'kw': {'user': self.user,
                             'request_data': self.request_data,
-                            'response_data': self.delete_response,
-                            'delete_category_id_list': self.delete_category_id_list}}]
+                            'response_data': self.delete_response}}]
         for data in run_data:
             c = data['class']()
             c.init_setup(**data['kw'])

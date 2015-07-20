@@ -16,7 +16,6 @@ class DeleteController(BaseController):
         self.user = kw['user']
         self.request_data = kw['request_data']
         self.response_data = kw['response_data']
-        self.delete_category_id_list = kw['delete_category_id_list']
 
     def run(self):
         """
