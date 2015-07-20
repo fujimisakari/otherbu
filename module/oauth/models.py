@@ -29,7 +29,7 @@ class User(models.Model):
     @property
     def category_list(self):
         c_list = Category.get_cache_user(self.pk)
-        if self.page_id:
+        if self.page:
             c_list = [c for c in c_list if c.id in self.page.category_ids]
             angle_dict = self.page.angle_dict
             sort_dict = self.page.sort_dict
@@ -45,7 +45,7 @@ class User(models.Model):
     @property
     def no_cache_category_list(self):
         c_list = Category.objects.filter(user_id=self.pk)
-        if self.page_id:
+        if self.page:
             try:
                 c_list = [c for c in c_list if c.id in self.page.category_ids]
             except:
