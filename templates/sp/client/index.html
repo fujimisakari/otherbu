@@ -16,11 +16,10 @@
 {% block contents %}
     <div class="center">
         <h1>ログイン</h1>
+        <br />
         <p>ログインすることによって<br />Web版OtherBuと同期することができます</p>
-        <p class="download-info mt20">
+        <p class="download-info mt25">
            <a href="{% url 'auth_login' 'facebook' %}" class="btn btn-primary btn-large">Facebook Login</a>
-        </p>
-        <p class="download-info mt15">
            <a href="{% url 'auth_login' 'twitter' %}" class="btn btn-info btn-large">Twitter Login</a>
         </p>
     </div>
@@ -38,11 +37,11 @@
         -------------------------------------------------- */
         body {
           position: relative;
-          padding-top: 90px;
+          padding-top: 60px;
           background-color: #fff;
           background-image: url({{ MEDIA_IMG }}/grid-18px-masked.png);
           background-repeat: repeat-x;
-          background-position: 0 40px;
+          background-position: 0 0;
         }
 
         .navbar .brand:hover {

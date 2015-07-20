@@ -20,4 +20,4 @@ def client_index(request):
         'title': settings.ROOT_TITLE,
         'body_padding': settings.PORTAL_BODY_PADDING,
     }
-    return render_to_response('client_index.html', context_instance=RequestContext(request, params))
+    return render_to_response('client/index.html', context_instance=RequestContext(request, params))
