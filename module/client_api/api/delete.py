@@ -23,9 +23,9 @@ class DeleteController(BaseController):
         実行
         """
         # クライアント変更分を更新
-        self.delete(Category, self.request_data['Category'])
-        self.delete(Bookmark, self.request_data['Bookmark'])
-        self.delete(Page, self.request_data['Page'])
+        self.delete(Category, self.request_data['Category']['delete'])
+        self.delete(Bookmark, self.request_data['Bookmark']['delete'])
+        self.delete(Page, self.request_data['Page']['delete'])
 
         # サーバー側の変更分を更新
         try:
