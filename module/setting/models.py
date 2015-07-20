@@ -196,14 +196,14 @@ class DeleteManager(AbustractCachedModel):
         if self.user.use_mobile and hasattr(self, data_type):
             if getattr(self, data_type):
                 id_list = getattr(self, data_type).split(u',')
-                id_list.append(delete_id)
+                id_list.append(str(delete_id))
                 setattr(self, data_type, u','.join(id_list))
             else:
                 setattr(self, data_type, str(delete_id))
             self.save()
 
     def reset(self):
-        self.bookmark = ''
-        self.category = ''
-        self.page = ''
+        self.bookmark = u''
+        self.category = u''
+        self.page = u''
         self.save()
