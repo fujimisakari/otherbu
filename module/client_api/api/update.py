@@ -71,7 +71,7 @@ class UpdateController(BaseController):
                     category = Category.objects.get(id=data_id)
                     category.update_sync(sync_data)
                 except Category.DoesNotExist:
-                    pass
+                    continue
 
         # サーバーの同期対象はすべてOffる
         Category.objects.filter(user_id=self.user.id).update(sync_flag=False)
@@ -98,7 +98,7 @@ class UpdateController(BaseController):
                     bookmark = Bookmark.objects.get(id=data_id)
                     bookmark.update_sync(sync_data, category_id)
                 except Bookmark.DoesNotExist:
-                    pass
+                    continue
 
         # サーバーの同期対象はすべてOffる
         Bookmark.objects.filter(user_id=self.user.id).update(sync_flag=False)
@@ -122,7 +122,7 @@ class UpdateController(BaseController):
                     page = Page.objects.get(id=data_id)
                     page.update_sync(sync_data)
                 except Page.DoesNotExist:
-                    pass
+                    continue
 
         # サーバーの同期対象はすべてOffる
         Page.objects.filter(user_id=self.user.id).update(sync_flag=False)
