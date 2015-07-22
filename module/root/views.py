@@ -3,11 +3,14 @@
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.conf import settings
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 
 
 def index(request):
     if request.session.get('DEMO_PAGE', False):
         del request.session['DEMO_PAGE']
+        return HttpResponseRedirect(reverse('completion_client'))
     params = {
         'title': settings.ROOT_TITLE,
         'body_padding': settings.PORTAL_BODY_PADDING,
