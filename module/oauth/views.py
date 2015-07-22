@@ -44,6 +44,7 @@ def login(request, auth_type=None):
 def login_client(request, auth_type=None):
     request.session['CLIENT'] = True
     print 'login_client auth_type', auth_type
+    print 'url', reverse('auth_login', args=[auth_type])
     return HttpResponseRedirect(reverse('auth_login', args=[auth_type]))
 
 
