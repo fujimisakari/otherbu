@@ -6,6 +6,8 @@ from django.db import transaction
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 from module.oauth.handler.twitter_handler import OauthTwitterHandler
 from module.oauth.handler.facebook_handler import OauthFacebookHandler
 
@@ -37,6 +39,11 @@ def login(request, auth_type=None):
     return HttpResponseRedirect(auth_url)
 
 
+def login_client(request, auth_type=None):
+    request.session['CLIENT'] = True
+    return HttpResponseRedirect(reverse('auth_login', args=[auth_type]))
+
+
 def demo_page(request):
     if settings.AUTO_LOGIN:
         return HttpResponseRedirect(reverse('root_index'))
@@ -65,3 +72,7 @@ def logout(request):
     response = HttpResponseRedirect(reverse('root_index'))
     response.delete_cookie('passport')
     return response
+
+
+def completion_client(request):
+    return render_to_response('client/completion.html', RequestContext(request, {}))

@@ -35,11 +35,9 @@ class ExceptionMiddleware(object):
 
     def process_exception(self, request, ex):
         traceback_str = traceback.format_exc()
-        user_id = "-"
-        try:
-            user_id = request.user.id
-        except:
-            pass
+        user_id = request.user.id
+        if not user_id:
+            user_id = '-'
 
         path = request.path
         view_name = None
