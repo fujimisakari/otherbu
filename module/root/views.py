@@ -8,8 +8,8 @@ from django.http import HttpResponseRedirect
 
 
 def index(request):
-    if request.session.get('DEMO_PAGE', False):
-        del request.session['DEMO_PAGE']
+    if request.session.get('CLIENT', False):
+        del request.session['CLIENT']
         return HttpResponseRedirect(reverse('completion_client'))
     params = {
         'title': settings.ROOT_TITLE,
