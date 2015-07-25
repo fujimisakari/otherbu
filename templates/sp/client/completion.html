@@ -15,13 +15,9 @@
 
 {% block contents %}
     <div class="center">
-        <h1>完了しました</h1>
+        <h1>ログインしました</h1>
         <br />
-        <p>ログインすることによって<br />Web版OtherBuと同期することができます</p>
-        <p class="download-info mt25">
-           <a href="{% url 'auth_login' 'facebook' %}" class="btn btn-primary btn-large">Facebook Login</a>
-           <a href="{% url 'auth_login' 'twitter' %}" class="btn btn-info btn-large">Twitter Login</a>
-        </p>
+        <p>Web版OtherBuと同期することができるようになりました</p>
     </div>
 
     <input type="hidden" id="id" value="{{ id }}">
