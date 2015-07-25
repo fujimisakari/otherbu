@@ -23,6 +23,10 @@
            <a href="{% url 'auth_login' 'twitter' %}" class="btn btn-info btn-large">Twitter Login</a>
         </p>
     </div>
+
+    <input type="hidden" name="id" value="{{ id }}">
+    <input type="hidden" name="type" value="{{ type }}">
+    <input type="hidden" name="type_id" value="{{ type_id }}">
 {% endblock %}
 
 {% block footer %}

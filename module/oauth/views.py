@@ -8,6 +8,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from module.oauth.decorator import require_user
 from module.oauth.handler.twitter_handler import OauthTwitterHandler
 from module.oauth.handler.facebook_handler import OauthFacebookHandler
 
@@ -78,5 +79,10 @@ def logout(request):
     return response
 
 
+@require_user
 def completion_client(request):
-    return render_to_response('client/completion.html', RequestContext(request, {}))
+    user = request.user
+    context = {'id': user.id,
+               'type': user.type,
+               'type_id': user.type_id}
+    return render_to_response('client/completion.html', RequestContext(request, context))
