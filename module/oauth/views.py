@@ -24,10 +24,8 @@ def select_auth_type(auth_type):
 
 
 def login(request, auth_type=None):
-    print 'auth_type', auth_type
     if not auth_type:
         return HttpResponseRedirect(reverse('root_index'))
-    print '----------'
     if settings.AUTO_LOGIN:
         now = datetime.datetime.now()
         expire = datetime.timedelta(days=settings.PASSPORT_EXPIRE)
@@ -44,8 +42,6 @@ def login(request, auth_type=None):
 
 def login_client(request, auth_type=None):
     request.session['CLIENT'] = True
-    print 'login_client auth_type', auth_type
-    print 'url', reverse('auth_login', args=[auth_type])
     return HttpResponseRedirect(reverse('auth_login', args=[auth_type]))
 
 
