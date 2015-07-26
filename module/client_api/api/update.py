@@ -38,9 +38,9 @@ class UpdateController(BaseController):
         ユーザーの更新
         """
         update_user = self.request_data['User']
-        page_id = self.request_data['User']['page_id']
-        if self._update_at(update_user['updated_at']) > self.user.updated_at:
+        if update_user.get('updated_at', False) and self._update_at(update_user['updated_at']) > self.user.updated_at:
             # クライアント側で更新があった場合
+            page_id = self.request_data['User']['page_id']
             page_map = self.response_data['Page']
             if page_map.get(page_id, False):
                 self.user.page_id = page_map.get(page_id)
