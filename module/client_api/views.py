@@ -16,13 +16,6 @@ def sync(request):
 
     request_data = json.loads(request.body)
 
-    # todo あとで消す
-    request_data['User'] = {
-        'id': '1',
-        'page_id': 16,
-        'updated_at': '2015,5,6,23,26,14',
-    }
-
     # exception時のため、ユーザーデータをセットしておく
     user = User.objects.get(id=request_data['User']['id'])
     request.user = user
