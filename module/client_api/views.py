@@ -48,7 +48,7 @@ def sync(request):
 def is_certification_matching(cert):
     salt = u"oke9dfkkd03sfkssifuqdcc2"
     dt = datetime.datetime.now()
-    ts = int(math.floor(time.mktime(dt.utctimetuple())))
+    ts = int(math.floor(time.mktime(dt.utctimetuple()))) - 1
 
     # 過去10秒以内の認証トークンと比較させる
     certification_list = []
