@@ -48,5 +48,5 @@ def sync(request):
 def is_certification_matching(cert):
     salt = u"oke9dfkkd03sfkssifuqdcc2"
     dt = datetime.datetime.now()
-    ts = int(math.floor(time.mktime(dt.utctimetuple()) / 600))
+    ts = int(math.floor(time.mktime(dt.utctimetuple()) / 600) * 600)
     return True if hashlib.sha1(u"%s:%s" % (salt, ts)).hexdigest() == cert else False
