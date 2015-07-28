@@ -2,6 +2,7 @@
 
 from settings.private_config import *
 
+IS_MAINTENANCE = False
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 AUTO_LOGIN = DEBUG
