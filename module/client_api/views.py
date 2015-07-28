@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
 
+import datetime
+import math
+import time
+import hashlib
+from django.conf import settings
 from django.db import transaction
 from django.utils import simplejson as json
 from django.http import HttpResponse
@@ -10,9 +15,18 @@ from .api.manager import APIManager
 @transaction.commit_on_success
 def sync(request):
 
-    # post以外は弾く
+    # メンテチェック
+    if settings.IS_MAINTENANCE:
+        return HttpResponse(content='MAINTENANCE', status=503)
 
-    # todo 認証チェック
+    # リクエスト形式チェック
+    if request.method != 'POST':
+        return HttpResponse(content='Method Not Allowed', status=405)
+
+    # 認証チェック
+    cert = request.META.get('HTTP_OTHERBU_AUTH', None)
+    if not cert or not is_certification_matching(cert):
+        return HttpResponse(content='Unauthorized', status=401)
 
     request_data = json.loads(request.body)
 
@@ -29,3 +43,16 @@ def sync(request):
     json_data = json.dumps(ret_json, ensure_ascii=False)
 
     return HttpResponse(json_data, mimetype='application/json')
+
+
+def is_certification_matching(cert):
+    salt = u"oke9dfkkd03sfkssifuqdcc2"
+    dt = datetime.datetime.now()
+    ts = int(math.floor(time.mktime(dt.utctimetuple()) / 600) * 600)
+
+    # 過去10秒以内の認証トークンと比較させる
+    certification_list = []
+    for x in range(1, 10):
+        _cert = hashlib.sha1(u"%s:%s" % (salt, ts - x)).hexdigest()
+        certification_list.append(_cert)
+    return True if cert in certification_list else False
