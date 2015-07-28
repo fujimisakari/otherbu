@@ -48,11 +48,11 @@ def sync(request):
 def is_certification_matching(cert):
     salt = u"oke9dfkkd03sfkssifuqdcc2"
     dt = datetime.datetime.now()
-    ts = int(math.floor(time.mktime(dt.utctimetuple()) / 600) * 600)
+    ts = int(math.floor(time.mktime(dt.utctimetuple())))
 
     # 過去10秒以内の認証トークンと比較させる
     certification_list = []
-    for x in range(1, 10):
+    for x in range(0, 10):
         _cert = hashlib.sha1(u"%s:%s" % (salt, ts - x)).hexdigest()
         certification_list.append(_cert)
     return True if cert in certification_list else False
