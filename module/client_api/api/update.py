@@ -43,7 +43,7 @@ class UpdateController(BaseController):
             page_id = self.request_data['User']['page_id']
             page_map = self.response_data['Page']
             if page_map.get(page_id, False):
-                self.user.page_id = page_map.get(page_id)
+                self.user.page_id = page_map.get(page_id)['id']
             else:
                 self.user.page_id = page_id
             self.user.use_mobile = True
