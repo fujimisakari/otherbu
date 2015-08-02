@@ -131,6 +131,7 @@ INSTALLED_APPS = (
     'module.oauth',
     'module.client_api',
     'module.misc',
+    'module.help',
 
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',

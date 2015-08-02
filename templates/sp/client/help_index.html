@@ -1,0 +1,103 @@
+{% extends 'base_frame.html' %}
+{% load url from future %}
+
+{% block contents %}
+    <div class="ml15 mb20">
+        <p>Otherbuについての<br />機能紹介・操作方法の説明ページになります</p>
+    </div>
+
+    {% for help in help_list %}
+
+        <div class="center mt30"><h4>{{ help.title }}</h4></div>
+
+        <div class="helpmenu">
+            <ul class="nav nav-tabs nav-stacked sidemenu">
+            {% for category in help.category_list %}
+                <li id="{{ help.type }}{{ forloop.counter }}" class="category-title">
+                    <a href="#{{ help.type }}{{ forloop.counter }}">
+                        <i class="icon-chevron-right"></i>
+                        {{ category.title }}
+                    </a>
+                </li>
+                <div id="context_{{ help.type }}{{ forloop.counter }}" class="ml15 mt10 mb10 hide">
+                    {{ category.context }}
+                </div>
+            {% endfor %}
+            </ul>
+        </div>
+
+    {% endfor %}
+
+    <div class="ml15 mt30">
+        <p>上記以外について不明点、お問い合わせは<br />fujimisakari@gmail.comまでご連絡下さい</p>
+    </div>
+
+{% endblock %}
+
+{% block footer %}
+    <footer class="footer">
+        <p class="right">Copyright © otherbu.com All Rights Reserved.</p>
+    </footer>
+{% endblock %}
+
+{% block css %}
+    <style>
+        /* Body and structure
+        -------------------------------------------------- */
+        body {
+          position: relative;
+          padding-top: 15px;
+          background-color: #fff;
+          background-image: url({{ MEDIA_IMG }}/grid-18px-masked.png);
+          background-position: 0 0;
+        }
+
+        .navbar .brand:hover {
+            text-decoration: none;
+        }
+
+        .navbar .brand {
+            float: left;
+            display: block;
+            padding: 8px 20px 12px;
+            margin-left: -20px;
+            font-size: 20px;
+            font-weight: 200;
+            line-height: 1;
+            color: #ffffff;
+        }
+
+        .helpmenu {
+            background-color: #F5F5F5;
+            border: 0px solid rgba(0, 0, 0, 0.05);
+            border-radius: 4px 4px 4px 4px;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
+        }
+
+        /* Footer
+        -------------------------------------------------- */
+        .footer {
+          background-color: #ffffff;
+          margin-top: 30px;
+          padding: 5px 10px;
+          border-top: 1px solid #e5e5e5;
+        }
+        .footer p {
+          margin-bottom: 0;
+          color: #555;
+        }
+    </style>
+{% endblock %}
+
+{% block js %}
+    <script src="{{ MEDIA_JS }}/jquery.js"></script>
+    <script type="text/javascript">
+    <!--
+        $('.category-title').click(function(){
+            id = $(this).attr('id');
+            $('#context_'+id).slideToggle('fast');
+            return false
+        });
+    // -->
+    </script>
+{% endblock %}

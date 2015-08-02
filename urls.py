@@ -12,6 +12,7 @@ urlpatterns = patterns(
     (r'^oauth/', include('module.oauth.urls')),
     (r'^setting/', include('module.setting.urls')),
     (r'^client_api/', include('module.client_api.urls')),
+    (r'^help/', include('module.help.urls')),
     url(r'^demo_page/$', demo_page, name='demo_page'),
     url(r'^logout/$', logout, name='logout'),
     url(r'^get_title/$', get_page_title, name='get_title'),
