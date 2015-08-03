@@ -109,7 +109,7 @@ class Page(AbustractCachedModel):
     def sort_dict(self):
         result_dict = {}
         if self.sort_ids_str:
-            sort_ids = self.sort_ids_str.split(',')
+            sort_ids = [x for x in self.sort_ids_str.split(',') if x]
             for sort_id_str in sort_ids:
                 sort_list = sort_id_str.split(':')
                 category_id = int(sort_list[0])
