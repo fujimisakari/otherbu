@@ -97,7 +97,7 @@ class Page(AbustractCachedModel):
     def angle_dict(self):
         result_dict = {}
         if self.angle_ids_str:
-            angle_ids = self.angle_ids_str.split(',')
+            angle_ids = [x for x in self.angle_ids_str.split(',') if x]
             for angle_id_str in angle_ids:
                 angle_list = angle_id_str.split(':')
                 category_id = int(angle_list[0])
