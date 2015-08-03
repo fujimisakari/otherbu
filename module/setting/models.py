@@ -90,7 +90,7 @@ class Page(AbustractCachedModel):
     @property
     def category_ids(self):
         category_ids = self.category_ids_str.split(',')
-        category_ids = [int(c) for c in category_ids]
+        category_ids = [int(c) for c in category_ids if c]
         return category_ids
 
     @property
