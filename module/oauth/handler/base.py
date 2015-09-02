@@ -34,13 +34,13 @@ class OauthBase(object):
         user, is_new = User.objects.get_or_create(type=auth_type, type_id=me.id)
         user.name = me.screen_name
         if auth_type == "twitter":
-            user_dir = me.screen_name
+            user_dir = me.id
             access_token = self.get_access_token(request)
             user.access_token_key = access_token.key
             user.access_token_secret = access_token.secret
             image_url = me.profile_image_url
         elif auth_type == "facebook":
-            user_dir = me.user_dir
+            user_dir = me.id
             user.access_token_key = me.access_token_key
             user.access_token_secret = me.access_token_secret
             image_url = "https://graph.facebook.com/%s/picture" % (user_dir)
