@@ -95,8 +95,14 @@ def check_certification(request):
     return None
 
 
-def is_certification_matching(cert):
+def is_certification_matching(received_cert):
     salt = u"oke9dfkkd03sfkssifuqdcc2"
     dt = datetime.datetime.now()
     ts = int(math.floor(time.mktime(dt.utctimetuple()) / 600) * 600)
-    return True if hashlib.sha1(u"%s:%s" % (salt, ts)).hexdigest() == cert else False
+    current_cert = hashlib.sha1(u"%s:%s" % (salt, ts)).hexdigest()
+
+    minutes_list = [0, -30, -20, -10, 10, 20, 30]
+    for minutes in minutes_list:
+        if received_cert == current_cert:
+            return True
+    return False
