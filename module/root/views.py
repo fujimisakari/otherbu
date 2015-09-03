@@ -13,11 +13,3 @@ def index(request):
         'body_padding': settings.PORTAL_BODY_PADDING,
     }
     return render_to_response('index.html', context_instance=RequestContext(request, params))
-
-
-def client_index(request):
-    params = {
-        'title': settings.ROOT_TITLE,
-        'body_padding': settings.PORTAL_BODY_PADDING,
-    }
-    return render_to_response('client/index.html', context_instance=RequestContext(request, params))

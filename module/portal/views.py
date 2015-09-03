@@ -4,16 +4,12 @@ from django.conf import settings
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django.template.loader import render_to_string
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from module.oauth.decorator import require_user
 
 
 @require_user
 def index(request):
-    if request.session.get('CLIENT', False):
-        del request.session['CLIENT']
-        return HttpResponseRedirect(reverse('completion_client'))
-
     user = request.user
     context = RequestContext(request, {
         'title': settings.PORTAL_TITLE,
