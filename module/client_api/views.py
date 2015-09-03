@@ -33,7 +33,7 @@ def client_login(request):
         # 初めてのユーザーには初期設定を当てる
         user.name = name
         user.user_dir = type_id
-        OauthBase().init_setup(user, type_id, type_name)
+        OauthBase().init_setup(user, type_id, type_name, need_sample_data=False)
         user.save()
 
     # ユーザー画像を取得
@@ -88,9 +88,9 @@ def check_certification(request):
         return HttpResponse(content='Method Not Allowed', status=405)
 
     # 認証チェック
-    # cert = request.META.get('HTTP_OTHERBU_AUTH', None)
-    # if not cert or not is_certification_matching(cert):
-    #     return HttpResponse(content='Unauthorized', status=401)
+    cert = request.META.get('HTTP_OTHERBU_AUTH', None)
+    if not cert or not is_certification_matching(cert):
+        return HttpResponse(content='Unauthorized', status=401)
 
     return None
 

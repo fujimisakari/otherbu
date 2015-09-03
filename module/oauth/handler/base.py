@@ -54,7 +54,7 @@ class OauthBase(object):
         urllib.urlretrieve(image_url, user_path)
         return user
 
-    def init_setup(self, user, user_dir, auth_type):
+    def init_setup(self, user, user_dir, auth_type, need_sample_data=True):
         # ユーザーディレクトリを作成
         create_userdir(user_dir, auth_type)
 
@@ -78,26 +78,27 @@ class OauthBase(object):
         DeleteManager.objects.create(user_id=user.id)
 
         # カテゴリ, ブックマークの初期設定
-        bookmark_list = []
-        for init_data in settings.INIT_DATA_LIST:
+        if need_sample_data:
+            bookmark_list = []
+            for init_data in settings.INIT_DATA_LIST:
 
-            category = Category(
-                user_id=user.id,
-                name=init_data['category'][0],
-                angle=init_data['category'][1],
-                sort=init_data['category'][2],
-                color_id=init_data['category'][3],
-                tag_open=init_data['category'][4],
-            )
-            category.save()
-
-            for b_tupl in init_data['bookmark']:
-                bookmark = Bookmark(
+                category = Category(
                     user_id=user.id,
-                    category_id=category.id,
-                    name=b_tupl[0],
-                    url=b_tupl[1],
-                    sort=b_tupl[2],
+                    name=init_data['category'][0],
+                    angle=init_data['category'][1],
+                    sort=init_data['category'][2],
+                    color_id=init_data['category'][3],
+                    tag_open=init_data['category'][4],
                 )
-                bookmark_list.append(bookmark)
-        Bookmark.objects.bulk_create(bookmark_list)
+                category.save()
+
+                for b_tupl in init_data['bookmark']:
+                    bookmark = Bookmark(
+                        user_id=user.id,
+                        category_id=category.id,
+                        name=b_tupl[0],
+                        url=b_tupl[1],
+                        sort=b_tupl[2],
+                    )
+                    bookmark_list.append(bookmark)
+            Bookmark.objects.bulk_create(bookmark_list)
