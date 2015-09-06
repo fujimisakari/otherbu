@@ -23,7 +23,7 @@ class User(models.Model):
         unique_together = (('type', 'type_id'),)
 
     def to_dict(self):
-        target = ['id', 'type', 'type_id', 'page_id']
+        target = ['id', 'name', 'type', 'type_id', 'page_id']
         return dict((x, getattr(self, x)) for x in target)
 
     @property
