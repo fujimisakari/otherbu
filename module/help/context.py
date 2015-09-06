@@ -47,13 +47,18 @@ help_context = [
           'context': 'Settingページ → Page設定 → Edit Pageより、並び順を変更することができます'},
          {'title': '所属カテゴリの編集',
           'context': 'Settingページ → Page設定 → Edit Page より、任意のページ選び所属させるカテゴリを編集することができます'}]},
+    {'title': 'アカウントについて',
+     'type': 'account',
+     'category_list': [
+         {'title': '機能について',
+          'context': mark_safe('アカウントは、ブックマークデータを個別に保持するために利用してます<br />例えば、Facebookアカウントでログインして追加、変更したデータはFacebookアカウントでログイン時のみ表示されます。<br />ログアウトするとデフォルトのブックマークデータに切り替わります')}]},
     {'title': '同期について',
      'type': 'sync',
      'category_list': [
          {'title': '機能について',
           'context': 'web版OtherbuとAppで登録、編集等した内容を同期させることができます'},
          {'title': '同期させるには？',
-          'context': mark_safe('同期させるには、Web版Otherbuに一度ログインしていただく必要があります<br />Web版Otherbuのログインするには、Twitter、Facebookどちらかのアカウントが必要になります')},
+          'context': '同期させるには、Twitter、Facebookどちらかのアカウントが必要になります'},
          {'title': 'Web版とApp版で編集が被った場合',
           'context': 'Web版とApp版のOtherbuで編集内容が被った場合は、編集した時刻の新しい方が優先して同期されます'}]}
 ]
