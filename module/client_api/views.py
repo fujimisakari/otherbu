@@ -42,7 +42,8 @@ def client_login(request):
     elif type_name == "facebook":
         image_url = "https://graph.facebook.com/%s/picture" % (type_id)
     user_path = "%s/%s/%s/%s" % (settings.USER_IMG_DIR, type_name, type_id, settings.USER_IMAGE)
-    urllib.urlretrieve(image_url, user_path)
+    if user_path and image_url:
+        urllib.urlretrieve(image_url, user_path)
 
     ret_json = {'user_data': user.to_dict()}
     json_data = json.dumps(ret_json, ensure_ascii=False)
