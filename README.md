@@ -7,9 +7,11 @@
 
 
 ## 開発環境手順
-1. 個人設定ファイルの(必要があれば)中身を書き換える
+
+1. 環境に合った.envファイルを準備
 ```
-% vim application/settings/private_config.py
+% cp .env.example .env
+% vim .env
 ```
 
 2. DB構築、マイグレート
