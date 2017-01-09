@@ -1,21 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import os
-import socket
 import sys
-
-from settings.private_config import *
 
 IS_MAINTENANCE = False
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 AUTO_LOGIN = DEBUG
-
-ADMINS = (
-    # ('Your Name', 'your_email@domain.com'),
-)
-
-MANAGERS = ADMINS
 
 # テンプレートで使用
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
@@ -25,24 +16,22 @@ sys.path.append(ROOT_PATH + '/module/')
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': DB_NAME,                 # Or path to database file if using sqlite3.
-        'USER': DB_USER,                 # Not used with sqlite3.
-        'PASSWORD': DB_PASS,             # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        'ENGINE': os.environ.get('DB_ENGINE'),
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASS'),
+        'HOST': os.environ.get('DB_HOST'),
+        'PORT': os.environ.get('DB_PORT'),
     }
 }
 
-HOSTNAME = socket.gethostname()
-if HOSTNAME == PUBLIC_HOSTNAME:
-    CACHES = {
-        'default': {
-            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-            'LOCATION': '127.0.0.1:11211',
-            'TIMEOUT': 3600 * 24,  # 24h
-        },
-    }
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': os.environ.get('MEMCACHED_LOCATION'),
+        'TIMEOUT': 3600 * 24,  # 24h
+    },
+}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -77,7 +66,7 @@ MEDIA_ROOT = ''
 MEDIA_URL = ''
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = DJANGO_SECRET_KEY
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -98,7 +87,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'web.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-#WSGI_APPLICATION = 'hoge.wsgi.application'
+# WSGI_APPLICATION = 'hoge.wsgi.application'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -129,11 +118,6 @@ INSTALLED_APPS = (
     'module.setting',
     'module.oauth',
     'module.misc',
-
-    # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -149,16 +133,16 @@ UPLOAD_SIZE_LIMIT = 2097152  # byte単位(2M = 2097152byte)
 
 # OAuth_key
 # twiiter
-TWITTER_CONSUMER_KEY = MY_TWITTER_CONSUMER_KEY
-TWITTER_CONSUMER_SECRET = MY_TWITTER_CONSUMER_SECRET
+TWITTER_CONSUMER_KEY = os.environ.get('TWITTER_CONSUMER_KEY')
+TWITTER_CONSUMER_SECRET = os.environ.get('TWITTER_CONSUMER_SECRET')
 
 # facebook
-FACEBOOK_APP_KEY = MY_FACEBOOK_APP_KEY
-FACEBOOK_APP_SECRET = MY_FACEBOOK_APP_SECRET
-FACEBOOK_REDIRECT_URI = MY_FACEBOOK_REDIRECT_URI
+FACEBOOK_APP_KEY = os.environ.get('FACEBOOK_APP_KEY')
+FACEBOOK_APP_SECRET = os.environ.get('FACEBOOK_APP_SECRET')
+FACEBOOK_REDIRECT_URI = os.environ.get('FACEBOOK_REDIRECT_URI')
 
 # DEMO
-DEMO_USER_ID = MY_DEMO_USER_ID
+DEMO_USER_ID = os.environ.get('DEMO_USER_ID')
 DEMO_RESET_TIME = 10
 
 # conmmon
