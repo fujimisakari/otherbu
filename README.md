@@ -14,8 +14,7 @@
 
 2. DB構築、マイグレート
 ```
-% cd otherbu/env
-% ./otherbu_init.sh local-init pip
+% ./env/otherbu_init.sh develop pip
 ```
 
 3. debug環境の起動
