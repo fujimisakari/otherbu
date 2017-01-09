@@ -2,6 +2,7 @@ appnope==0.1.0
 astroid==1.4.3
 autopep8==1.2.1
 BeautifulSoup==3.2.1
+click==6.7
 cmigemo==0.1.6
 colorama==0.3.5
 decorator==4.0.6
@@ -27,6 +28,7 @@ ptyprocess==0.5
 pyflakes==1.0.0
 Pygments==2.0.2
 pylint==1.5.2
+python-dotenv==0.6.1
 simplegeneric==0.8.1
 simplejson==2.6.0
 six==1.10.0
