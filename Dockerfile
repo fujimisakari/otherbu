@@ -8,4 +8,5 @@ ENV DOCKER true
 
 RUN apt-get update
 RUN apt-get install -y mysql-client vim net-tools telnet curl
-RUN pip install --no-cache-dir -r env/requirements.txt
+ADD env/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
