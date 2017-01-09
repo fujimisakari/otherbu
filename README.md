@@ -1,12 +1,12 @@
-* OtherBu(アザブ)
+# OtherBu(アザブ)
   http://otherbu.com
 
-** 概要
+## 概要
   ブックマークの配置やデザインをお好みで指定できる
   カスタマイズ性の高さが特徴のWebブックマークです。
 
 
-** 開発環境手順
+## 開発環境手順
 1. 個人設定ファイルを準備(必要があれば中身を書き換える)
 % mv settings/private_config_tmpl settings/private_config
 
