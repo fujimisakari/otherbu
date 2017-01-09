@@ -7,12 +7,19 @@
 
 
 ## 開発環境手順
-1. 個人設定ファイルを準備(必要があれば中身を書き換える)
-% mv settings/private_config_tmpl settings/private_config
+1. 個人設定ファイルの(必要があれば)中身を書き換える
+```
+% vim application/settings/private_config.py
+```
 
 2. DB構築、マイグレート
-% cd otherbu/config/
-% . ./otherbu_init.sh local-init pip
+```
+% cd otherbu/env
+% ./otherbu_init.sh local-init pip
+```
 
 3. debug環境の起動
-% ./manage.py runserver localhost:8088
+```
+% cd otherbu/application
+% ./manage.py runserver
+```
