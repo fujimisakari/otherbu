@@ -9,13 +9,13 @@ http://otherbu.com
 
 1. Prepare an .env file suitable for your environment.
 ```
-% cp .env.example .env
-% vim .env
+% cp .env.example .env.local
+% vim .env.local
 ```
 
 2. Create database and migrate.
 ```
-% ./env/otherbu_init.sh develop pip
+% ./env/otherbu_init.sh local pip
 ```
 
 3. Server run as debug.
