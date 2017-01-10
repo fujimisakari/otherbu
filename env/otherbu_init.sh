@@ -47,7 +47,7 @@ fi
 
 # For Local
 if [ $1 -a $1 = "local" ]; then
-    source .env.develop
+    source .env.local
     initialize_setup
 
     echo "===== Load Debug Data ====="
