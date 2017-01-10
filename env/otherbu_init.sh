@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-initialize_setup () {
+initialize () {
     if [ $2 -a $2 = "pip" ]; then
         echo "===== Pip Install ====="
         pip install -r requirements.txt
@@ -24,19 +24,19 @@ echo "##### Initialize Start #####"
 # For Production
 if [ $1 -a $1 = "production" ]; then
     source .env.production
-    initialize_setup
+    initialize
 fi
 
 # For Staging
 if [ $1 -a $1 = "staging" ]; then
     source .env.staging
-    initialize_setup
+    initialize
 fi
 
 # For Develop
 if [ $1 -a $1 = "develop" ]; then
     source .env.develop
-    initialize_setup
+    initialize
 
     echo "===== Load Debug Data ====="
     mysql -u$DB_USER -p$DB_PASS $DB_NAME -h $DB_HOST < fixtures/debug_data.sql
@@ -48,7 +48,7 @@ fi
 # For Local
 if [ $1 -a $1 = "local" ]; then
     source .env.local
-    initialize_setup
+    initialize
 
     echo "===== Load Debug Data ====="
     mysql -u$DB_USER -p$DB_PASS $DB_NAME -h $DB_HOST < fixtures/debug_data.sql
