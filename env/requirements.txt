@@ -29,6 +29,7 @@ pyflakes==1.0.0
 Pygments==2.0.2
 pylint==1.5.2
 python-dotenv==0.6.1
+python-memcached==1.58
 simplegeneric==0.8.1
 simplejson==2.6.0
 six==1.10.0
