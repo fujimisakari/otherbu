@@ -1,3 +1,7 @@
 .env
+.env.local
+.env.develop
 .env.staging
 .env.production
+
+*.pid
