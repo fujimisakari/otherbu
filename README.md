@@ -1,25 +1,24 @@
 # OtherBu(アザブ)
-  http://otherbu.com
 
-## 概要
-  ブックマークの配置やデザインをお好みで指定できる
-  カスタマイズ性の高さが特徴のWebブックマークです。
+## Overview
 
+It is a web bookmark characterized by high customizability that you can specify bookmark placement and design as you like.
+http://otherbu.com
 
-## 開発環境手順
+## How to setup
 
-1. 環境に合った.envファイルを準備
+1. Prepare an .env file suitable for your environment.
 ```
 % cp .env.example .env
 % vim .env
 ```
 
-2. DB構築、マイグレート
+2. Create database and migrate.
 ```
 % ./env/otherbu_init.sh develop pip
 ```
 
-3. debug環境の起動
+3. Server run as debug.
 ```
 % cd otherbu/application
 % ./manage.py runserver
