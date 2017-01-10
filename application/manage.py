@@ -15,7 +15,8 @@ import sys
 import dotenv
 
 if __name__ == '__main__':
-    dotenv.load_dotenv(os.path.join(os.path.dirname(__file__), '../.env'))
+    if not os.environ.get('DOCKER'):
+        dotenv.load_dotenv(os.path.join(os.path.dirname(__file__), '../.env.local'))
 
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
 
