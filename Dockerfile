@@ -1,7 +1,9 @@
 FROM python:2.7
 
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+RUN mkdir -p /usr/src/app/otherbu_dev
+RUN mkdir -p /usr/src/app/otherbu_stating
+RUN mkdir -p /usr/src/app/otherbu_prod
+
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV WERKZEUG_DEBUG_PIN off
 ENV DOCKER true
