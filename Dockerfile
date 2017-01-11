@@ -1,8 +1,8 @@
 FROM python:2.7
 
-RUN mkdir -p /usr/src/app/otherbu_dev
-RUN mkdir -p /usr/src/app/otherbu_stating
-RUN mkdir -p /usr/src/app/otherbu_prod
+RUN mkdir -p /usr/src/otherbu_dev
+RUN mkdir -p /usr/src/otherbu_stating
+RUN mkdir -p /usr/src/otherbu_prod
 
 ENV TZ Asia/Tokyo
 ENV PYTHONDONTWRITEBYTECODE 1
