@@ -4,7 +4,7 @@
 initialize () {
     if [ $2 -a $2 = "pip" ]; then
         echo "===== Pip Install ====="
-        pip install -r requirements.txt
+        pip install -r env/requirements.txt
     fi
 
     echo "===== DB Setup ====="
