@@ -1,7 +1,7 @@
 import multiprocessing
 
 # Server Socket
-bind = 'unix:/var/run/otherbu_gunicorn.sock'
+bind = 'unix:/var/run/otherbu/gunicorn.sock'
 backlog = 2048
 
 # Worker Processes
@@ -16,7 +16,7 @@ spew = False
 
 preload_app = True
 # daemon = True
-pidfile = '/var/run/otherbu_gunicorn.pid'
+pidfile = '/var/run/otherbu/gunicorn.pid'
 # user = 'app1_app'
 # group = 'nginx'
 # umask = 0002

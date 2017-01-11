@@ -1,13 +1,14 @@
 FROM python:2.7
 
-RUN mkdir -p /usr/src/otherbu_dev
-RUN mkdir -p /usr/src/otherbu_stating
-RUN mkdir -p /usr/src/otherbu_prod
-
 ENV TZ Asia/Tokyo
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV WERKZEUG_DEBUG_PIN off
 ENV DOCKER true
+
+RUN mkdir /usr/src/otherbu_dev
+RUN mkdir /usr/src/otherbu_stating
+RUN mkdir /usr/src/otherbu_prod
+RUN mkdir /var/run/otherbu
 
 RUN apt-get update
 RUN apt-get install -y mysql-client vim net-tools telnet curl
