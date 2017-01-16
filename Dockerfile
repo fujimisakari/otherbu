@@ -8,7 +8,10 @@ ENV DOCKER true
 RUN mkdir /usr/src/otherbu_dev
 RUN mkdir /usr/src/otherbu_stating
 RUN mkdir /usr/src/otherbu_prod
-RUN mkdir /var/run/otherbu
+
+RUN mkdir /var/run/otherbu_dev
+RUN mkdir /var/run/otherbu_staging
+RUN mkdir /var/run/otherbu_prod
 
 RUN apt-get update
 RUN apt-get install -y mysql-client vim net-tools telnet curl
