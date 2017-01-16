@@ -7,11 +7,6 @@ initialize () {
         pip install -r env/requirements.txt
     fi
 
-    echo "===== DB Setup ====="
-    echo "GRANT ALL PRIVILEGES ON *.* to $DB_USER@'%' identified BY '$DB_PASS';" | mysql -uroot -p -h $DB_HOST
-    echo "DROP DATABASE IF EXISTS $DB_NAME;" | mysql -u$DB_USER -p$DB_PASS -h $DB_HOST
-    echo "CREATE DATABASE $DB_NAME DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;" | mysql -u$DB_USER -p$DB_PASS -h $DB_HOST
-
     python application/manage.py syncdb --noinput
     python application/manage.py migrate
 
@@ -36,6 +31,12 @@ fi
 # For Develop
 if [ $1 -a $1 = "develop" ]; then
     source .env.develop
+
+    echo "===== DB Setup ====="
+    echo "GRANT ALL PRIVILEGES ON *.* to $DB_USER@'%' identified BY '$DB_PASS';" | mysql -uroot -p -h $DB_HOST
+    echo "DROP DATABASE IF EXISTS $DB_NAME;" | mysql -u$DB_USER -p$DB_PASS -h $DB_HOST
+    echo "CREATE DATABASE $DB_NAME DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;" | mysql -u$DB_USER -p$DB_PASS -h $DB_HOST
+
     initialize
 
     echo "===== Load Debug Data ====="
@@ -48,6 +49,12 @@ fi
 # For Local
 if [ $1 -a $1 = "local" ]; then
     source .env.local
+
+    echo "===== DB Setup ====="
+    echo "GRANT ALL PRIVILEGES ON *.* to $DB_USER@'%' identified BY '$DB_PASS';" | mysql -uroot -p -h $DB_HOST
+    echo "DROP DATABASE IF EXISTS $DB_NAME;" | mysql -u$DB_USER -p$DB_PASS -h $DB_HOST
+    echo "CREATE DATABASE $DB_NAME DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;" | mysql -u$DB_USER -p$DB_PASS -h $DB_HOST
+
     initialize
 
     echo "===== Load Debug Data ====="
