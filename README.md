@@ -15,7 +15,7 @@ $ vim .env.local
 
 2\. Create database and migrate.
 ```
-$ ./env/otherbu_init.sh local pip
+$ ./env/init.sh local pip
 ```
 
 3\. Server run as debug.
