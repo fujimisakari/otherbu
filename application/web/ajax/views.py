@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import re
-import json as simplejson
+import json
 
 from django.http import HttpResponse
 
@@ -28,8 +28,8 @@ def get_page_title(request):
             ret_json = {'result': True, 'title': title}
         else:
             ret_json = {'result': False}
-        json = simplejson.dumps(ret_json, ensure_ascii=False)
-        return HttpResponse(json, mimetype='applicatlion/json')
+        context = json.dumps(ret_json, ensure_ascii=False)
+        return HttpResponse(context, content_type='applicatlion/json')
 
 
 @require_user
@@ -142,5 +142,5 @@ def get_sugetst(request):
         obj_xml = GetGoogleSuggest(search_text, 10)
         data_list = obj_xml.get_data()
         ret_json = {'results': data_list}
-        json = simplejson.dumps(ret_json, ensure_ascii=False)
-        return HttpResponse(json, mimetype='applicatlion/json')
+        context = json.dumps(ret_json, ensure_ascii=False)
+        return HttpResponse(context, content_type='applicatlion/json')
