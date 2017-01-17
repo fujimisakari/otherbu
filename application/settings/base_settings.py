@@ -119,6 +119,41 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'web.context_processors.user_context',
 )
 
+LOGGING_DIR = '/tmp'
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'standard': {
+            'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'standard'
+        },
+
+        'file_rotate': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': LOGGING_DIR + '/app.log',
+            'maxBytes': 1024 * 1024 * 5 * 10,  # 50MB
+            'backupCount': 10,
+            'formatter': 'standard'
+        },
+
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['file_rotate'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+    }
+}
+
 # Static settting
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
