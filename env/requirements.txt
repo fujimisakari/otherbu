@@ -6,7 +6,7 @@ click==6.7
 cmigemo==0.1.6
 colorama==0.3.5
 decorator==4.0.6
-Django==1.4
+Django==1.8.7
 django-extensions==1.7.5
 funcsigs==1.0.2
 gnureadline==6.3.3
@@ -33,7 +33,6 @@ python-memcached==1.58
 simplegeneric==0.8.1
 simplejson==2.6.0
 six==1.10.0
-South==0.7.6
 traitlets==4.0.0
 tweepy==1.10
 uamobile==0.2.16
