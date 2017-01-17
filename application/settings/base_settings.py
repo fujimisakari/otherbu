@@ -110,6 +110,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'south',
+    'storages',
 
     # module
     'module.setting',
@@ -121,6 +122,12 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'web.context_processors.common_context',
     'web.context_processors.user_context',
 )
+
+# collectstaic時にS3を使う
+AWS_STORAGE_BUCKET_NAME = 'static-otherbu-prod'
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+# これをTrueにしたほうがファイル変更のチェックが速くなる
+AWS_PRELOAD_METADATA = True
 
 #####################################################################
 
