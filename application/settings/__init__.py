@@ -7,4 +7,4 @@ if os.environ.get('APP_ENV') == 'local' or os.environ.get('APP_ENV') == 'dev':
 elif os.environ.get('APP_ENV') == 'staging':
     from settings.staging_settings import *
 elif os.environ.get('APP_ENV') == 'production':
-    from settings.base_settings import *
+    from settings.prod_settings import *
