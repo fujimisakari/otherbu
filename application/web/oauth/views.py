@@ -54,7 +54,7 @@ def demo_page(request):
     return response
 
 
-@transaction.commit_on_success
+@transaction.atomic
 def callback(request, auth_type=None):
     if not auth_type:
         return HttpResponseRedirect(reverse('root_index'))

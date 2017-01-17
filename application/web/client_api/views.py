@@ -16,7 +16,7 @@ from module.oauth.handler.base import OauthBase
 from module.oauth.models import User
 
 
-@transaction.commit_on_success
+@transaction.atomic
 def client_login(request):
     # 認証チェック
     http_response = check_certification(request)
@@ -51,7 +51,7 @@ def client_login(request):
     return HttpResponse(json_data, mimetype='application/json')
 
 
-@transaction.commit_on_success
+@transaction.atomic
 def sync(request):
     # 認証チェック
     http_response = check_certification(request)

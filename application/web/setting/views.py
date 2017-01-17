@@ -105,7 +105,7 @@ def bookmark_search(request):
 
 
 @require_user
-@transaction.commit_on_success
+@transaction.atomic
 def bookmark_regist(request):
     user = request.user
     post_data = {
@@ -120,7 +120,7 @@ def bookmark_regist(request):
 
 
 @require_user
-@transaction.commit_on_success
+@transaction.atomic
 def bookmark_edit(request):
     user = request.user
     c_id = int(request.POST['search_category'])
@@ -132,7 +132,7 @@ def bookmark_edit(request):
 
 
 @require_user
-@transaction.commit_on_success
+@transaction.atomic
 def bookmark_delete(request):
     user = request.user
     c_id = int(request.POST['search_category'])
@@ -219,7 +219,7 @@ def category_index(request):
 
 
 @require_user
-@transaction.commit_on_success
+@transaction.atomic
 def category_regist(request):
     user = request.user
     post_data = {
@@ -233,7 +233,7 @@ def category_regist(request):
 
 
 @require_user
-@transaction.commit_on_success
+@transaction.atomic
 def category_edit(request):
     user = request.user
     formset = CategoryFormSet(request.POST)
@@ -243,7 +243,7 @@ def category_edit(request):
 
 
 @require_user
-@transaction.commit_on_success
+@transaction.atomic
 def category_delete(request):
     user = request.user
     formset = CategoryFormSet(request.POST)
@@ -296,7 +296,7 @@ def page_search(request):
 
 
 @require_user
-@transaction.commit_on_success
+@transaction.atomic
 def page_select(request, page_id):
     user = request.user
     page_id = int(page_id)
@@ -305,7 +305,7 @@ def page_select(request, page_id):
 
 
 @require_user
-@transaction.commit_on_success
+@transaction.atomic
 def page_regist(request):
     user = request.user
     post_data = {
@@ -319,7 +319,7 @@ def page_regist(request):
 
 
 @require_user
-@transaction.commit_on_success
+@transaction.atomic
 def page_edit(request):
     user = request.user
     if request.method != 'POST':
@@ -338,7 +338,7 @@ def page_edit(request):
 
 
 @require_user
-@transaction.commit_on_success
+@transaction.atomic
 def page_delete(request):
     user = request.user
     if not request.POST.get('page_id', False):
@@ -370,7 +370,7 @@ def design_index(request):
 
 
 @require_user
-@transaction.commit_on_success
+@transaction.atomic
 def design_edit(request):
     user = request.user
     if request.method == 'POST':
@@ -402,7 +402,7 @@ def import_index(request):
 
 
 @require_user
-@transaction.commit_on_success
+@transaction.atomic
 def import_exec(request):
     user = request.user
     if request.method == 'POST':
