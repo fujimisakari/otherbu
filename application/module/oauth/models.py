@@ -29,6 +29,10 @@ class User(models.Model):
         return dict((x, getattr(self, x)) for x in target)
 
     @property
+    def image_dir_path(self):
+        return '{}user/{}/{}'.format(settings.MEDIA_URL, self.type, self.user_dir)
+
+    @property
     def category_list(self):
         c_list = Category.get_cache_user(self.pk)
         if self.page:

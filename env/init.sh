@@ -61,7 +61,7 @@ if [ $1 -a $1 = "local" ]; then
     mysql -u$DB_USER -p$DB_PASS $DB_NAME -h $DB_HOST < fixtures/debug_data.sql
 
     echo "===== Create User Directory For Debug ====="
-    cp -rf fixtures/debug.user static/user/facebook
+    cp -rf fixtures/debug.user media/user/facebook
 fi
 
 echo "##### Initialize Done #####"

@@ -121,7 +121,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 # Static settting
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(ROOT_PATH, '../../static')
 STATICFILES_DIRS = (
     [os.path.join(ROOT_PATH, '../../static')]
 )
@@ -158,9 +157,8 @@ DEMO_RESET_TIME = 10
 
 # Conmmon
 SITE_TITLE = 'OtherBu'
-MEDIA_USER_BK_IMG = '/otherbu/static/user'
-USER_IMG_DIR = os.path.join(ROOT_PATH, '../../static/user')
-USER_TMP_DIR = os.path.join(ROOT_PATH, '../../static/user/tmp')
+USER_IMG_DIR = os.path.join(ROOT_PATH, '../../media/user')
+USER_TMP_DIR = os.path.join(ROOT_PATH, '../../media/user/tmp')
 SAMPLE_IMG_PATH = os.path.join(ROOT_PATH, '../../master_data/debug.user/bk_image.jpg')
 BK_IMAGE_NAME = "bk_image"     # 背景画像名
 USER_IMAGE = "user_image.jpg"  # ユーザー画像
