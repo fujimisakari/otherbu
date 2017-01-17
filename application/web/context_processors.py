@@ -13,9 +13,6 @@ def common_context(request):
     return {
         'COLUMN': settings.COLUMN,
         'SITE_TITLE': settings.SITE_TITLE,
-        'MEDIA_CSS': settings.MEDIA_CSS,
-        'MEDIA_JS': settings.MEDIA_JS,
-        'MEDIA_IMG': settings.MEDIA_IMG,
         'MEDIA_USER_BK_IMG': settings.MEDIA_USER_BK_IMG,
         'BK_IMAGE_NAME': settings.BK_IMAGE_NAME,
         'USER_IMAGE': settings.USER_IMAGE,
