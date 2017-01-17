@@ -11,9 +11,6 @@ AUTO_LOGIN = DEBUG
 # テンプレートで使用
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
 
-# インポートのパスを設定
-sys.path.append(ROOT_PATH + '/module/')
-
 DATABASES = {
     'default': {
         'ENGINE': os.environ.get('DB_ENGINE'),
