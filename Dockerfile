@@ -8,6 +8,8 @@ ENV DOCKER true
 RUN mkdir /usr/src/otherbu
 RUN mkdir /var/run/otherbu
 
+WORKDIR /usr/src/otherbu
+
 RUN apt-get update
 RUN apt-get install -y mysql-client vim net-tools telnet curl
 ADD env/requirements.txt .
