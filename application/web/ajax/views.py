@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 import re
+import json as simplejson
 
 from django.http import HttpResponse
-from django.utils import simplejson
 
 from module.misc.get_googlesuggest import GetGoogleSuggest
 from module.misc.get_pagetitle import getPageTitle

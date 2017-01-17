@@ -2,6 +2,7 @@
 
 import datetime
 import hashlib
+import json
 import math
 import time
 import urllib
@@ -9,7 +10,6 @@ import urllib
 from django.conf import settings
 from django.db import transaction
 from django.http import HttpResponse
-from django.utils import simplejson as json
 
 from module.client_api.api.manager import APIManager
 from module.oauth.handler.base import OauthBase
