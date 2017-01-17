@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from django.conf.urls.defaults import patterns, url
+from django.conf.urls import url
+from web.oauth import views as v
 
-urlpatterns = patterns(
-    'web.oauth.views',
-    url(r'callback/(?P<auth_type>\w+)/$', 'callback', name='auth_callback'),
-    url(r'(?P<auth_type>\w+)/$', 'login', name='auth_login'),
-)
+urlpatterns = [
+    url(r'callback/(?P<auth_type>\w+)/$', v.callback, name='auth_callback'),
+    url(r'(?P<auth_type>\w+)/$', v.login, name='auth_login'),
+]

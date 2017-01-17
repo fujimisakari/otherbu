@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from django.conf.urls.defaults import patterns, url
+from django.conf.urls import url
+from web.client_api import views as v
 
-urlpatterns = patterns(
-    'web.client_api.views',
-    url(r'^login/$', 'client_login', name='client_login'),
-    url(r'^sync/$', 'sync', name='sync'),
-)
+urlpatterns = [
+    url(r'^login/$', v.client_login, name='client_login'),
+    url(r'^sync/$', v.sync, name='sync'),
+]

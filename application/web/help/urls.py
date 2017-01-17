@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from django.conf.urls.defaults import patterns, url
+from django.conf.urls import url
+from web.help import views as v
 
-urlpatterns = patterns(
-    'web.help.views',
-    url(r'^client/$', 'client_index', name='client_help_index'),
-)
+urlpatterns = [
+    url(r'^client/$', v.client_index, name='client_help_index'),
+]

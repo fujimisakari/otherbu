@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from django.conf.urls.defaults import patterns, url
+from django.conf.urls import url
+from web.root import views as v
 
-urlpatterns = patterns(
-    'web.root.views',
-    url(r'^$', 'index', name='root_index'),
-)
+urlpatterns = [
+    url(r'^$', v.index, name='root_index'),
+]
