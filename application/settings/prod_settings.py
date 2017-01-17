@@ -7,4 +7,4 @@ TEMPLATE_DEBUG = DEBUG
 AUTO_LOGIN = DEBUG
 
 STATIC_URL = 'https://s3-ap-northeast-1.amazonaws.com/static-otherbu-prod/'
-LOGGING_DIR = '/var/log/nginx/otherbu'
+# LOGGING_DIR = '/var/log/nginx/otherbu'
