@@ -1,4 +1,5 @@
 {% extends 'setting/local_contents.html' %}
+{% load static %}
 
 {% block local_help %}
     <legend><span class="ml15">デザイン編集</span></legend>
@@ -108,11 +109,11 @@
 {% endblock %}
 
 {% block sub_local_css %}
-    <link href="{{ MEDIA_CSS }}/jquery.simple-color-picker.css" rel="stylesheet">
+    <link href="{% static 'css/jquery.simple-color-picker.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block sub_local_js %}
-    <script src="{{ MEDIA_JS }}/jquery.simple-color-picker.js"></script>
+    <script src="{% static 'js/jquery.simple-color-picker.js' %}"></script>
     <script type="text/javascript">
     <!--
 

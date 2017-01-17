@@ -1,4 +1,5 @@
 {% extends 'setting/local_contents.html' %}
+{% load static %}
 
 {% block local_help %}
     <legend><span class="ml15">ブックーマーク編集</span></legend>
@@ -142,7 +143,7 @@
 {% endblock %}
 
 {% block sub_local_js %}
-    <script src="{{ MEDIA_JS }}/jquery.tablednd.0.6.min.js"></script>
+    <script src="{% static 'js/jquery.tablednd.0.6.min.js' %}"></script>
     <script type="text/javascript">
     <!--
 

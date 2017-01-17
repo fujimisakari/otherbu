@@ -1,4 +1,5 @@
 {% extends 'base_frame.html' %}
+{% load static %}
 
 {% block header_navi %}
     <div class="navbar navbar-fixed-top">
@@ -16,18 +17,18 @@
                     <ul class="nav">
                         <li>
                             <a class="navi-icon ml15 mr5" data-toggle="modal" rel="tooltip" title="ブックマークの登録" onClick="fnFormatModel('bookmark'); return false;" href="#regist-bookmark">
-                                <img src="{{ MEDIA_IMG }}/icon-bookmark-gray.png" width="20" alt="" />
+                                <img src="{% static 'img/icon-bookmark-gray.png' %}" width="20" alt="" />
                             </a>
                         </li>
                         <li>
                             <a class="navi-icon ml5 mr5" data-toggle="modal" rel="tooltip" title="カテゴリの登録" onClick="fnFormatModel('category'); return false;" href="#regist-category">
-                                <img src="{{ MEDIA_IMG }}/icon-category-gray.png" width="20" alt="" />
+                                <img src="{% static 'img/icon-category-gray.png' %}" width="20" alt="" />
                             </a>
                         </li>
                         <li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle navi-icon ml5 mr5" rel="tooltip" title="ページの登録・変更" data-toggle="dropdown">
-                                    <img src="{{ MEDIA_IMG }}/icon-page-gray.png" width="20" alt="" /><span class="ml5"><b class="caret"></b></span>
+                                    <img src="{% static 'img/icon-page-gray.png' %}" width="20" alt="" /><span class="ml5"><b class="caret"></b></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
@@ -45,7 +46,7 @@
                         </li>
                         <li class="dropdown">
                             <a href="#" rel="tooltip" title="各種設定" class="dropdown-toggle navi-icon" data-toggle="dropdown">
-                                <img src="{{ MEDIA_IMG }}/icon-setting-gray.png" width="20" alt="" /><span class="ml5"><b class="caret"></b></span>
+                                <img src="{% static 'img/icon-setting-gray.png' %}" width="20" alt="" /><span class="ml5"><b class="caret"></b></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="{% url 'bookmark_index' %}">ブックマーク</a></li>
@@ -66,7 +67,7 @@
                         </li>
                         <li>
                             <a class="navi-icon ml5 mr5 navi-help" data-toggle="modal" rel="tooltip" title="ヘルプ" href="#">
-                                <img src="{{ MEDIA_IMG }}/icon-help-gray.png" width="20" alt="" />
+                                <img src="{% static 'img/icon-help-gray.png' %}" width="20" alt="" />
                             </a>
                         </li>
                     </ul>
@@ -245,24 +246,24 @@
 {% endblock %}
 
 {% block js %}
-    <script src="{{ MEDIA_JS }}/jquery.js"></script>
-    <script src="{{ MEDIA_JS }}/bootstrap-transition.js"></script>
-    <script src="{{ MEDIA_JS }}/bootstrap-modal.js"></script>
-    <script src="{{ MEDIA_JS }}/bootstrap-dropdown.js"></script>
-    <!-- <script src="{{ MEDIA_JS }}/bootstrap-scrollspy.js"></script> -->
-    <!-- <script src="{{ MEDIA_JS }}/bootstrap-tab.js"></script> -->
-    <script src="{{ MEDIA_JS }}/bootstrap-tooltip.js"></script>
-    <!-- <script src="{{ MEDIA_JS }}/bootstrap-popover.js"></script> -->
-    <script src="{{ MEDIA_JS }}/bootstrap-alert.js"></script>
-    <script src="{{ MEDIA_JS }}/bootstrap-button.js"></script>
-    <script src="{{ MEDIA_JS }}/bootstrap-collapse.js"></script>
-    <!-- <script src="{{ MEDIA_JS }}/bootstrap-carousel.js"></script> -->
-    <!-- <script src="{{ MEDIA_JS }}/bootstrap-typeahead.js"></script> -->
-    <script src="{{ MEDIA_JS }}/jquery-ui-1.7.2.custom.min.js"></script>
-    <!-- <script src="{{ MEDIA_JS }}/bsn.AutoSuggest.js"></script> -->
-    <script src="{{ MEDIA_JS }}/bsn.AutoSuggest_2.1.3.js"></script>
-    <script src="{{ MEDIA_JS }}/valid.js"></script>
-    <script src="{{ MEDIA_JS }}/site.js"></script>
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/bootstrap-transition.js' %}"></script>
+    <script src="{% static 'js/bootstrap-modal.js' %}"></script>
+    <script src="{% static 'js/bootstrap-dropdown.js' %}"></script>
+    <!-- <script src="{% static 'js/bootstrap-scrollspy.js' %}"></script> -->
+    <!-- <script src="{% static 'js/bootstrap-tab.js' %}"></script> -->
+    <script src="{% static 'js/bootstrap-tooltip.js' %}"></script>
+    <!-- <script src="{% static 'js/bootstrap-popover.js' %}"></script> -->
+    <script src="{% static 'js/bootstrap-alert.js' %}"></script>
+    <script src="{% static 'js/bootstrap-button.js' %}"></script>
+    <script src="{% static 'js/bootstrap-collapse.js' %}"></script>
+    <!-- <script src="{% static 'js/bootstrap-carousel.js' %}"></script> -->
+    <!-- <script src="{% static 'js/bootstrap-typeahead.js' %}"></script> -->
+    <script src="{% static 'js/jquery-ui-1.7.2.custom.min.js' %}"></script>
+    <!-- <script src="{% static 'js/bsn.AutoSuggest.js' %}"></script> -->
+    <script src="{% static 'js/bsn.AutoSuggest_2.1.3.js' %}"></script>
+    <script src="{% static 'js/valid.js' %}"></script>
+    <script src="{% static 'js/site.js' %}"></script>
     <script type="text/javascript">
     <!--
 
