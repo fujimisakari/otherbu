@@ -20,8 +20,10 @@ class OauthTwitterHandler(OauthBase):
         """
         TweepyのAPIを取得
         """
+        access_token_key = access_token[0]
+        access_token_secret = access_token[1]
         handler = self.get_oauth_handler()
-        handler.set_access_token(access_token.key, access_token.secret)
+        handler.set_access_token(access_token_key, access_token_secret)
         api = API(handler)
         return api
 
@@ -30,16 +32,16 @@ class OauthTwitterHandler(OauthBase):
         # 認証URLの取得
         auth_url = handler.get_authorization_url()
         # リクエストトークンをセッションに保持
-        self.set_request_token(request, handler.request_token.key, handler.request_token.secret)
+        self.set_request_token(request, handler.request_token['oauth_token'], handler.request_token['oauth_token_secret'])
         # 認証URLへリダイレクト
         return auth_url
 
     def auth_callback(self, request):
-        oauth_token = request.GET['oauth_token']
+        # アクセストークンを取得
         oauth_verifier = request.GET['oauth_verifier']
         handler = self.get_oauth_handler()
-        handler.set_request_token(oauth_token, oauth_verifier)
-        # アクセストークンを取得
+        handler.request_token = {'oauth_token': request.GET['oauth_token'],
+                                 'oauth_token_secret': oauth_verifier}
         access_token = handler.get_access_token(oauth_verifier)
         # アクセストークンをセッションに保持
         self.set_access_token(request, access_token)

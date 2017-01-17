@@ -38,8 +38,8 @@ class OauthBase(object):
         if auth_type == 'twitter':
             user_dir = me.id
             access_token = self.get_access_token(request)
-            user.access_token_key = access_token.key
-            user.access_token_secret = access_token.secret
+            user.access_token_key = access_token[0]
+            user.access_token_secret = access_token[1]
             image_url = me.profile_image_url
         elif auth_type == 'facebook':
             user_dir = me.id
