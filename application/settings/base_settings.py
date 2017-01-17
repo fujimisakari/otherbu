@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import os
-import sys
 
 IS_MAINTENANCE = False
 DEBUG = False
@@ -109,6 +108,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
+    'django.contrib.staticfiles',
     'storages',
 
     # module
@@ -121,6 +121,17 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'web.context_processors.common_context',
     'web.context_processors.user_context',
 )
+
+# static settting
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(ROOT_PATH, '../../static')
+STATICFILES_DIRS = (
+    [os.path.join(ROOT_PATH, '../../static')]
+)
+
+# media setting
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(ROOT_PATH, '../../media')
 
 # collectstaic時にS3を使う
 AWS_STORAGE_BUCKET_NAME = 'static-otherbu-prod'
@@ -149,8 +160,6 @@ DEMO_USER_ID = os.environ.get('DEMO_USER_ID')
 DEMO_RESET_TIME = 10
 
 # conmmon
-# MEDIA_BASE = '/media/'
-# MEDIA_URL = '/static/'
 SITE_TITLE = 'OtherBu'
 MEDIA_USER_BK_IMG = '/otherbu/static/user'
 USER_IMG_DIR = os.path.join(ROOT_PATH, '../../static/user')

@@ -7,4 +7,3 @@ TEMPLATE_DEBUG = DEBUG
 AUTO_LOGIN = DEBUG
 
 STATIC_URL = 'https://s3-ap-northeast-1.amazonaws.com/static-otherbu-prod/'
-MEDIA_URL = '/media/'
