@@ -7,7 +7,6 @@ DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 AUTO_LOGIN = DEBUG
 
-# テンプレートで使用
 ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
 
 DATABASES = {
@@ -92,12 +91,10 @@ TEMPLATE_DIRS = (
     # os.path.join(ROOT_PATH, '../templates/pc'),
 )
 
-# PC版用テンプレート
 PC_TEMPLATE_DIRS = (
     os.path.join(ROOT_PATH, '../templates/pc'),
 )
 
-# スマートフォン版用テンプレート
 SMARTPHONE_TEMPLATE_DIRS = (
     os.path.join(ROOT_PATH, '../templates/sp'),
 )
@@ -122,14 +119,14 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'web.context_processors.user_context',
 )
 
-# static settting
+# Static settting
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(ROOT_PATH, '../../static')
 STATICFILES_DIRS = (
     [os.path.join(ROOT_PATH, '../../static')]
 )
 
-# media setting
+# Media setting
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(ROOT_PATH, '../../media')
 
@@ -141,7 +138,7 @@ AWS_PRELOAD_METADATA = True
 
 #####################################################################
 
-# system
+# System
 PASSPORT_EXPIRE = 30         # 自動ログインの期限(30日)
 UPLOAD_SIZE_LIMIT = 2097152  # byte単位(2M = 2097152byte)
 
@@ -159,7 +156,7 @@ FACEBOOK_REDIRECT_URI = os.environ.get('FACEBOOK_REDIRECT_URI')
 DEMO_USER_ID = os.environ.get('DEMO_USER_ID')
 DEMO_RESET_TIME = 10
 
-# conmmon
+# Conmmon
 SITE_TITLE = 'OtherBu'
 MEDIA_USER_BK_IMG = '/otherbu/static/user'
 USER_IMG_DIR = os.path.join(ROOT_PATH, '../../static/user')
@@ -168,14 +165,14 @@ SAMPLE_IMG_PATH = os.path.join(ROOT_PATH, '../../master_data/debug.user/bk_image
 BK_IMAGE_NAME = "bk_image"     # 背景画像名
 USER_IMAGE = "user_image.jpg"  # ユーザー画像
 
-# root
+# Root
 ROOT_TITLE = 'OtherBu'
 
-# portal
+# Portal
 PORTAL_TITLE = 'OtherBu'
 COLUMN = [1, 2, 3]
 
-# setting
+# Setting
 CATEGORY_TITLE = 'OtherBu / カテゴリ設定'
 BOOKMARK_TITLE = 'OtherBu / ブックマーク設定'
 BOOKMARK_MOVE_TITLE = 'OtherBu / ブックマーク移動設定'
@@ -192,7 +189,7 @@ SETTING_BODY_PADDING = 40
 
 # 初期投入用データ
 
-# design
+# Design
 LINKMARK_FLG = 0
 LINK_COLOR = "#444444"
 CATEGORY_BACK_COLOR = "#ffe599"
@@ -201,7 +198,7 @@ PORTAL_BACK_COLOR = "#ffffff"
 IMAGE_POSITION = "no-repeat"
 BK_IMAGE_EXT = "jpg"
 
-# bookmark, category
+# Bookmark, Category
 INIT_DATA_LIST = [
     {'category': ('動画サイト', 2, 2, 3, 1),
      'bookmark': [('YouTube - Broadcast Yourself  ', 'http://youtube.co.jp', 1),
