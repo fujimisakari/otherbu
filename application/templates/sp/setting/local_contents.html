@@ -1,14 +1,15 @@
 {% extends 'base_contents.html' %}
+{% load static %}
 
 {% block contents %}
     {% block info %}{% endblock %}
 {% endblock %}
 
 {% block local_css %}
-    <link href="{{ MEDIA_CSS }}/setting-style.css" rel="stylesheet">
+    <link href="{% static 'css/setting-style.css' %}" rel="stylesheet">
     <style>
         .setting-container{
-            background-image: url({{ MEDIA_IMG }}/wash-white.png);
+            background-image: url({% static 'img/wash-white.png' %});
             padding: 15px 15px 0 15px;
         }
 

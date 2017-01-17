@@ -1,7 +1,8 @@
 {% extends 'base_contents.html' %}
+{% load static %}
 
 {% block local_css %}
-    <link href="{{ MEDIA_CSS }}/portal-style_sp.css" rel="stylesheet">
+    <link href="{% static 'css/portal-style_sp.css' %}" rel="stylesheet">
     <style>
         .dragbox-content,
         .category-color{
@@ -51,7 +52,7 @@
             {% endif %}
 
             {% if color.icon_color == "white" %}
-                .color-{{ color.id }} i {background-image: url("{{ MEDIA_IMG }}/glyphicons-halflings-white.png");}
+                .color-{{ color.id }} i {background-image: url({% static 'img/glyphicons-halflings-white.png' %});}
             {% endif %}
         {% endfor %}
 
@@ -92,9 +93,9 @@
 {% endblock %}
 
 {% block local_js %}
-    <script src="{{ MEDIA_JS }}/jquery-ui-1.7.2.custom.min.js"></script>
-    <script src="{{ MEDIA_JS }}/flipsnap.min.js"></script>
-    <script src="{{ MEDIA_JS }}/portal.js"></script>
+    <script src="{% static 'js/jquery-ui-1.7.2.custom.min.js' %}"></script>
+    <script src="{% static 'js/flipsnap.min.js' %}"></script>
+    <script src="{% static 'js/portal.js' %}"></script>
     <script type="text/javascript">
     <!--
         var flipsnap = Flipsnap('.flipsnap');

@@ -1,4 +1,5 @@
 {% extends 'base_frame.html' %}
+{% load static %}
 
 {% block contents %}
     <div class="ml15 mb20">
@@ -47,7 +48,7 @@
           position: relative;
           padding-top: 15px;
           background-color: #fff;
-          background-image: url({{ MEDIA_IMG }}/grid-18px-masked.png);
+          background-image: url({% static 'img/grid-18px-masked.png' %});
           background-position: 0 0;
         }
 
@@ -89,7 +90,7 @@
 {% endblock %}
 
 {% block js %}
-    <script src="{{ MEDIA_JS }}/jquery.js"></script>
+    <script src="{% static 'js/jquery.js' %}"></script>
     <script type="text/javascript">
     <!--
         $('.category-title').click(function(){

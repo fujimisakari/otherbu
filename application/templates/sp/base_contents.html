@@ -1,4 +1,5 @@
 {% extends 'base_frame.html' %}
+{% load static %}
 
 {% block header_navi %}
     <div class="navbar navbar-fixed-top">
@@ -10,7 +11,7 @@
                         {% if page_list %}
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle navi-icon ml5 mr5" rel="tooltip" title="ページの登録・変更" data-toggle="dropdown">
-                                    <img src="{{ MEDIA_IMG }}/icon-page-white.png" width="20" alt="" /><span class="ml5"></span>
+                                    <img src="{% static 'img/icon-page-white.png' %}" width="20" alt="" /><span class="ml5"></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><div class="bold ml15">ページ設定</div></li>
@@ -24,7 +25,7 @@
                         {% endif %}
                         <li class="dropdown">
                             <a href="#" rel="tooltip" title="各種設定" class="dropdown-toggle navi-icon" data-toggle="dropdown">
-                                <img src="{{ MEDIA_IMG }}/icon-setting-white.png" width="20" alt="" /><span class="ml15"></span>
+                                <img src="{% static 'img/icon-setting-white.png' %}" width="20" alt="" /><span class="ml15"></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="{% url 'info_index' %}">OtherBuについて</a></li>
@@ -66,13 +67,13 @@
 {% endblock %}
 
 {% block js %}
-    <script src="{{ MEDIA_JS }}/jquery.js"></script>
-    <script src="{{ MEDIA_JS }}/bootstrap-transition.js"></script>
-    <script src="{{ MEDIA_JS }}/bootstrap-button.js"></script>
-    <script src="{{ MEDIA_JS }}/bootstrap-dropdown.js"></script>
-    <script src="{{ MEDIA_JS }}/bootstrap-collapse.js"></script>
-    <script src="{{ MEDIA_JS }}/jquery-ui-1.7.2.custom.min.js"></script>
-    <script src="{{ MEDIA_JS }}/site.js"></script>
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/bootstrap-transition.js' %}"></script>
+    <script src="{% static 'js/bootstrap-button.js' %}"></script>
+    <script src="{% static 'js/bootstrap-dropdown.js' %}"></script>
+    <script src="{% static 'js/bootstrap-collapse.js' %}"></script>
+    <script src="{% static 'js/jquery-ui-1.7.2.custom.min.js' %}"></script>
+    <script src="{% static 'js/site.js' %}"></script>
     {% block local_js %}
     {% endblock %}
 
