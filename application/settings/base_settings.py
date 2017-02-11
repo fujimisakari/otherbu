@@ -28,6 +28,9 @@ CACHES = {
     },
 }
 
+# 別ホストからのリレーションを許可する
+ALLOWED_HOSTS = ['*']
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -166,11 +169,11 @@ STATICFILES_DIRS = (
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(ROOT_PATH, '../../media')
 
-# collectstaic時にS3を使う
-AWS_STORAGE_BUCKET_NAME = 'static-otherbu-prod'
-STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-# これをTrueにしたほうがファイル変更のチェックが速くなる
-AWS_PRELOAD_METADATA = True
+# # collectstaic時にS3を使う
+# AWS_STORAGE_BUCKET_NAME = 'static-otherbu-prod'
+# STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+# # これをTrueにしたほうがファイル変更のチェックが速くなる
+# AWS_PRELOAD_METADATA = True
 
 #####################################################################
 
