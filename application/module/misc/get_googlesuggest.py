@@ -1,8 +1,6 @@
-# -*- coding: utf-8 -*-
-
-import urllib2
 import re
-from xml.etree.ElementTree import ElementTree, XML
+import urllib.request
+from xml.etree.ElementTree import XML, ElementTree
 
 
 class GetGoogleSuggest(object):
@@ -13,11 +11,11 @@ class GetGoogleSuggest(object):
         """
         r = re.compile(r'\s+')
         search_target = r.sub('%20', search_target)
-        url = 'http://www.google.com/complete/search?hl=ja&q={}&output=toolbar'.format(search_target)
-        response = urllib2.urlopen(url)
-        text = ''.join(response.readlines())
-        text = unicode(text, 'sjis')
-        text = text.encode('utf-8')
+        enc_search_target = urllib.parse.quote_plus(search_target)
+        url = 'http://www.google.com/complete/search?hl=ja&q={}&output=toolbar'.format(enc_search_target)
+        response = urllib.request.urlopen(url)
+        text = response.readlines()
+        text = text[0].decode('sjis')
         obj_xml = ElementTree(XML(text))
         self.items = obj_xml.findall('CompleteSuggestion')
         self.get_max_count = get_max_count

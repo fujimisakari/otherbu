@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
-
-import re
 import json
+import re
 
 from django.http import HttpResponse
 
@@ -89,13 +87,13 @@ def swap_category(request):
             page = user.page
             angle_ids_str_list = []
             sort_ids_str_list = []
-            for columns, category_ids in update_col.iteritems():
+            for columns, category_ids in sorted(update_col.items()):
                 angle_id = r.sub('', columns)
                 if category_ids:
                     update_col = r2.sub('', category_ids)
                     for i, category_id in enumerate(update_col.split(','), 1):
-                        angle_ids_str_list.append(u'{}:{}'.format(category_id, angle_id))
-                        sort_ids_str_list.append(u'{}:{}'.format(category_id, i))
+                        angle_ids_str_list.append('{}:{}'.format(category_id, angle_id))
+                        sort_ids_str_list.append('{}:{}'.format(category_id, i))
             page.angle_ids_str = ','.join(angle_ids_str_list)
             page.sort_ids_str = ','.join(sort_ids_str_list)
             page.sync_flag = True
@@ -103,7 +101,7 @@ def swap_category(request):
         else:
             if otherColumnFlg == 'true':
                 # 移動先
-                for columns, category_ids in update_col.iteritems():
+                for columns, category_ids in sorted(update_col.items()):
                     if columns != beginColumn:
                         category_ids = category_ids + ','
                         if re.search(beginRow + ',', category_ids):
@@ -138,7 +136,6 @@ def get_sugetst(request):
     """
     if request.method == 'GET':
         search_text = request.GET['input']
-        search_text = search_text.encode('utf-8')
         obj_xml = GetGoogleSuggest(search_text, 10)
         data_list = obj_xml.get_data()
         ret_json = {'results': data_list}
