@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
-
 from module.setting.forms import CategoryFormSet
-from module.setting.models import Category, Bookmark
+from module.setting.models import Bookmark, Category
 
 
 def get_category_form(user):
@@ -36,28 +34,32 @@ def c_regist(user, post_data):
 
 
 def c_edit(user, formset):
-    if formset.is_valid():
-        for c_data in formset.cleaned_data:
-            try:
-                category = Category.objects.get(id=c_data['id'], user_id=user.pk)
-            except Category.DoesNotExist:
-                return False
-            category.name = c_data['name']
-            category.sync_flag = True
-            category.save()
+    if not formset.is_valid():
+        return
+
+    for c_data in formset.cleaned_data:
+        try:
+            category = Category.objects.get(id=c_data['id'], user_id=user.pk)
+        except Category.DoesNotExist:
+            return False
+        category.name = c_data['name']
+        category.sync_flag = True
+        category.save()
 
 
 def c_delete(user, formset):
-    if formset.is_valid():
-        for c_data in formset.cleaned_data:
-            if c_data['del_flg']:
-                try:
-                    category = Category.objects.get(id=c_data['id'], user_id=user.pk)
-                    bookmark_list = Bookmark.objects.filter(user_id=user.pk, category_id=category.id)
-                    for bookmark in bookmark_list:
-                        user.delete_manager.add_delete_id('bookmark', bookmark.id)
-                        bookmark.delete()
-                except Category.DoesNotExist:
-                    return False
-                user.delete_manager.add_delete_id('category', category.id)
-                category.delete()
+    if not formset.is_valid():
+        return
+
+    for c_data in formset.cleaned_data:
+        if c_data['del_flg']:
+            try:
+                category = Category.objects.get(id=c_data['id'], user_id=user.pk)
+                bookmark_list = Bookmark.objects.filter(user_id=user.pk, category_id=category.id)
+                for bookmark in bookmark_list:
+                    user.delete_manager.add_delete_id('bookmark', bookmark.id)
+                    bookmark.delete()
+            except Category.DoesNotExist:
+                return False
+            user.delete_manager.add_delete_id('category', category.id)
+            category.delete()

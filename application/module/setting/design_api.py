@@ -1,8 +1,6 @@
-# -*- coding: utf-8 -*-
-
 from django.conf import settings
 
-from module.misc.common_api import uploader, get_file_property
+from module.misc.common_api import get_file_property, uploader
 from module.setting.forms import DesignFormSet
 from module.setting.models import Design
 

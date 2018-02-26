@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-from module.setting.models import Page, Category
+from module.setting.models import Category, Page
 
 
 def get_page(page_id):

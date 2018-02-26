@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
-
-import re
 import os
+import re
 import shutil
 
 from django.conf import settings
@@ -41,8 +39,7 @@ def get_file_property(file_name):
     if ret:
         file_dict = {'file': ret.group('file'), 'ext': ret.group('ext')}
         return file_dict
-    else:
-        return None
+    return None
 
 
 def url_exchnge(url):
@@ -64,7 +61,7 @@ def guess_encoding(target_text):
     encodings = ['utf-8', 'shift-jis', 'euc-jp', 'ascii', 'iso2022-jp']
     for enc in encodings:
         try:
-            unicode(target_text, enc)
+            target_text.decode('enc')
             break
         except UnicodeDecodeError:
             enc = ''
@@ -75,5 +72,5 @@ def encode_utf8(data, enc):
     """
     エンコードのutf8へ変更
     """
-    data = unicode(data, enc)
+    data = data.decode('enc')
     return data.encode('utf-8')

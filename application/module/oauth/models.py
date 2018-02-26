@@ -1,11 +1,15 @@
-# -*- coding: utf-8 -*-
-
 import datetime
 
 from django.conf import settings
 from django.db import models
 
-from module.setting.models import Category, Bookmark, Design, Page, DeleteManager
+from module.setting.models import (
+    Bookmark,
+    Category,
+    DeleteManager,
+    Design,
+    Page
+)
 
 
 class User(models.Model):

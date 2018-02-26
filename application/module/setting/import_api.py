@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import os
 
 from django.conf import settings
@@ -7,7 +5,7 @@ from django.conf import settings
 from module.misc.common_api import url_exchnge
 from module.misc.html_parser import get_import_list
 from module.setting.forms import ImportFormSet
-from module.setting.models import Category, Page, Bookmark
+from module.setting.models import Bookmark, Category, Page
 
 
 def get_import_form():

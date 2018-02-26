@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import shutil
 import urllib
 import uuid
@@ -7,8 +5,8 @@ import uuid
 from django.conf import settings
 
 from module.misc.common_api import create_userdir
-from module.oauth.models import User, Passport
-from module.setting.models import Bookmark, Category, Design, DeleteManager
+from module.oauth.models import Passport, User
+from module.setting.models import Bookmark, Category, DeleteManager, Design
 
 
 class OauthBase(object):

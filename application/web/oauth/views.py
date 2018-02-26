@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
-import uuid
 import datetime
+import uuid
 
 from django.conf import settings
-from django.core.urlresolvers import reverse
 from django.db import transaction
 from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 from module.oauth.handler.facebook_handler import OauthFacebookHandler
 from module.oauth.handler.twitter_handler import OauthTwitterHandler

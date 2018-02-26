@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django.db import models
 
 from module.misc.common_models import AbustractCachedModel
@@ -15,7 +13,12 @@ class Category(AbustractCachedModel):
     tag_open = models.BooleanField(u'初期開放', default=1)
     sync_flag = models.BooleanField(u'同期対象', default=1)
     updated_at = models.DateTimeField(u'更新日時', auto_now=True)
-    # 複合インデックス： ['user_id', 'angle'], ['user_id', 'sync_flag']
+
+    class Meta:
+        index_together = [
+            ('user_id', 'angle'),
+            ('user_id', 'sync_flag'),
+        ]
 
     def __str__(self):
         member_str = '\nid={},\nuser_id={},\nmobile_id={},\nname={},\nangle={},\nsort={},\ncolor_id={},\ntag_open={},\nsync_flag={},\nupdated_at={}\n'
@@ -68,7 +71,11 @@ class Page(AbustractCachedModel):
     sort_ids_str = models.TextField(u'ページに含むカテゴリ順番', blank=True, null=True)
     sync_flag = models.BooleanField(u'同期対象', default=1)
     updated_at = models.DateTimeField(u'更新日時', auto_now=True)
-    # 複合インデックス： ['user_id', 'angle'], ['user_id', 'sync_flag']
+
+    class Meta:
+        index_together = [
+            ('user_id', 'sync_flag'),
+        ]
 
     def __str__(self):
         member_str = '\nid={}\nuser_id={},\nmobile_id={},\nname={},\ncategory_ids_str={},\nangle_ids_str={},\nsort_ids_str={},\nsync_flag={},\nupdated_at={}\n'
@@ -128,7 +135,12 @@ class Bookmark(AbustractCachedModel):
     sort = models.IntegerField(u'Sort番号', blank=True, null=True)
     sync_flag = models.BooleanField(u'同期対象', default=1)
     updated_at = models.DateTimeField(u'更新日時', auto_now=True)
-    # 複合インデックス： ['user_id', 'category_id'], ['user_id', 'sync_flag']
+
+    class Meta:
+        index_together = [
+            ('user_id', 'category_id'),
+            ('user_id', 'sync_flag'),
+        ]
 
     def __str__(self):
         member_str = '\nid={},\nuser_id={},\nmobile_id={},\ncategory_id={},\nname={},\nurl={},\nsort={},\nsync_flag={},\nupdated_at={}\n'

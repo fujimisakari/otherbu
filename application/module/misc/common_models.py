@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
-
-from django.db import models
 from django.core.cache import cache
+from django.db import models
 
 
 class AbustractCachedModel(models.Model):
@@ -28,24 +26,21 @@ class AbustractCachedModel(models.Model):
         # classmethodはclassからもinstanceからも呼ばれるので
         if hasattr(cls, '__name__'):
             return '{}/{}/'.format(cls.__name__, pk)
-        else:
-            return '{}/{}/'.format(cls.__class__.__name__, pk)
+        return '{}/{}/'.format(cls.__class__.__name__, pk)
 
     @classmethod
     def get_cache_user_path(cls, user_id):
         # classmethodはclassからもinstanceからも呼ばれるので
         if hasattr(cls, '__name__'):
             return '{}/{}/user/'.format(cls.__name__, user_id)
-        else:
-            return '{}/{}/user/'.format(cls.__class__.__name__, user_id)
+        return '{}/{}/user/'.format(cls.__class__.__name__, user_id)
 
     @classmethod
     def get_cache_all_path(cls):
         # classmethodはclassからもinstanceからも呼ばれるので
         if hasattr(cls, '__name__'):
             return '{}/all/'.format(cls.__name__)
-        else:
-            return '{}/all/'.format(cls.__class__.__name__)
+        return '{}/all/'.format(cls.__class__.__name__)
 
     @classmethod
     def get_cache(cls, pk):

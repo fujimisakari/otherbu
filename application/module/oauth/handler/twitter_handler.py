@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
+from tweepy import API, OAuthHandler
 
 from django.conf import settings
-from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from tweepy import OAuthHandler, API
+from django.urls import reverse
 
 from module.oauth.handler.base import OauthBase
 

@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from module.misc.common_api import url_exchnge
 from module.setting.forms import BookmarkFormSet
 from module.setting.models import Bookmark

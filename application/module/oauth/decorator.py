@@ -1,13 +1,11 @@
-# -*- coding: utf-8 -*-
-
 import datetime
-
-from django.conf import settings
-from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
 from functools import wraps
 
-from module.oauth.models import User, Passport
+from django.conf import settings
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
+from module.oauth.models import Passport, User
 
 
 def _passport_check(request):
@@ -24,20 +22,20 @@ def _passport_check(request):
         return True
 
     passport_key = request.COOKIES.get('passport', None)
-    if passport_key:
-        try:
-            passport = Passport.objects.get(passport=passport_key)
-        except:
-            return False
-        now_date = datetime.datetime.now()
-        if passport.expire_date > now_date:
-            request.user = passport.user
-            request.session['user'] = passport.user
-            return True
-        else:
-            return False
-    else:
+    if not passport_key:
         return False
+
+    try:
+        passport = Passport.objects.get(passport=passport_key)
+    except:
+        return False
+
+    now_date = datetime.datetime.now()
+    if passport.expire_date > now_date:
+        request.user = passport.user
+        request.session['user'] = passport.user
+        return True
+    return False
 
 
 def require_user(view_func):
