@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
-
-from HTMLParser import HTMLParser
+from html.parser import HTMLParser
 
 
-class My_parser(HTMLParser):
+class MyParser(HTMLParser):
 
     def __init__(self):
         HTMLParser.__init__(self)
@@ -38,7 +36,7 @@ class My_parser(HTMLParser):
             self.val = None
 
     def handle_data(self, data):
-        data = unicode(data, 'utf-8')
+        data = data.decode('utf-8')
         if self.is_h3:
             self.category_name = data
         if self.is_a:
@@ -46,6 +44,6 @@ class My_parser(HTMLParser):
 
 
 def get_import_list(html):
-    parser = My_parser()
+    parser = MyParser()
     parser.feed(html)
     return parser.bookmark
