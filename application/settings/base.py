@@ -154,6 +154,9 @@ LOGGING = {
 # 別ホストからのリレーションを許可する
 ALLOWED_HOSTS = ['*']
 
+# セッションはpickleを利用する
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+
 # S3
 S3_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME')
 S3_ACCESS_KEY_ID = os.environ.get('S3_ACCESS_KEY_ID')

@@ -1,9 +1,6 @@
-FROM python:2.7
+FROM python:3.6.4
 
 ENV TZ Asia/Tokyo
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV WERKZEUG_DEBUG_PIN off
-ENV DOCKER true
 
 RUN mkdir /usr/src/otherbu
 RUN mkdir /var/run/otherbu
@@ -12,5 +9,6 @@ WORKDIR /usr/src/otherbu
 
 RUN apt-get update
 RUN apt-get install -y mysql-client vim net-tools telnet curl
-ADD env/requirements.txt .
+
+ADD . /usr/src/otherbu
 RUN pip install --no-cache-dir -r requirements.txt

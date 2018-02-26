@@ -1,0 +1,55 @@
+nginx:
+  container_name: "otherbu-nginx"
+  build: ./docker/nginx
+  restart: always
+  ports:
+    - "80:80"
+  links:
+    - app:app
+  volumes_from:
+    - app
+
+app:
+  container_name: "otherbu-app"
+  build: .
+  restart: always
+  links:
+    - mysql:mysql
+    - memcached:memcached
+  volumes:
+    - /var/run/otherbu
+    - .:/usr/src/otherbu
+  command: /usr/src/otherbu/docker/app/start-server.sh
+
+mysql:
+  container_name: "otherbu-mysql"
+  image: mysql:5.7
+  restart: always
+  ports:
+    - "3307:3306"
+  environment:
+    - TZ=Asia/Tokyo
+    - MYSQL_DATABASE=otherbu
+    - MYSQL_USER=other
+    - MYSQL_PASSWORD=bookmark
+    - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+  volumes:
+    - ./docker/mysql/charset.cnf:/etc/mysql/conf.d/charset.cnf
+  volumes_from:
+    - storage
+
+memcached:
+  container_name: "otherbu-memcached"
+  image: memcached:latest
+  restart: always
+  ports:
+    - '11212:11211'
+  volumes_from:
+    - storage
+
+storage:
+  container_name: "otherbu-storage"
+  image: busybox:latest
+  volumes:
+    - /var/lib/mysql
+    - /data
