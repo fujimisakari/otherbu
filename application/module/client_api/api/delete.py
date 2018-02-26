@@ -1,10 +1,4 @@
-# -*- coding: utf-8 -*-
-
-from __future__ import absolute_import
-from __future__ import unicode_literals
-
-from module.setting.models import Category, Bookmark, Page
-from module.setting.models import DeleteManager
+from module.setting.models import Bookmark, Category, DeleteManager, Page
 
 from . import BaseController
 

@@ -1,8 +1,3 @@
-# -*- coding: utf-8 -*-
-
-from __future__ import absolute_import
-from __future__ import unicode_literals
-
 from .delete import DeleteController
 from .insert import InsertController
 from .update import UpdateController

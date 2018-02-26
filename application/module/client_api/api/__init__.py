@@ -1,28 +1,24 @@
-# -*- coding: utf-8 -*-
-
+import abc
 import datetime
 
-from abc import ABCMeta, abstractmethod
 
+class BaseController(abc.ABC):
 
-class BaseController:
-    __metaclass__ = ABCMeta
-
-    @abstractmethod
+    @abc.abstractmethod
     def init_setup(self, **kw):
         """
         初期設定
         """
         pass
 
-    @abstractmethod
+    @abc.abstractmethod
     def run(self):
         """
         実行
         """
         pass
 
-    @abstractmethod
+    @abc.abstractmethod
     def result(self):
         """
         結果
@@ -43,8 +39,8 @@ class BaseController:
         def _deta_format(id_str):
             str_list = []
             ids = [x for x in id_str.split(',') if x]
-            for id_str in ids:
-                alist = id_str.split(':')
+            for _id_str in ids:
+                alist = _id_str.split(':')
                 category_id = alist[0]
                 value = alist[1]
                 if category_id not in delete_category_id_list:

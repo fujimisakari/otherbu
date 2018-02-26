@@ -1,13 +1,6 @@
-# -*- coding: utf-8 -*-
-
-from __future__ import absolute_import
-from __future__ import unicode_literals
-
 import mock
-
 from django.test import TestCase
-from django.test.client import Client
-from django.test.client import RequestFactory
+from django.test.client import Client, RequestFactory
 
 from module.oauth.models import User
 from module.setting.models import Design

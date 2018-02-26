@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
-
-from __future__ import absolute_import
-from __future__ import unicode_literals
-
-from module.setting.models import Category, Bookmark, Page, Design
+from module.setting.models import Bookmark, Category, Design, Page
 
 from . import BaseController
 
