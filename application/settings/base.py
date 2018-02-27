@@ -1,13 +1,101 @@
-# -*- coding: utf-8 -*-
-
 import os
+import sys
 
 IS_MAINTENANCE = False
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 AUTO_LOGIN = DEBUG
 
-ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
+CURRENT_PATH = os.path.dirname(os.path.abspath(__file__))
+APP_PATH = os.path.join(CURRENT_PATH, '../')
+sys.path.append(APP_PATH)
+
+# Local time zone for this installation. Choices can be found here:
+# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
+# although not all choices may be available on all operating systems.
+# On Unix systems, a value of None will cause Django to use the same
+# timezone as the operating system.
+# If running in a Windows environment this must be set to the same as your
+# system time zone.
+TIME_ZONE = 'Asia/Tokyo'
+
+# Language code for this installation. All choices can be found here:
+# http://www.i18nguy.com/unicode/language-identifiers.html
+LANGUAGE_CODE = 'ja'
+
+# If you set this to False, Django will make some optimizations so as not
+# to load the internationalization machinery.
+USE_I18N = True
+
+# If you set this to False, Django will not format dates, numbers and
+# calendars according to the current locale
+USE_L10N = True
+
+# Make this unique, and don't share it with anybody.
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+
+ROOT_URLCONF = 'web.urls'
+
+MIDDLEWARE = (
+    'django.middleware.common.CommonMiddleware',
+    'module.misc.middleware.TemplateFilterMiddleware',
+    'module.misc.middleware.ExceptionMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+)
+
+INSTALLED_APPS = (
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    # module
+    'module.setting',
+    'module.oauth',
+    'module.misc',
+)
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'web.context_processors.common_context',
+                'web.context_processors.user_context',
+            ],
+            'debug': True,
+        },
+    },
+]
+
+PC_TEMPLATE_DIRS = [
+    os.path.join(APP_PATH, 'templates/pc'),
+]
+
+SMARTPHONE_TEMPLATE_DIRS = [
+    os.path.join(APP_PATH, 'templates/sp'),
+]
+
+# Static settting
+STATIC_URL = os.environ.get('STATIC_URL')
+STATICFILES_DIRS = (
+    [os.path.join(APP_PATH, '../static')]
+)
+
+# Media setting
+MEDIA_URL = os.environ.get('MEDIA_URL')
 
 DATABASES = {
     'default': {
@@ -27,102 +115,6 @@ CACHES = {
         'TIMEOUT': 3600 * 24,  # 24h
     },
 }
-
-# 別ホストからのリレーションを許可する
-ALLOWED_HOSTS = ['*']
-
-# Local time zone for this installation. Choices can be found here:
-# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
-# although not all choices may be available on all operating systems.
-# On Unix systems, a value of None will cause Django to use the same
-# timezone as the operating system.
-# If running in a Windows environment this must be set to the same as your
-# system time zone.
-TIME_ZONE = 'Asia/Tokyo'
-
-# Language code for this installation. All choices can be found here:
-# http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'ja'
-
-SITE_ID = 1
-
-# If you set this to False, Django will make some optimizations so as not
-# to load the internationalization machinery.
-USE_I18N = True
-
-# If you set this to False, Django will not format dates, numbers and
-# calendars according to the current locale
-USE_L10N = True
-
-# Absolute path to the directory that holds media.
-# Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = ''
-
-# URL that handles the media served from MEDIA_ROOT. Make sure to use a
-# trailing slash if there is a path component (optional in other cases).
-# Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = ''
-
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
-
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-    # 'django.template.loaders.eggs.Loader',
-)
-
-MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
-    'module.misc.middleware.TemplateFilterMiddleware',
-    'module.misc.middleware.ExceptionMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-)
-
-SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
-
-ROOT_URLCONF = 'web.urls'
-
-# Python dotted path to the WSGI application used by Django's runserver.
-# WSGI_APPLICATION = 'hoge.wsgi.application'
-
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    # os.path.join(ROOT_PATH, '../templates/pc'),
-)
-
-PC_TEMPLATE_DIRS = (
-    os.path.join(ROOT_PATH, '../templates/pc'),
-)
-
-SMARTPHONE_TEMPLATE_DIRS = (
-    os.path.join(ROOT_PATH, '../templates/sp'),
-)
-
-INSTALLED_APPS = (
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'storages',
-
-    # module
-    'module.setting',
-    'module.oauth',
-    'module.misc',
-)
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'web.context_processors.common_context',
-    'web.context_processors.user_context',
-)
 
 LOGGING_DIR = '/tmp'
 LOGGING = {
@@ -159,21 +151,14 @@ LOGGING = {
     }
 }
 
-# Static settting
-STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    [os.path.join(ROOT_PATH, '../../static')]
-)
+# 別ホストからのリレーションを許可する
+ALLOWED_HOSTS = ['*']
 
-# Media setting
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(ROOT_PATH, '../../media')
+# S3
+S3_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME')
+S3_ACCESS_KEY_ID = os.environ.get('S3_ACCESS_KEY_ID')
+S3_SECRET_ACCESS_KEY = os.environ.get('S3_SECRET_ACCESS_KEY')
 
-# # collectstaic時にS3を使う
-# AWS_STORAGE_BUCKET_NAME = 'static-otherbu-prod'
-# STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-# # これをTrueにしたほうがファイル変更のチェックが速くなる
-# AWS_PRELOAD_METADATA = True
 
 #####################################################################
 
@@ -197,9 +182,9 @@ DEMO_RESET_TIME = 10
 
 # Conmmon
 SITE_TITLE = 'OtherBu'
-USER_IMG_DIR = os.path.join(ROOT_PATH, '../../media/user')
-USER_TMP_DIR = os.path.join(ROOT_PATH, '../../media/user/tmp')
-SAMPLE_IMG_PATH = os.path.join(ROOT_PATH, '../../master_data/debug.user/bk_image.jpg')
+USER_IMG_DIR = 'media/user'
+USER_TMP_DIR = os.path.join(APP_PATH, '../media/user/tmp')
+SAMPLE_IMG_PATH = os.path.join(APP_PATH, '../master_data/debug.user/bk_image.jpg')
 BK_IMAGE_NAME = "bk_image"     # 背景画像名
 USER_IMAGE = "user_image.jpg"  # ユーザー画像
 
