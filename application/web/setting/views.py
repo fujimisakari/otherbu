@@ -1,21 +1,40 @@
-# -*- coding: utf-8 -*-
-
 import csv
 
 from django.conf import settings
-from django.core.urlresolvers import reverse
 from django.db import transaction
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render_to_response
-from django.template import RequestContext
+from django.shortcuts import render
+from django.urls import reverse
 
 from module.oauth.decorator import require_user
-from module.setting.bookmark_api import get_bookmark_form, b_regist, b_edit, b_delete, b_move
-from module.setting.category_api import get_category_form, c_regist, c_edit, c_delete
-from module.setting.design_api import get_design_form, d_edit
-from module.setting.forms import BookmarkFormSet, CategoryFormSet, DesignFormSet
+from module.setting.bookmark_api import (
+    b_delete,
+    b_edit,
+    b_move,
+    b_regist,
+    get_bookmark_form
+)
+from module.setting.category_api import (
+    c_delete,
+    c_edit,
+    c_regist,
+    get_category_form
+)
+from module.setting.design_api import d_edit, get_design_form
+from module.setting.forms import (
+    BookmarkFormSet,
+    CategoryFormSet,
+    DesignFormSet
+)
 from module.setting.import_api import get_import_form, import_proc
-from module.setting.page_api import get_page, p_regist, p_delete, p_edit, p_select, get_page_category_list
+from module.setting.page_api import (
+    get_page,
+    get_page_category_list,
+    p_delete,
+    p_edit,
+    p_regist,
+    p_select
+)
 
 
 def _session_delete(request, session_keys):
@@ -62,8 +81,7 @@ def _render(request, user, name, param):
         param['current_url'] = reverse('info_index')
         param['active_flg'] = 'info'
     param['body_padding'] = settings.SETTING_BODY_PADDING  # <body>のpadding-topを定義
-    ctxt = RequestContext(request, param)
-    return render_to_response('setting/{0}'.format(name), ctxt)
+    return render(request, 'setting/{0}'.format(name), param)
 
 
 @require_user
@@ -433,7 +451,7 @@ def export_exec(request):
 
     encode_type = 'cp932'
     writer = csv.writer(response)
-    writer.writerow([u'カテゴリ'.encode(encode_type), u'ブックマーク'.encode(encode_type), u'URL'.encode(encode_type)])
+    writer.writerow(['カテゴリ'.encode(encode_type), 'ブックマーク'.encode(encode_type), 'URL'.encode(encode_type)])
     bookmark_list = sorted(user.bookmark_list, key=lambda x: x.category_id)
     for bookmark in bookmark_list:
         try:

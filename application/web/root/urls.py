@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
-
 from django.conf.urls import url
+
 from web.root import views as v
 
 urlpatterns = [

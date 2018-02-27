@@ -30,8 +30,8 @@ def p_regist(user, post_data):
     if post_data['category_ids']:
         category_ids = ','.join(post_data['category_ids'])
         for i, category_id in enumerate(post_data['category_ids'], 1):
-            angle_ids_str_list.append(u'{}:{}'.format(category_id, 1))
-            sort_ids_str_list.append(u'{}:{}'.format(category_id, i))
+            angle_ids_str_list.append('{}:{}'.format(category_id, 1))
+            sort_ids_str_list.append('{}:{}'.format(category_id, i))
     page = Page.objects.create(
         user_id=user.pk,
         name=post_data['name'],
@@ -66,11 +66,11 @@ def p_edit(user, post_data):
     sort_ids_str_list = []
     if post_data['category_ids']:
         for category_id in post_data['category_ids']:
-            angle_ids_str_list.append(u'{}:{}'.format(category_id, angle_dict.get(int(category_id), 1)))
-            sort_ids_str_list.append(u'{}:{}'.format(category_id, sort_dict.get(int(category_id), 0)))
-    page.category_ids_str = u','.join(post_data['category_ids'])
-    page.angle_ids_str = u','.join(angle_ids_str_list)
-    page.sort_ids_str = u','.join(sort_ids_str_list)
+            angle_ids_str_list.append('{}:{}'.format(category_id, angle_dict.get(int(category_id), 1)))
+            sort_ids_str_list.append('{}:{}'.format(category_id, sort_dict.get(int(category_id), 0)))
+    page.category_ids_str = ','.join(post_data['category_ids'])
+    page.angle_ids_str = ','.join(angle_ids_str_list)
+    page.sort_ids_str = ','.join(sort_ids_str_list)
     page.sync_flag = True
     page.save()
 

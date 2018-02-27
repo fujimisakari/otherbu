@@ -1,9 +1,13 @@
-# -*- coding: utf-8 -*-
-
-from django.conf import settings
 from django.conf.urls import include, url
-from web.ajax.views import get_page_title, get_sugetst, swap_category, tag_open, update_color
-from web.oauth.views import logout, demo_page
+
+from web.ajax.views import (
+    get_page_title,
+    get_sugetst,
+    swap_category,
+    tag_open,
+    update_color
+)
+from web.oauth.views import demo_page, logout
 
 urlpatterns = [
     url(r'^$', include('web.portal.urls')),
@@ -21,9 +25,3 @@ urlpatterns = [
     url(r'^tag_open/$', tag_open, name='swap_category'),
     url(r'^update_color/$', update_color, name='update_color'),
 ]
-
-if settings.DEBUG:
-    urlpatterns += [
-        url(r'^static/(?P<path>.*)$', 'django.views.static.serve'),
-        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
-    ]

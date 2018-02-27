@@ -13,7 +13,6 @@ def get_import_form():
 
 
 def import_proc(request, user):
-
     # 現在設定中のブックマーク情報の削除
     Category.objects.filter(user_id=user.id).delete()
     Page.objects.filter(user_id=user.id).delete()

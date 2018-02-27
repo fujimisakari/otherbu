@@ -1,8 +1,7 @@
-from tweepy import API, OAuthHandler
-
 from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from tweepy import API, OAuthHandler
 
 from module.oauth.handler.base import OauthBase
 

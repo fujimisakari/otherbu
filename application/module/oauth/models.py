@@ -13,17 +13,17 @@ from module.setting.models import (
 
 
 class User(models.Model):
-    type = models.CharField(u'認証先', max_length=50)
-    type_id = models.CharField(u'認証先ID', max_length=255)
-    name = models.CharField(u'ユーザー名', max_length=50)
+    type = models.CharField('認証先', max_length=50)
+    type_id = models.CharField('認証先ID', max_length=255)
+    name = models.CharField('ユーザー名', max_length=50)
     user_dir = models.CharField(u'ユーザーディレクトリ名', max_length=20)
-    access_token_key = models.CharField(u'アクセストークン(key)', max_length=255)
-    access_token_secret = models.CharField(u'アクセストークン(secret)', max_length=255)
-    page_id = models.IntegerField(u'現在のページ', default=0)
-    sync_flag = models.BooleanField(u'同期対象', default=1)
-    use_mobile = models.BooleanField(u'モバイル版を使用してるかどうか', default=0)
-    created_at = models.DateTimeField(u'作成日時', auto_now_add=True)
-    updated_at = models.DateTimeField(u'更新日時', auto_now=True)
+    access_token_key = models.CharField('アクセストークン(key)', max_length=255)
+    access_token_secret = models.CharField('アクセストークン(secret)', max_length=255)
+    page_id = models.IntegerField('現在のページ', default=0)
+    sync_flag = models.BooleanField('同期対象', default=1)
+    use_mobile = models.BooleanField('モバイル版を使用してるかどうか', default=0)
+    created_at = models.DateTimeField('作成日時', auto_now_add=True)
+    updated_at = models.DateTimeField('更新日時', auto_now=True)
 
     class Meta:
         unique_together = (('type', 'type_id'),)
@@ -127,9 +127,9 @@ class User(models.Model):
 
 
 class Passport(models.Model):
-    user_id = models.IntegerField(u'ユーザーID', db_index=True)
-    passport = models.CharField(u'パスポートハッシュ', max_length=50, db_index=True)
-    updated_at = models.DateTimeField(u'更新日時', auto_now=True)
+    user_id = models.IntegerField('ユーザーID', db_index=True)
+    passport = models.CharField('パスポートハッシュ', max_length=50, db_index=True)
+    updated_at = models.DateTimeField('更新日時', auto_now=True)
 
     class Meta:
         unique_together = (('user_id', 'passport'),)
