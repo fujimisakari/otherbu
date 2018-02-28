@@ -1,6 +1,6 @@
 from django.conf import settings
 
-from module.misc.common_api import get_file_property, uploader
+from module.misc.common_api import get_file_property, s3_uploader
 from module.setting.forms import DesignFormSet
 from module.setting.models import Design
 
@@ -25,8 +25,8 @@ def d_edit(request, user, formset):
         # イメージ画像をアップロード
         if request.FILES.get('form-0-image_upload', False):
             dir_path = '{}/{}/{}'.format(settings.USER_IMG_DIR, user.type, user.user_dir)
-            uploader(dir_path, request, 'form-0-image_upload')
             upfile = request.FILES['form-0-image_upload']
+            s3_uploader(dir_path, upfile)
             file_dict = get_file_property(upfile.name)
             design.bk_image_ext = file_dict['ext']
         design.linkmark_flg = c_data['linkmark_flg'] == 'True'

@@ -1,10 +1,9 @@
-import shutil
-import urllib
 import uuid
 
+import requests
 from django.conf import settings
 
-from module.misc.common_api import create_userdir
+from module.misc.common_api import s3_object_copy, s3_uploader
 from module.oauth.models import Passport, User
 from module.setting.models import Bookmark, Category, DeleteManager, Design
 
@@ -50,17 +49,15 @@ class OauthBase(object):
             self.init_setup(user, user_dir, auth_type)
         user.save()
         # ユーザー画像を取得
+        res = requests.get(image_url)
         user_path = '{}/{}/{}/{}'.format(settings.USER_IMG_DIR, auth_type, user_dir, settings.USER_IMAGE)
-        urllib.urlretrieve(image_url, user_path)
+        s3_uploader(user_path, res.content, 'jpg')
         return user
 
     def init_setup(self, user, user_dir, auth_type, need_sample_data=True):
-        # ユーザーディレクトリを作成
-        create_userdir(user_dir, auth_type)
-
         # サンプル背景を配置
         sample_img_path = '{}/{}/{}/{}.jpg'.format(settings.USER_IMG_DIR, auth_type, user_dir, settings.BK_IMAGE_NAME)
-        shutil.copyfile(settings.SAMPLE_IMG_PATH, sample_img_path)
+        s3_object_copy(settings.SAMPLE_IMG_PATH, sample_img_path)
 
         # デザインの初期設定
         Design.objects.create(

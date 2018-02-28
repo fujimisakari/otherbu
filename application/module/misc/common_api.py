@@ -2,18 +2,51 @@ import os
 import re
 import shutil
 
+import boto3
 from django.conf import settings
 
 
-def uploader(path, request, upload_file):
+def s3_object_copy(from_path, to_path):
+    """
+    S3内でオブジェクトをコピー
+    """
+    params = {
+        'aws_access_key_id': settings.S3_ACCESS_KEY_ID,
+        'aws_secret_access_key': settings.S3_SECRET_ACCESS_KEY,
+        'region_name': 'ap-northeast-1',
+    }
+    s3 = boto3.resource('s3', **params)
+    bucket = s3.Bucket(settings.S3_BUCKET_NAME)
+    s3.Object(bucket.name, to_path).copy_from(CopySource={'Bucket': bucket.name, 'Key': from_path})
+
+
+def s3_uploader(path, upload_file, ext=None):
+    """
+    ファイルをS3へアップロード
+    """
+    params = {
+        'aws_access_key_id': settings.S3_ACCESS_KEY_ID,
+        'aws_secret_access_key': settings.S3_SECRET_ACCESS_KEY,
+        'region_name': 'ap-northeast-1',
+    }
+    bucket = boto3.resource('s3', **params).Bucket(settings.S3_BUCKET_NAME)
+
+    if not ext:
+        file_dict = get_file_property(upload_file.name)
+        ext = file_dict['ext']
+    file_name = '{}/{}.{}'.format(path, settings.BK_IMAGE_NAME, ext)
+    obj = bucket.Object(file_name)
+    obj.put(Body=upload_file)
+
+
+def uploader(path, upload_file):
     """
     ファイルをアップロード
     """
-    upfile = request.FILES[upload_file]
-    file_dict = get_file_property(upfile.name)
+    file_dict = get_file_property(upload_file.name)
     file_name = '{}/{}.{}'.format(path, settings.BK_IMAGE_NAME, file_dict['ext'])
     create_file = open(file_name, mode='w')
-    for chunk in upfile.chunks():
+    for chunk in upload_file.chunks():
         create_file.write(chunk)
     create_file.close()
 

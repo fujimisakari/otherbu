@@ -186,8 +186,8 @@ DEMO_RESET_TIME = 10
 # Conmmon
 SITE_TITLE = 'OtherBu'
 USER_IMG_DIR = 'media/user'
+SAMPLE_IMG_PATH = 'media/debug.user/bk_image.jpg'
 USER_TMP_DIR = os.path.join(APP_PATH, '../media/user/tmp')
-SAMPLE_IMG_PATH = os.path.join(APP_PATH, '../master_data/debug.user/bk_image.jpg')
 BK_IMAGE_NAME = "bk_image"     # 背景画像名
 USER_IMAGE = "user_image.jpg"  # ユーザー画像
 
