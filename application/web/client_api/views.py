@@ -3,7 +3,7 @@ import hashlib
 import json
 import math
 import time
-import urllib
+import urllib.request
 
 from django.conf import settings
 from django.db import transaction
@@ -42,7 +42,7 @@ def client_login(request):
         image_url = 'https://graph.facebook.com/%s/picture' % (type_id)
     user_path = '{}/{}/{}/{}'.format(settings.USER_IMG_DIR, type_name, type_id, settings.USER_IMAGE)
     if user_path and image_url:
-        urllib.urlretrieve(image_url, user_path)
+        urllib.request.urlretrieve(image_url, user_path)
 
     ret_json = {'user_data': user.to_dict()}
     json_data = json.dumps(ret_json, ensure_ascii=False)
