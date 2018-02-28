@@ -7,19 +7,8 @@ http://otherbu.com
 
 ## How to setup
 
-1\. Prepare an .env file suitable for your environment.
+Prepare an .env file suitable for your environment.
 ```
-$ cp .env.example .env.local
-$ vim .env.local
-```
-
-2\. Create database and migrate.
-```
-$ ./env/init.sh local pip
-```
-
-3\. Server run as debug.
-```
-$ cd otherbu/application
-$ ./manage.py runserver
+$ vim .env_develop
+$ docker-compose up
 ```
