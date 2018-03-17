@@ -10,7 +10,7 @@ class OauthFacebookHandler(OauthBase):
 
     def auth_login(self, request):
         # 認証URLへリダイレクト
-        auth_uri = 'https://www.facebook.com/v2.8/dialog/oauth'
+        auth_uri = 'https://www.facebook.com/dialog/oauth'
         auth_url = '{}?client_id={}&redirect_uri={}'.format(auth_uri, settings.FACEBOOK_APP_KEY, settings.FACEBOOK_REDIRECT_URI)
         return auth_url
 
@@ -23,7 +23,7 @@ class OauthFacebookHandler(OauthBase):
             'redirect_uri': settings.FACEBOOK_REDIRECT_URI,
         }
         # アクセストークンの取得
-        res_token = requests.get('https://graph.facebook.com/v2.8/oauth/access_token', params=token_args).json()
+        res_token = requests.get('https://graph.facebook.com/oauth/access_token', params=token_args).json()
         access_token = res_token['access_token']
         # ユーザー情報の取得
         me_args = {'access_token': access_token}
