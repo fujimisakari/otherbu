@@ -1,2 +1,5 @@
 *.pid
 __pycache__
+media
+.env_production
+.env_develop
